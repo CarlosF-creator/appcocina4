@@ -10,10 +10,20 @@ enum class ProviderType{
 open class MainHub : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+
+
     }
 
+    fun btnIngredientes () {
+        setContentView(R.layout.ingredientes)
 
+    }
+
+    fun btnRecetas () {
+        setContentView(R.layout.recetas)
+
+    }
 
 
 

@@ -34,28 +34,34 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonreceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/lasanamala"
+                android:fontFamily="@font/anton"
+                android:paddingTop="120dp"
+                android:text="Lasaña"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp" />
+
+            <Button
                 android:id="@+id/buttonreceta1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/btningredientes"
-                android:paddingLeft="120dp"
+                android:background="@drawable/lasanamala"
+                android:fontFamily="@font/anton"
+                android:paddingLeft="0"
                 android:paddingTop="120dp"
-                android:text="Receta 1"
+                android:text="Lasaña"
                 android:textAllCaps="false"
-                android:textSize="34sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="32sp" />
 
-            <Button
-                android:id="@+id/buttonreceta2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/btningredientes"
-                android:text="Receta 2"
-                android:textAllCaps="false"
-                android:textSize="34sp" />
         </LinearLayout>
     </ScrollView>
 

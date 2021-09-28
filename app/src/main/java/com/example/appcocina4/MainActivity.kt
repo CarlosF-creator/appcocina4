@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
 
                     if(it.isSuccessful){
                         setContentView(R.layout.activity_main)
+                        MainHub()
                     }else{
                         Toast.makeText(getApplicationContext(),"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                     }
