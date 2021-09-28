@@ -61,7 +61,7 @@
         android:gravity="center"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="-16dp">
 
         <RatingBar
             android:id="@+id/ratingBar2"
