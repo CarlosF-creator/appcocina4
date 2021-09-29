@@ -13,7 +13,6 @@
         android:layout_marginStart="150dp"
         android:layout_marginTop="450dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginBottom="82dp"
         android:elegantTextHeight="false"
         android:text="DISFRUTA!!!"
         android:textAlignment="center"
@@ -27,8 +26,8 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="150dp"
-        android:layout_height="64dp"
+        android:layout_width="122dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#FCFFFFFF"
         android:text="SALIR"
@@ -43,8 +42,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="322dp"
+        android:layout_height="271dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
@@ -56,12 +55,18 @@
         app:srcCompat="@drawable/posiblefondodecarga" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-16dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <RatingBar
             android:id="@+id/ratingBar2"
@@ -69,6 +74,24 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="0" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:autoText="false"
+            android:text="Añadir receta a favoritas"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Ir a recetas favoritas"
+            android:textColor="#4CAF50" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
