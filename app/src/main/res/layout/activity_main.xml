@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/posiblefondo"
-    tools:context=".MainActivity">
+    tools:context=".MainHub">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -47,6 +47,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btningredientes"
                 android:fontFamily="@font/anton"
+                android:onClick="btningredientes"
                 android:text="Cocina con tus Ingredientes"
                 android:textAllCaps="false"
                 android:textSize="34sp" />
@@ -59,6 +60,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnrecetas2"
                 android:fontFamily="@font/anton"
+                android:onClick="btnrecetas"
                 android:text="Mira todas\n las Recetas"
                 android:textAllCaps="false"
                 android:textSize="34sp" />

@@ -9,15 +9,18 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 var login :Boolean = false
 
 
 
 class MainActivity : AppCompatActivity() , View.OnClickListener {
+    private var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (login){
             setContentView(R.layout.activity_main)
         }
@@ -26,7 +29,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
 
             //var btnRegister = findViewById<Button>(R.id.button_register)
             //btnRegister!!.setOnClickListener(this)
-
         }
     }
     private fun setup(){
@@ -41,20 +43,23 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         btnRegister.setOnClickListener{
             if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
                 if (pass1.text.toString() != pass2.text.toString()){
-                    Toast.makeText(getApplicationContext(),"Compruebe si su contraseña esta correcta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,"Compruebe si su contraseña esta correcta", Toast.LENGTH_SHORT).show()
                 } else{
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email.text.toString(),pass1.text.toString()).addOnCompleteListener{
 
                     if(it.isSuccessful){
-                        setContentView(R.layout.activity_main)
-                        MainHub()
+                        db.collection("users").document(email.text.toString()).set(
+                            hashMapOf("user" to usuario.text.toString(),
+                            "principiante" to principiante.isChecked)
+                        )
+                        startActivity(Intent(this, MainHub::class.java))
                     }else{
-                        Toast.makeText(getApplicationContext(),"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                     }
                 }}
             }
             else{
-                Toast.makeText(getApplicationContext(),"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -66,21 +71,21 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
     }
 
     fun botonLogin(p0: View?){
-        var btnLogin = findViewById<Button>(R.id.button_Login)
         var email = findViewById<EditText>(R.id.edt_usuario_ing)
         var pass = findViewById<EditText>(R.id.edt_pass_ing)
         if(email.text.isNotEmpty() &&  pass.text.isNotEmpty()){
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(),pass.text.toString()).addOnCompleteListener{
                 if(it.isSuccessful){
                     //showHome(it.result?.user?.email ?:"",ProviderType.BASIC)
-                    setContentView(R.layout.activity_main)
+                    startActivity(Intent(this, MainHub::class.java))
+
                 }else{
-                    Toast.makeText(getApplicationContext(),"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                 }
             }
         }
         else{
-            Toast.makeText(getApplicationContext(),"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
         }
 
     }
