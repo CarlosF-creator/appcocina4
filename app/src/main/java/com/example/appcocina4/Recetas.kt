@@ -13,9 +13,7 @@ class Recetas : AppCompatActivity() {
 
     fun instanciarBotones(){
         var listaRecetas = ArrayList<String>()
-        db.collection("recetas").document().get().addOnCanceledListener {
-
-        }
-
+        var hola = db.collection("recetas").get()
+        println(hola)
     }
 }
