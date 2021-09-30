@@ -1,23 +1,24 @@
 package com.example.appcocina4
 
 import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MainHub : AppCompatActivity() {
+class pre_receta : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_pre_receta)
     }
 
-    fun btningredientes(p0: View?){
-        startActivity(Intent(this, Select_Ingredientes::class.java))
-    }
-    fun btnrecetas(p0: View?){
-       startActivity(Intent(this, Recetas::class.java))
+    fun btnCocinar(p0: View?){
+
+        startActivity(Intent(this, Pasoapaso::class.java))
+
+
 
 
     }

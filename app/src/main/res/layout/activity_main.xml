@@ -48,7 +48,8 @@
                 android:onClick="btningredientes"
                 android:text="Cocina con tus Ingredientes"
                 android:textAllCaps="false"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textStyle="italic" />
 
             <Button
                 android:id="@+id/buttonrecetas"
@@ -61,7 +62,8 @@
                 android:onClick="btnrecetas"
                 android:text="Mira todas\n las Recetas"
                 android:textAllCaps="false"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textStyle="italic" />
 
         </LinearLayout>
     </ScrollView>

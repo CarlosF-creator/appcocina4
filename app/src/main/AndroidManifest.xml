@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".Recetas"></activity>
+        <activity android:name=".Select_Ingredientes"></activity>
+        <activity android:name=".Pasoapaso" />
+        <activity android:name=".pre_receta" />
+        <activity android:name=".Recetas" />
         <activity android:name=".MainHub" />
         <activity
             android:name=".MainActivity"
