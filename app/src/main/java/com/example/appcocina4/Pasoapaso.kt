@@ -1,5 +1,6 @@
 package com.example.appcocina4
 
+import android.content.Intent
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,63 +9,66 @@ import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
 
-var conteo = 0
+
 class Pasoapaso : AppCompatActivity() {
-    var listapasos = ArrayList<String>()
+
     var db = FirebaseFirestore.getInstance()
-    fun Pasoapaso(receta : Recetas){
+    var numpasos = 0
+    var cont = 1
+    var listaPasos  = ArrayList<String?>()
 
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pasoapaso)
 
 
-        var listaimagenes = ArrayList<Image>()
-        var direccion = "@drawable/"
+        listaPasos = intent.getStringArrayListExtra("lista") as ArrayList<String?>
+        numpasos = intent.getIntExtra("num",-500)
 
+        var text_paso = findViewById<TextView>(R.id.text_paso)
+        var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
 
-
-
-        db.collection("recetas").get().addOnSuccessListener {
-                lasana ->
-                var temp1 = lasana.documents.get(0).data?.get("Instrucciones")
-                var num =  lasana.documents.get(0).get("numeroPasos")
-                println(temp1)
-                println(num)
-
-        }.addOnFailureListener{
-                _ -> println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        text_numPaso.text = "Paso: $cont/$numpasos"
+        text_paso.text = listaPasos[cont-1]
+        for (l in listaPasos){
+            println(l)
         }
 
-        for (l in listapasos){
-            println( l )
 
-        }
     }
 
 
-
-    fun conteoPasos(numpasos : Int): Int {
-
-    return numpasos + 1
-
-
+    fun mas(){
+        cont += 1
     }
+    fun menos(){
+        cont -= 1
+    }
+
 
     fun btnSiguiente(p0: View?){
-        for (l in listapasos){
-            println(l)
+        if (cont < numpasos){
+            var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
+            var text_paso = findViewById<TextView>(R.id.text_paso)
+            mas()
 
+            text_paso.text = listaPasos[cont-1]
+            text_numPaso.text = "Paso: $cont/$numpasos"
+        }else{
+            setContentView(R.layout.eval)
         }
-        var text_paso = findViewById<TextView>(R.id.text_paso)
-        text_paso.text = listapasos[0].toString()
     }
+
+
     fun btnAtras(p0: View?){
-
-
+        if(cont > 1){
+            var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
+            var text_paso = findViewById<TextView>(R.id.text_paso)
+            menos()
+            text_paso.text = listaPasos[cont-1]
+            text_numPaso.text = "Paso: $cont/$numpasos"
+        }
     }
 
 

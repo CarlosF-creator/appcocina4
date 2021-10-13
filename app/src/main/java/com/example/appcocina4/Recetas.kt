@@ -8,12 +8,13 @@ import android.view.View
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Recetas() : AppCompatActivity() {
-/*
-    fun Recetas(listaPasos: ArrayList<String>, listaImagenes: ArrayList<Image>){
+
+    fun Recetas(listaPasos: ArrayList<String>, listaImagenes: ArrayList<Image>?, numPasos : Int){
         var listaPasos = listaPasos
         var listaImagenes = listaImagenes
+        var numPasos = numPasos
     }
-*/
+
 
     //var db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
