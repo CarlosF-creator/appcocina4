@@ -4,10 +4,12 @@ import android.content.Intent
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.ViewAnimator
+import androidx.annotation.Dimension
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Recetas() : AppCompatActivity() {
@@ -15,44 +17,41 @@ class Recetas() : AppCompatActivity() {
     var portadas = ArrayList<Image?>()
     var db = FirebaseFirestore.getInstance()
 
-    fun Recetas(listaPasos: ArrayList<String?>, listaImagenes: ArrayList<Image>?, numPasos : Int){
-        var listaPasos = listaPasos
-        var listaImagenes = listaImagenes
-        var numPasos = numPasos
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recetas)
-        //instanciarBotones()
+        nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
+
+        instanciarBotones()
+
     }
+
 
     fun instanciarBotones(){
         var listaRecetas = ArrayList<String>()
-        nombresRecetas = obtenerNombres()
         botones(nombresRecetas)
-
         //println(hola)
     }
 
     fun btndeRecetas(p0: View?){
 
-        startActivity(Intent(this, pre_receta::class.java))
-
+        for ( a in nombresRecetas){
+            println("Receta :$a" )
+        }
+        var prereceta = Intent(this, pre_receta::class.java)
+        //prereceta.putExtra("nombre", nombresRecetas)
+        startActivity(prereceta)
     }
 
-    fun btnxd(p0: View?){
-        startActivity(Intent(this, Select_Ingredientes::class.java))
-    }
-
-    fun obtenerNombres() : ArrayList<String?>{
+    fun obtenerNombres(){
         var temp = ArrayList<String?>()
         db.collection("recetas").get().addOnSuccessListener { documento ->
         for (d in documento){
-            temp.add(d.id)
+            nombresRecetas.add(d.id)
         }
         }
-        return temp
     }
 
     fun botones(listanombres : ArrayList<String?>){
@@ -68,7 +67,13 @@ class Recetas() : AppCompatActivity() {
     fun crearBoton():Button{
         var btnreceta = findViewById<Button>(R.id.btndereceta)
         var tempBtn : Button = Button(btnreceta.context)
+
         tempBtn.id = ViewAnimator.generateViewId()
+        tempBtn.height = 400
+        tempBtn.width = 735
+        tempBtn.textSize = 20F
+        tempBtn.setPadding(0,170,0,0)
+
         return tempBtn
 
     }
