@@ -72,22 +72,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="32sp" />
 
-            <Button
-                android:id="@+id/btndereceta2"
-                android:layout_width="266dp"
-                android:layout_height="173dp"
-                android:layout_marginStart="75dp"
-                android:layout_marginEnd="75dp"
-                android:layout_marginBottom="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/lasanamala"
-                android:fontFamily="@font/anton"
-                android:onClick="btndeRecetas"
-                android:paddingTop="120dp"
-                android:text="Lasaña"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp" />
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

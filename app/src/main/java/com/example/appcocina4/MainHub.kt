@@ -20,5 +20,7 @@ class MainHub : AppCompatActivity() {
        startActivity(Intent(this, Recetas::class.java))
 
 
+
+
     }
 }
