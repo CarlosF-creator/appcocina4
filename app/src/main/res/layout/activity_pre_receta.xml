@@ -77,7 +77,7 @@
             app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/lasagna_original__imagen" />
+            app:srcCompat="@drawable/lasanap" />
 
         <RatingBar
             android:id="@+id/ratingBar"

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import com.example.appcocina4.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
 
@@ -15,26 +16,22 @@ class Pasoapaso : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var numpasos = 0
     var cont = 1
-    var listaPasos  = ArrayList<String?>()
+    var listapasos  = ArrayList<String?>()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pasoapaso)
 
-
-        listaPasos = intent.getStringArrayListExtra("lista") as ArrayList<String?>
+        listapasos = intent.getStringArrayListExtra("lista") as ArrayList<String?>
         numpasos = intent.getIntExtra("num",-500)
 
         var text_paso = findViewById<TextView>(R.id.text_paso)
         var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
 
         text_numPaso.text = "Paso: $cont/$numpasos"
-        text_paso.text = listaPasos[cont-1]
-        for (l in listaPasos){
-            println(l)
-        }
-
+        text_paso.text = listapasos[cont-1]
 
     }
 
@@ -53,7 +50,7 @@ class Pasoapaso : AppCompatActivity() {
             var text_paso = findViewById<TextView>(R.id.text_paso)
             mas()
 
-            text_paso.text = listaPasos[cont-1]
+            text_paso.text = listapasos[cont-1]
             text_numPaso.text = "Paso: $cont/$numpasos"
         }else{
             setContentView(R.layout.eval)
@@ -66,10 +63,12 @@ class Pasoapaso : AppCompatActivity() {
             var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
             var text_paso = findViewById<TextView>(R.id.text_paso)
             menos()
-            text_paso.text = listaPasos[cont-1]
+            text_paso.text = listapasos[cont-1]
             text_numPaso.text = "Paso: $cont/$numpasos"
         }
     }
+
+
 
 
 
