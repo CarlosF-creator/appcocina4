@@ -5,6 +5,7 @@ import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class pre_receta : AppCompatActivity() {
@@ -21,10 +22,23 @@ class pre_receta : AppCompatActivity() {
         //binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_pre_receta)
 
+        var nombre : String? = "no se encontro"
+        nombre = intent.getStringExtra("nombre")
+
+        rellenarDatos(nombre)
         obtenerListaPasos("Lasaña")
         obtenerNumeroPasos()
         obtenerImagenes()
 
+
+    }
+
+    //Coloca el nombre de la receta entre otras cosas
+    fun rellenarDatos(nombre: String?){
+        var Titulo = findViewById<TextView>(R.id.Titulo)
+
+
+        Titulo.text = nombre
 
     }
 
