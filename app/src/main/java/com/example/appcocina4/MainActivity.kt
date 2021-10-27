@@ -77,7 +77,9 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(),pass.text.toString()).addOnCompleteListener{
                 if(it.isSuccessful){
                     //showHome(it.result?.user?.email ?:"",ProviderType.BASIC)
-                    startActivity(Intent(this, MainHub::class.java))
+                        var xd = Intent(this, MainHub::class.java)
+                    xd.putExtra("Usuario",email.text.toString())
+                    startActivity(xd)
 
                 }else{
                     Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()

@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainHub : AppCompatActivity() {
@@ -12,7 +15,9 @@ class MainHub : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var usuario = intent.getStringExtra("Usuario")
         obtenerNombres()
+        sugerencias(usuario.toString())
     }
 
     fun btningredientes(p0: View?){
@@ -30,4 +35,17 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
+    fun sugerencias(usuario:String){
+        var btnsuge = findViewById<Button>(R.id.buttonsugerencias)
+
+        btnsuge.setOnClickListener{
+            var suge = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
+            if(suge.text.isNotEmpty()){
+                db.collection("sugerencias").document(usuario).set(
+                    hashMapOf("sugerencia" to suge.text.toString()))
+
+            } else{
+                    Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()
+            }
+    } }
 }
