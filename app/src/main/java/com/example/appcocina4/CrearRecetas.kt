@@ -205,14 +205,13 @@ class CrearRecetas : AppCompatActivity() {
                 instruc).addOnSuccessListener {
                 if (progressDialog.isShowing) {
                     progressDialog.dismiss()
-                    Toast.makeText(applicationContext, "Se a guardado correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Se ha guardado correctamente", Toast.LENGTH_SHORT).show()
                 }
                 index+=1
             }.addOnFailureListener {
                 Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
                 index+=1
             }
-
         } else{
             Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT).show()
         }
@@ -277,99 +276,6 @@ class CrearRecetas : AppCompatActivity() {
             Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }
 
-//    fun crearBoton():Button{
-//        var btnreceta = findViewById<Button>(R.id.btndereceta)
-//        var tempBtn : Button = Button(btnreceta.context)
-//
-//
-//        tempBtn.height = 400
-//        tempBtn.width = 735
-//        tempBtn.textSize = 20F
-//        tempBtn.setOnClickListener { btndeRecetas(p0 = View(this)) }
-//        tempBtn.setPadding(0,170,0,0)
-//
-//
-//        return tempBtn
-//
-//    }
-
-
-
-
-
-
-//    fun btnGuardar(p0: View?){
-//        var radiobutton = findViewById<RadioGroup>(R.id.radiobutton)
-//        var a :Int= 0
-//
-//        while (a < radiobutton.size){
-//            val seleccion  = radiobutton[a]
-//            if (seleccion.isPressed){
-//                for (btn in listabotones){
-//                    if (btn.id == seleccion.id){
-//                        var prereceta = Intent(this, pre_receta::class.java)
-//                        prereceta.putExtra("nombre", btn.text)
-//                        startActivity(prereceta)
-//                        break
-//                    }
-//                }
-//                break
-//            }
-//            a+=1
-//        }
-//    }
-//
-//    fun botones(listanombres : ArrayList<String?>){
-//        var radiobutton = findViewById<RadioGroup>(R.id.radiobutton)
-//        var index : Int= 0
-//        for (l in listanombres){
-//            var tempbtn = crearBoton()
-//            tempbtn.id = index
-//            tempbtn.text = l
-//
-//            listabotones.add(tempbtn)
-//            radiobutton.addView(tempbtn,index)
-//            index+=1
-//        }
-//
-//    }
-//
-//    fun crearBoton(): Button {
-//        var btnreceta = findViewById<Button>(R.id.btndereceta)
-//        var tempBtn : Button = Button(btnreceta.context)
-//
-//
-//        tempBtn.height = 400
-//        tempBtn.width = 735
-//        tempBtn.textSize = 20F
-//        tempBtn.setOnClickListener { btndeRecetas(p0 = View(this)) }
-//        tempBtn.setPadding(0,170,0,0)
-//
-//
-//        return tempBtn
-//
-//    }
-
-//    fun obtenerListaPasos(nombreR : String) {
-//        if (nombreR != "no se encontro"){
-//            db.collection("recetas").document(nombreR).collection("Info").document("Instrucciones")
-//                .get().addOnSuccessListener { inst ->
-//                    var tempnum = 1
-//                    var Pasos = inst.toObject(Instrucciones::class.java)
-//                    listapasos = Pasos?.let { obtenerInstrucciones(it) }!!
-//                }.addOnFailureListener { _ ->
-//                    println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-//                }}else{
-//            print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-//
-//        }
-//        var inst = Instrucciones()
-//        db.collection("users").document(newEmail).set(
-//            hashMapOf(inst)
-//        )
-//    }
 

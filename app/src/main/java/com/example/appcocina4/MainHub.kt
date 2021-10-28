@@ -61,7 +61,9 @@ class MainHub : AppCompatActivity() {
             var suge = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
             if(suge.text.isNotEmpty()){
                 db.collection("sugerencias").document(usuario).set(
-                    hashMapOf("sugerencia" to suge.text.toString()))
+                    hashMapOf("sugerencia" to suge.text.toString())).addOnSuccessListener {
+                    Toast.makeText(applicationContext,"La sugerencia se a enviado correctamente", Toast.LENGTH_SHORT).show()
+                }
 
             } else{
                 Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()

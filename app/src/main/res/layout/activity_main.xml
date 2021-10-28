@@ -32,11 +32,11 @@
 
         <Button
             android:id="@+id/buttoningredientes"
-            android:layout_width="342dp"
-            android:layout_height="163dp"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="220dp"
-            android:layout_marginEnd="35dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="45dp"
             android:layout_marginBottom="40dp"
             android:layout_weight="1"
             android:background="@drawable/btningredientes"
@@ -49,15 +49,15 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonrecetas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <Button
             android:id="@+id/buttonrecetas"
-            android:layout_width="342dp"
-            android:layout_height="163dp"
-            android:layout_marginStart="34dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginEnd="45dp"
             android:layout_weight="1"
             android:background="@drawable/btnrecetas2"
             android:fontFamily="@font/anton"
@@ -78,7 +78,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="45dp"
             android:layout_weight="1"
-            android:background="@drawable/btnrecetas2"
+            android:background="@drawable/btncrearrecetaeceta"
             android:fontFamily="@font/anton"
             android:onClick="btnNuevaReceta"
             android:text="Crear Nueva\n Receta"
