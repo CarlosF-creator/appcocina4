@@ -95,28 +95,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:text="enviar sugerencias"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.37"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLinesugerencias"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLinesugerencias" />
 
         <EditText
             android:id="@+id/editTextTextMultiLinesugerencias"
             android:layout_width="330dp"
             android:layout_height="82dp"
             android:layout_marginStart="46dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="222dp"
             android:layout_marginEnd="35dp"
+            android:layout_marginBottom="7dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="sugerencias"
             android:inputType="textMultiLine"
             android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/buttonsugerencias"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonrecetas" />
 

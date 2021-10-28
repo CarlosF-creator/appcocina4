@@ -16,9 +16,12 @@ class MainHub : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var usuario = intent.getStringExtra("Usuario")
+        var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
+        btnNuevaReceta.isVisible = false
+        var usuario = intent.getStringExtra("Nombre_U")
         obtenerNombres()
-        sugerencias(usuario.toString())
+        verificarUsuario(usuario.toString().lowercase())
+        sugerencias(usuario.toString().lowercase())
     }
 
     fun btningredientes(p0: View?){

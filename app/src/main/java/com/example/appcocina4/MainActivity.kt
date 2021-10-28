@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         var usuario = findViewById<EditText>(R.id.edt_usuario)
         var pass1 = findViewById<EditText>(R.id.edt_pass1)
         var pass2 = findViewById<EditText>(R.id.edt_pass2)
-        var principiante = findViewById<Switch>(R.id.switch_principiante)
+        var tempP = findViewById<Switch>(R.id.switch_principiante)
 
         var principiante = -1
         if (tempP.isChecked){
