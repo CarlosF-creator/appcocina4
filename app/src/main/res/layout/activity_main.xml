@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="201dp"
-            android:layout_height="125dp"
+            android:layout_width="216dp"
+            android:layout_height="141dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -32,11 +32,11 @@
 
         <Button
             android:id="@+id/buttoningredientes"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="45dp"
+            android:layout_width="342dp"
+            android:layout_height="163dp"
+            android:layout_marginStart="34dp"
             android:layout_marginTop="220dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="35dp"
             android:layout_marginBottom="40dp"
             android:layout_weight="1"
             android:background="@drawable/btningredientes"
@@ -53,11 +53,11 @@
 
         <Button
             android:id="@+id/buttonrecetas"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="45dp"
+            android:layout_width="342dp"
+            android:layout_height="163dp"
+            android:layout_marginStart="34dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="35dp"
             android:layout_weight="1"
             android:background="@drawable/btnrecetas2"
             android:fontFamily="@font/anton"
@@ -89,6 +89,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonrecetas" />
 
+
+        <Button
+            android:id="@+id/buttonsugerencias"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="enviar sugerencias"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.37"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLinesugerencias"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editTextTextMultiLinesugerencias"
+            android:layout_width="330dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="35dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="sugerencias"
+            android:inputType="textMultiLine"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonrecetas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -38,17 +38,14 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         var usuario = findViewById<EditText>(R.id.edt_usuario)
         var pass1 = findViewById<EditText>(R.id.edt_pass1)
         var pass2 = findViewById<EditText>(R.id.edt_pass2)
-        var tempP = findViewById<Switch>(R.id.switch_principiante)
+        var principiante = findViewById<Switch>(R.id.switch_principiante)
+
         var principiante = -1
         if (tempP.isChecked){
             principiante = 2
         }else {
             principiante = 1
         }
-
-
-
-
         btnRegister.setOnClickListener{
             var newEmail = modificarEmail(email.text.toString())
             if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
                         if(it.isSuccessful){
                             db.collection("users").document(newEmail).set(
                                 hashMapOf("user" to usuario.text.toString(),
-                                "principiante" to principiante)
+                                    "principiante" to principiante)
                             )
                             var mainhub = Intent(this, MainHub::class.java)
                             mainhub.putExtra("Nombre_U", newEmail)
@@ -95,12 +92,10 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         }
         return tempEmail.lowercase()
     }
-
     fun botonLogin(p0: View?){
         var email = findViewById<EditText>(R.id.edt_usuario_ing)
         var pass = findViewById<EditText>(R.id.edt_pass_ing)
         if(email.text.isNotEmpty() &&  pass.text.isNotEmpty()){
-
             var newEmail = modificarEmail(email.text.toString())
             FirebaseAuth.getInstance().signInWithEmailAndPassword(newEmail,pass.text.toString()).addOnCompleteListener{
                 if(it.isSuccessful){
@@ -108,7 +103,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
                     var mainhub = Intent(this, MainHub::class.java)
                     mainhub.putExtra("Nombre_U", newEmail)
                     startActivity(mainhub)
-
                 }else{
                     Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                 }

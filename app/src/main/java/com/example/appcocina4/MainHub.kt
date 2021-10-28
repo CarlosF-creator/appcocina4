@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,19 +16,9 @@ class MainHub : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
-        btnNuevaReceta.isVisible = false
-        var Nombre_U : String? = intent.getStringExtra("Nombre_U")
-        var  nombreweno : String = "aaa"
-        if (Nombre_U != null){
-            nombreweno = Nombre_U.toString()
-        }else{
-            println("Nombre Null")
-        }
-
+        var usuario = intent.getStringExtra("Usuario")
         obtenerNombres()
-
-        verificarUsuario(nombreweno)
+        sugerencias(usuario.toString())
     }
 
     fun btningredientes(p0: View?){
@@ -42,7 +33,6 @@ class MainHub : AppCompatActivity() {
         var crearRecetas = Intent(this, CrearRecetas::class.java)
         startActivity(crearRecetas)
     }
-
     fun obtenerNombres(){
         listanombres.clear()
         db.collection("recetas").get().addOnSuccessListener { documento ->
@@ -61,8 +51,19 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
+    fun sugerencias(usuario:String){
+        var btnsuge = findViewById<Button>(R.id.buttonsugerencias)
 
+        btnsuge.setOnClickListener{
+            var suge = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
+            if(suge.text.isNotEmpty()){
+                db.collection("sugerencias").document(usuario).set(
+                    hashMapOf("sugerencia" to suge.text.toString()))
 
+            } else{
+                Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()
+            }
+        } }
     fun verificarUsuario(Nombre_U : String){
         db.collection("users").document(Nombre_U).get().addOnSuccessListener { document ->
             var temp : String? = document.data?.get("principiante").toString()
