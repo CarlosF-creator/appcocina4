@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/posiblefondo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondohub3"
     android:fillViewport="true"
     tools:context=".MainHub"
     tools:layout_editor_absoluteX="1dp"
@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/fondohub3">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -75,8 +74,9 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="45dp"
+            android:layout_marginBottom="50dp"
             android:layout_weight="1"
             android:background="@drawable/btncrearrecetaeceta"
             android:fontFamily="@font/anton"
@@ -85,21 +85,20 @@
             android:textAllCaps="false"
             android:textSize="34sp"
             android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonrecetas" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonsugerencias" />
 
 
         <Button
             android:id="@+id/buttonsugerencias"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="45dp"
             android:text="enviar sugerencias"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,17 +106,20 @@
 
         <EditText
             android:id="@+id/editTextTextMultiLinesugerencias"
-            android:layout_width="330dp"
+            android:layout_width="0dp"
             android:layout_height="82dp"
-            android:layout_marginStart="46dp"
-            android:layout_marginTop="222dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
             android:layout_marginBottom="7dp"
+            android:background="#31000000"
+            android:backgroundTint="#000000"
             android:ems="10"
             android:gravity="start|top"
             android:hint="sugerencias"
             android:inputType="textMultiLine"
             android:textAlignment="textStart"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonsugerencias"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
