@@ -26,49 +26,14 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="128dp"
             android:background="#33B5B5B5"
-            app:layout_constraintBottom_toTopOf="@+id/imageView4"
+            app:layout_constraintBottom_toTopOf="@+id/Imagen_Portada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="70dp"
-            android:text="
-- Para el relleno (boloñesa de carne): 500 g. de carne (una mezcla de cerdo y ternera)\n
-- 2 pimientos rojos\n
-- 2 zanahorias\n
-- 2 dientes de ajo\n
-- 150 g. de bacon o panceta\n
-- 2 cebollas grandes\n
-- 250 g. de tomate natural (1 vaso aproximadamente)\n
-- 250 ml de vino blanco (200 ml. aproximadamente)\n
-- 100 ml. de aceite de oliva virgen extra\n
-- 1 cucharita colmada de orégano seco (o hierbas provenzales)\n
-- Sal y pimienta negra recién molida (al gusto de cada casa)\n
-- 12 láminas de lasaña o lasagna Garofalo\n
-- Para hacer la bechamel: (para un litro más o menos, la suficiente para la lasaña): 125 g de harina de trigo de todo uso\n
-- 125 g de mantequilla\n
-- 1 litro de leche entera\n
-- Una pizca de nuez moscada (unos 4 g.)\n
-- Sal y pimienta negra recién molida (al gusto de cada casa)\n
-- Para finalizar y gratinar la lasaña: 100-120 g. de queso rallado tipo Parmesano (o mezcla con vuestro queso preferido para gratinar)\n
-"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/Imagen_Portada"
             android:layout_width="318dp"
             android:layout_height="214dp"
             android:layout_marginTop="88dp"
@@ -78,7 +43,7 @@
             app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/lasanap" />
+            app:srcCompat="@drawable/logo" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -91,50 +56,67 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Portada" />
 
         <TextView
             android:id="@+id/Titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lasaña"
+            android:textColor="#EFEFEF"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView16"
+            app:layout_constraintBottom_toTopOf="@+id/Txt_Descripcion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/Txt_Descripcion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="2dp"
             android:text="Este clásico de la cocina es famoso en todo el mundo, no sólo en Italia. Ideal para llevar en el tupper al trabajo o al colegio, y que sin duda triunfa entre los más pequeños de casa."
+            android:textColor="#EFEFEF"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView17"
+            app:layout_constraintBottom_toTopOf="@+id/Txt_Tpreparacion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Titulo" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/Txt_Tpreparacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="3dp"
             android:text="Tiempo de Preparacion: 70 min"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView19"
+            android:textColor="#EFEFEF"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/Txt_Descripcion" />
+
+        <TextView
+            android:id="@+id/Txt_Ingredientes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:text="Ingedientes "
+            android:textColor="#EFEFEF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Txt_Descripcion" />
 
         <Button
             android:id="@+id/button8"
@@ -143,9 +125,77 @@
             android:layout_marginBottom="16dp"
             android:onClick="btnCocinar"
             android:text="Cocinar!!"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TableLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/button8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Txt_Ingredientes">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/checkBox17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

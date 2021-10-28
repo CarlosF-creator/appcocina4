@@ -36,10 +36,11 @@ class Recetas() : AppCompatActivity() {
 
     fun instanciarBotones(){
         var listaRecetas = ArrayList<String>()
+        listabotones.clear()
         botones(nombresRecetas)
         var botonreceta = findViewById<Button>(R.id.btndereceta)
         botonreceta.isVisible = false
-        //println(hola)
+
     }
 
     fun btndeRecetas(p0: View?){
@@ -61,12 +62,6 @@ class Recetas() : AppCompatActivity() {
             }
             a+=1
         }
-
-
-
-
-
-
     }
 
 
