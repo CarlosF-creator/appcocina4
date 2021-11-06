@@ -14,6 +14,7 @@
         <activity android:name=".Pasoapaso" />
         <activity android:name=".pre_receta" />
         <activity android:name=".Recetas" />
+        <activity android:name=".eval" />
         <activity android:name=".MainHub" />
         <activity
             android:name=".MainActivity"
