@@ -83,14 +83,26 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
 
     fun modificarEmail(email:String):String{
         var tempEmail : String = ""
+        var valido = false
         for (e in email){
             if(e.isUpperCase()){
+                if (e == '@'){
+                    valido = true
+                }
                 tempEmail = tempEmail + e.lowercase()
             }else{
+                if (e == '@'){
+                    valido = true
+                }
                 tempEmail = tempEmail + e
             }
         }
-        return tempEmail.lowercase()
+        if (valido){
+            return tempEmail.lowercase()
+        }else{
+            return tempEmail.lowercase()+"@gmail.com"
+        }
+
     }
     fun botonLogin(p0: View?){
         var email = findViewById<EditText>(R.id.edt_usuario_ing)

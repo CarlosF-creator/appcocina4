@@ -130,11 +130,38 @@ class pre_receta : AppCompatActivity() {
     //Coloca el nombre de la receta entre otras cosas
     fun rellenarDatos(nombre: String?){
         var Titulo = findViewById<TextView>(R.id.Titulo)
+        var newTitulo = ""
+        if (nombre != null){
+            newTitulo = nombre
+        }
 
-
-        Titulo.text = nombre
+        Titulo.text = Mayusculas(newTitulo)
 
     }
+
+
+    fun Mayusculas(nombreR: String):String {
+        var index = 0
+        var espacio = false
+        var tempNombre : String = ""
+        for (n in nombreR){
+            if (index == 0 || espacio){
+                tempNombre = tempNombre + n.uppercaseChar()
+                espacio = false
+            }else{
+                tempNombre = tempNombre + n
+                if (n == ' '){
+                    espacio = true
+                }
+            }
+            index += 1
+        }
+        return tempNombre
+    }
+
+
+
+
 
     //Obtenemos los pasos desde la base de Datos
     fun obtenerListaPasos(nombreR : String) {

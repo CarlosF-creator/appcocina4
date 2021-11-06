@@ -96,6 +96,7 @@ class CrearRecetas : AppCompatActivity() {
 
 
         linearpasos.removeAllViews()
+        listaPasos.clear()
         var index: Int = 1
         println("numero de pasos : " + numPasos)
         while (index < numPasos + 1) {
@@ -206,10 +207,10 @@ class CrearRecetas : AppCompatActivity() {
                     progressDialog.dismiss()
                     Toast.makeText(applicationContext, "Se ha guardado correctamente", Toast.LENGTH_SHORT).show()
                 }
-                index+=1
+
             }.addOnFailureListener {
                 Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
-                index+=1
+
             }
         } else{
             Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT).show()
@@ -265,10 +266,10 @@ class CrearRecetas : AppCompatActivity() {
                     habilitarReceta(newtitulo)
                     Toast.makeText(applicationContext, "Se a guardado correctamente", Toast.LENGTH_SHORT).show()
                 }
-                index+=1
+
             }.addOnFailureListener {
                 Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
-                index+=1
+
             }
 
         } else{
