@@ -15,12 +15,14 @@ import java.util.regex.Pattern
 
 
 class Pasoapaso : AppCompatActivity() {
-
     var db = FirebaseFirestore.getInstance()
     var numpasos = 0
     var cont = 1
     var listapasos  = ArrayList<String?>()
     var listaimagenes = ArrayList<Bitmap>()
+    var nombreR : String? = null
+
+
 
     lateinit var binding : ActivityPasoapasoBinding
 
@@ -33,6 +35,7 @@ class Pasoapaso : AppCompatActivity() {
         listapasos = intent.getStringArrayListExtra("lista") as ArrayList<String?>
         numpasos = intent.getIntExtra("num",-500)
         listaimagenes = intent.getStringArrayListExtra("imagenes") as ArrayList<Bitmap>
+        nombreR = intent.getStringExtra("nombreR")
 
         var text_paso = findViewById<TextView>(R.id.text_paso)
         var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
@@ -63,7 +66,9 @@ class Pasoapaso : AppCompatActivity() {
             text_paso.text = listapasos[cont-1]
             text_numPaso.text = "Paso: $cont/$numpasos"
         }else{
-            setContentView(R.layout.eval)
+            var eval = Intent(this, eval::class.java)
+            eval.putExtra("nombreR", nombreR)
+            startActivity(eval)
         }
     }
 

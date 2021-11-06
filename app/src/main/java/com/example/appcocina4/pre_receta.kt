@@ -34,6 +34,7 @@ class pre_receta : AppCompatActivity() {
     var pasos_totales = -1
     var descripcion = ""
     var tempbitmap : Bitmap? = null
+    var nombreR : String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +48,7 @@ class pre_receta : AppCompatActivity() {
 
         if (nombre != null){
             nombreweno = nombre.toString()
+            nombreR = nombreweno
         }else{
             println("Nombre Null")
         }
@@ -116,6 +118,7 @@ class pre_receta : AppCompatActivity() {
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
         pasoapaso.putExtra("imagenes", listaimagenes)
+        pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
 
     }
@@ -212,11 +215,6 @@ class pre_receta : AppCompatActivity() {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
         }
     }
-
-
-
-
-
 
     //Descomponemos el Map que obtuvimos de Firebase
     fun obtenerInstrucciones(inst: Instrucciones): ArrayList<String?> {

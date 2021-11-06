@@ -20,7 +20,6 @@ import kotlin.random.Random
 class CrearRecetas : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var listaPasos = ArrayList<EditText>()
-
     var temptablecontext1 = baseContext
     var temptablecontext2 = baseContext
     var temptablecontextpaso1 = baseContext

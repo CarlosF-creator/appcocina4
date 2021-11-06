@@ -31,7 +31,6 @@ class Recetas() : AppCompatActivity() {
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
 
         instanciarBotones()
-
     }
 
     fun instanciarBotones(){
@@ -40,7 +39,6 @@ class Recetas() : AppCompatActivity() {
         botones(nombresRecetas)
         var botonreceta = findViewById<Button>(R.id.btndereceta)
         botonreceta.isVisible = false
-
     }
 
     fun btndeRecetas(p0: View?){
