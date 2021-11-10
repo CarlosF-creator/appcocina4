@@ -34,7 +34,6 @@ class Recetas() : AppCompatActivity() {
     }
 
     fun instanciarBotones(){
-        var listaRecetas = ArrayList<String>()
         listabotones.clear()
         botones(nombresRecetas)
         var botonreceta = findViewById<Button>(R.id.btndereceta)

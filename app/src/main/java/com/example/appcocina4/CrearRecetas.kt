@@ -122,9 +122,7 @@ class CrearRecetas : AppCompatActivity() {
             temptxt.setText("Paso " + index + " :")
 
             tempTabla1.addView(temptxt)
-            //tempTabla1.weightSum = 1F
             tempTabla2.addView(tempPaso)
-            //tempTabla2.weightSum = 1F
             linearpasos.addView(tempTabla1)
             linearpasos.addView(tempTabla2)
 

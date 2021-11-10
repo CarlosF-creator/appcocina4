@@ -13,6 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainHub : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var listanombres = ArrayList<String?>()
+    var listaingredientes = ArrayList<String?>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,13 +22,18 @@ class MainHub : AppCompatActivity() {
         btnNuevaReceta.isVisible = false
         var usuario = intent.getStringExtra("Nombre_U")
         obtenerNombres()
+        obtenerIngredientes()
         verificarUsuario(usuario.toString().lowercase())
         sugerencias(usuario.toString().lowercase())
     }
 
+
     fun btningredientes(p0: View?){
-        startActivity(Intent(this, Select_Ingredientes::class.java))
+        var tempingredientes = Intent(this, Select_Ingredientes::class.java)
+        tempingredientes.putExtra("listaingredientes", listaingredientes)
+        startActivity(tempingredientes)
     }
+
     fun btnrecetas(p0: View?){
         var temprecetas = Intent(this, Recetas::class.java)
         temprecetas.putExtra("listanombres", listanombres)
@@ -54,6 +61,18 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
+
+    fun obtenerIngredientes(){
+        listanombres.clear()
+        db.collection("ingredientes").get().addOnSuccessListener { documento ->
+            for (d in documento){
+                listaingredientes.add(d.id)
+
+            }
+        }
+    }
+
+
     fun sugerencias(usuario:String){
         var btnsuge = findViewById<Button>(R.id.buttonsugerencias)
 

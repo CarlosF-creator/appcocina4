@@ -1,189 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo4"
-    tools:context=".Select_Ingredientes">>
+    android:fillViewport="true"
+    tools:context=".Select_Ingredientes"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="375dp"
-        android:layout_height="550dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Selecciona tus Ingredientes"
+            android:textAlignment="center"
+            android:textColor="#EDEDED"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Selecciona tus Ingredientes"
-                android:textAlignment="center"
-                android:textColor="#EDEDED"
-                android:textSize="48sp" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Carbohidratos:"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+        <TableLayout
+            android:id="@+id/LinearIngredientes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-            <TableLayout
+            <TableRow
+                android:id="@+id/TablaTxt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
-
-                <TableRow
+                <TextView
+                    android:id="@+id/txt_tipoing"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Carbohidratos:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+            </TableRow>
 
-                    <CheckBox
-                        android:id="@+id/checkBox6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Arroz" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Papas" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Legumbres" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
-                        android:id="@+id/checkBox7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
-                        android:id="@+id/checkBox9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </TableRow>
-            </TableLayout>
-
-            <TextView
-                android:id="@+id/textView8"
+            <TableRow
+                android:id="@+id/TablaCheck"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Proteinas:"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <CheckBox
+                    android:id="@+id/checkBoxTemp"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="CheckBox" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            </TableRow>
 
-                    <CheckBox
-                        android:id="@+id/checkBox12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
+        </TableLayout>
 
-                    <CheckBox
-                        android:id="@+id/checkBox11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Listo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                    <CheckBox
-                        android:id="@+id/checkBox13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </TableLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Listo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
