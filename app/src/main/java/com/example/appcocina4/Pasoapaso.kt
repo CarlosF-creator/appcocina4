@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.TextView
 import com.example.appcocina4.databinding.ActivityMainBinding
@@ -42,7 +43,12 @@ class Pasoapaso : AppCompatActivity() {
 
         text_numPaso.text = "Paso: $cont/$numpasos"
         text_paso.text = listapasos[cont-1]
-        binding.ImagenPaso.setImageBitmap(listaimagenes[0])
+        if(listaimagenes != null && listaimagenes.isNotEmpty()){
+            binding.ImagenPaso.setImageBitmap(listaimagenes[0])
+        }else{
+            binding.ImagenPaso.setImageBitmap(null)
+        }
+
 
 
     }
@@ -60,7 +66,9 @@ class Pasoapaso : AppCompatActivity() {
         if (cont < numpasos){
             var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
             var text_paso = findViewById<TextView>(R.id.text_paso)
-            binding.ImagenPaso.setImageBitmap(listaimagenes[cont-1])
+            if(listaimagenes != null && listaimagenes.isNotEmpty()){
+                binding.ImagenPaso.setImageBitmap(listaimagenes[cont-1])
+            }
             mas()
 
             text_paso.text = listapasos[cont-1]
@@ -77,19 +85,19 @@ class Pasoapaso : AppCompatActivity() {
         if(cont > 1){
             var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
             var text_paso = findViewById<TextView>(R.id.text_paso)
-            binding.ImagenPaso.setImageBitmap(listaimagenes[cont-1])
+            if(listaimagenes != null && listaimagenes.isNotEmpty()){
+                binding.ImagenPaso.setImageBitmap(listaimagenes[cont-1])
+            }
             menos()
 
             text_paso.text = listapasos[cont-1]
             text_numPaso.text = "Paso: $cont/$numpasos"
+        }else{
+            finish()
         }
+
+
     }
-
-
-
-
-
-
 
 
 

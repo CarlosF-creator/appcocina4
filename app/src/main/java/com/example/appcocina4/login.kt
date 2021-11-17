@@ -45,10 +45,10 @@ class login : AppCompatActivity(), View.OnClickListener {
                         if(it.isSuccessful){
                             db.collection("users").document(newEmail).set(
                                 hashMapOf("user" to usuario.text.toString(),
-                                    "principiante" to principiante)
+                                    "principiante" to principiante,
+                                    "Uid" to FirebaseAuth.getInstance().uid)
                             )
                             var mainhub = Intent(this, MainHub::class.java)
-                            mainhub.putExtra("Nombre_U", newEmail)
                             startActivity(mainhub)
                         }else{
                             Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()

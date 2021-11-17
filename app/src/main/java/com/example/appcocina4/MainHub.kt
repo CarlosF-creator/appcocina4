@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainHub : AppCompatActivity() {
@@ -20,11 +22,11 @@ class MainHub : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
         btnNuevaReceta.isVisible = false
-        var usuario = intent.getStringExtra("Nombre_U")
-        obtenerNombres()
+
+        obtenerNombresRecetas()
         obtenerIngredientes()
-        verificarUsuario(usuario.toString().lowercase())
-        sugerencias(usuario.toString().lowercase())
+        obtenerNombreUsuario()
+
     }
 
 
@@ -43,7 +45,7 @@ class MainHub : AppCompatActivity() {
         var crearRecetas = Intent(this, CrearRecetas::class.java)
         startActivity(crearRecetas)
     }
-    fun obtenerNombres(){
+    fun obtenerNombresRecetas(){
         listanombres.clear()
         db.collection("recetas").get().addOnSuccessListener { documento ->
             for (d in documento){
@@ -88,6 +90,21 @@ class MainHub : AppCompatActivity() {
                 Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()
             }
         } }
+
+    fun obtenerNombreUsuario(){
+        db.collection("users").get().addOnSuccessListener{ document ->
+            for (d in document){
+                if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
+                    verificarUsuario(d.id.lowercase())
+                    sugerencias(d.id.lowercase())
+                    findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
+                    break
+                }
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
     fun verificarUsuario(Nombre_U : String){
         db.collection("users").document(Nombre_U).get().addOnSuccessListener { document ->
             var temp : String? = document.data?.get("principiante").toString()
@@ -97,13 +114,9 @@ class MainHub : AppCompatActivity() {
                 if (rol == 0){
                     btnNuevaReceta.isVisible = true
                 }
-
             }
-
-
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
-
     }
 }

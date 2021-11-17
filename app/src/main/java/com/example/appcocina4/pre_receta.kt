@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+//import com.bumptech.glide.Glide
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
@@ -29,12 +30,14 @@ import java.io.File
 
 class pre_receta : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
+    var db_Storage = Firebase.storage.reference
     var listapasos = ArrayList<String?>()
     var listaimagenes = ArrayList<Bitmap?>()
     var pasos_totales = -1
     var descripcion = ""
     var tempbitmap : Bitmap? = null
     var nombreR : String? = null
+    var Tcount = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,56 +56,11 @@ class pre_receta : AppCompatActivity() {
             println("Nombre Null")
         }
 
-
-
-//        Firebase.initialize(this)
-//        val firebaseAppCheck = FirebaseAppCheck.getInstance()
-//        val tempcosa = YourCustomAppCheckProviderFactory()
-//        firebaseAppCheck.installAppCheckProviderFactory(tempcosa)
-
-//        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(applicationContext)
-//            == ConnectionResult.SUCCESS
-//        ) {
-//            SafetyNet.getClient(this).attest(
-//                (Build.DEVICE + System.currentTimeMillis()).toByteArray(),
-//                DatabaseC
-//            )
-//                .addOnSuccessListener { response: AttestationResponse? ->
-//                    Log.v(
-//                        "ATTEST",
-//                        "SUCCESSFUL"
-//                    )
-//                }
-//                .addOnFailureListener { e: Exception? ->
-//                    if (e is ApiException) {
-//                        // An error with the Google Play services API contains some
-//                        // additional details.
-//                        val apiException = e as ApiException
-//                        // You can retrieve the status code using the
-//                        // apiException.getStatusCode() method.
-//                        Log.v("ATTEST", "ERROR" + apiException.getStatus().getStatusMessage())
-//                    } else {
-//                    }
-//                    Log.v("ATTEST", "ERROR")
-//                }
-//        } else {
-//            Toast.makeText(this, "Update Google Services", Toast.LENGTH_SHORT).show()
-//        }
-//        FirebaseApp.initializeApp( this)
-//        val firebaseAppCheck = FirebaseAppCheck.getInstance()
-//        firebaseAppCheck.installAppCheckProviderFactory(
-//            SafetyNetAppCheckProviderFactory.getInstance()
-//        )
-
         obtenerNumeroPasos(nombreweno)
         rellenarDatos(nombre)
         obtenerDescripcion(nombreweno)
         obtenerTpreparacion(nombreweno)
         obtenerListaPasos(nombreweno)
-
-
-
-
 
     }
 
@@ -112,14 +70,31 @@ class pre_receta : AppCompatActivity() {
             println("la wea mala")
         }else{
             println("la wea wena mano")
+            if(Tcount < pasos_totales+1){
+                findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes[Tcount])
+                Tcount += 1
+            }
+            /*
+            else{
+                var pasoapaso = Intent(this, Pasoapaso::class.java)
+                pasoapaso.putExtra("lista", listapasos)
+                pasoapaso.putExtra("num", pasos_totales)
+                pasoapaso.putExtra("imagenes", listaimagenes)
+                pasoapaso.putExtra("nombreR", nombreR)
+                startActivity(pasoapaso)
+            }
+            */
         }
-
+        findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(null)
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
         pasoapaso.putExtra("imagenes", listaimagenes)
         pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
+
+
+
 
     }
 
@@ -159,10 +134,6 @@ class pre_receta : AppCompatActivity() {
         return tempNombre
     }
 
-
-
-
-
     //Obtenemos los pasos desde la base de Datos
     fun obtenerListaPasos(nombreR : String) {
         if (nombreR != "no se encontro"){
@@ -191,7 +162,7 @@ class pre_receta : AppCompatActivity() {
                 if (num != null){
                     pasos_totales = num.toInt()
                     println(pasos_totales)
-                    obtenerImagenes(nombreR)
+                    //obtenerImagenes(nombreR)
                     obtenerImagenPortada(nombreR,progressDialog)
 
 
@@ -373,18 +344,15 @@ class pre_receta : AppCompatActivity() {
     fun obtenerImagenes(nombreR: String) {
 
         var count = 0
-        val nombreT = traductordeÑ(nombreR)
+        val nombreT = traductordeÑ(nombreR).lowercase()
 
         println("pasos totales : " + pasos_totales)
         while (count < pasos_totales){
 
-
             var tempNombre : String= nombreT + count
 
             println("nombre Imagen : "+ tempNombre)
-            var bitmap : Bitmap? = obtenerBitmap(tempNombre,nombreR,count)
-            listaimagenes.add(bitmap)
-            SystemClock.sleep(250)
+            obtenerBitmap(tempNombre,nombreR,count)
 
             count+=1
         }
@@ -392,34 +360,37 @@ class pre_receta : AppCompatActivity() {
 
     }
 
-    fun obtenerBitmap(tempNombre: String,nombreR: String,count : Int):Bitmap?{
+    fun obtenerBitmap(tempNombre: String,nombreR: String,count : Int){
 
-        var referencia = Firebase.storage.reference.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
         var localfile = File.createTempFile(tempNombre,".jpg")
 
+        if(referencia == null){
+            println("referencia null")
+        }
         referencia.getFile(localfile).addOnSuccessListener {
 
             tempbitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            //binding.ImagenPortada.setImageBitmap(bitmap)
 
             println("count in  : "+ count)
+            listaimagenes.add(tempbitmap)
 
-            //count+=1
 
         }.addOnFailureListener{
             println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         }.addOnCanceledListener {
             println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (Cancelado)")
         }
-        return tempbitmap
-
     }
 
     fun obtenerImagenPortada(nombreR: String,pr : ProgressDialog){
 
-        var tempNombre = traductordeÑ(nombreR)
-        var referencia = Firebase.storage.reference.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
-        val localfile2 = File.createTempFile("tempfileP",".jpg")
+        var tempNombre = traductordeÑ(nombreR).lowercase()
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
+        if(referencia == null){
+            println("xd")
+        }
+        val localfile2 = File.createTempFile(tempNombre+"P",".jpg")
         referencia.getFile(localfile2).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
             findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(bitmap)
@@ -427,15 +398,14 @@ class pre_receta : AppCompatActivity() {
                 pr.dismiss()
             }
 
+
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la carga de imagenes",Toast.LENGTH_SHORT).show()
             if (pr.isShowing){
                 pr.dismiss()
             }
+
         }
-
-
-
     }
 
     fun traductordeÑ(nombreR : String):String{
