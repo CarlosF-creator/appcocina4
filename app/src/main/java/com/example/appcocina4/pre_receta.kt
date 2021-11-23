@@ -415,7 +415,7 @@ class pre_receta : AppCompatActivity() {
             findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(bitmap)
 
 
-            listaimagenes.add(bitmap)
+
 
 
 
