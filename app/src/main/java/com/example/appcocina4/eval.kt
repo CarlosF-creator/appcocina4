@@ -73,6 +73,10 @@ class eval : AppCompatActivity() {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         }
     }
+    fun btnSalir(p0: View?){
+        finish()
+        finish()
+    }
 
     fun btnComentar(p0: View?) {
         val progressDialog = ProgressDialog(this)
@@ -82,7 +86,7 @@ class eval : AppCompatActivity() {
 
         var comentarLayout = findViewById<LinearLayout>(R.id.comentarLayout)
         var comentarioView = comentarLayout.findViewById<TextInputLayout>(R.id.comentario)
-        var comantarioText = comentarioView.findViewById<TextInputEditText>(R.id.comentarioText)
+        var comantarioText = findViewById<TextInputEditText>(R.id.comentarioText)
 
         if (comantarioText.text != null && comantarioText.text!!.isNotEmpty()) {
             var tempComentario = Comentario(comantarioText.text.toString(), "Username")

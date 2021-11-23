@@ -22,10 +22,15 @@ class MainHub : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
         btnNuevaReceta.isVisible = false
+        var txtSugerencias = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
+
+
 
         obtenerNombresRecetas()
         obtenerIngredientes()
         obtenerNombreUsuario()
+
+
 
     }
 

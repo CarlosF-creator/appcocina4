@@ -122,6 +122,7 @@
             android:layout_marginEnd="145dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="#FCFFFFFF"
+            android:onClick="btnSalir"
             android:text="SALIR"
             android:textAlignment="center"
             android:textColor="#4CAF50"
