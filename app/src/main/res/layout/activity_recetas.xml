@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ImagenFinal"
             android:layout_width="219dp"
             android:layout_height="86dp"
             android:layout_alignParentStart="true"

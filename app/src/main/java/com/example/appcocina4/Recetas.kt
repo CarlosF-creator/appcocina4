@@ -1,26 +1,30 @@
 package com.example.appcocina4
 
+import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.Image
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
-import android.widget.Button
-import android.widget.RadioGroup
-import android.widget.ViewAnimator
+import android.widget.*
 import androidx.annotation.Dimension
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.core.view.size
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class Recetas() : AppCompatActivity() {
     var nombresRecetas = ArrayList<String?>()
     var listabotones = ArrayList<Button>()
     var portadas = ArrayList<Image?>()
     var db = FirebaseFirestore.getInstance()
+    var db_Storage = Firebase.storage.reference
 
 
 
@@ -71,6 +75,7 @@ class Recetas() : AppCompatActivity() {
             tempbtn.id = index
             tempbtn.text = l
 
+            //obtenerImagenBtn(l.toString(), tempbtn)
             listabotones.add(tempbtn)
             radiobutton.addView(tempbtn,index)
             index+=1
@@ -94,12 +99,34 @@ class Recetas() : AppCompatActivity() {
 
     }
 
-    fun obtenerNombres(){
-        var temp = ArrayList<String?>()
-        db.collection("recetas").get().addOnSuccessListener { documento ->
-            for (d in documento){
-                nombresRecetas.add(d.id)
+    fun obtenerImagenBtn(nombreR: String, tempbtn : Button){
+
+        var tempNombre = traductordeÑ(nombreR).lowercase()
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
+        if(referencia == null){
+            println("xd")
+        }
+        val localfile2 = File.createTempFile(tempNombre+"P",".jpg")
+        referencia.getFile(localfile2).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
+            findViewById<ImageView>(R.id.ImagenFinal).setImageBitmap(bitmap)
+            //tempbtn.background = localfile2.get
+
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()
+
+
+        }
+    }
+    fun traductordeÑ(nombreR : String):String{
+        var tempNombre = ""
+        for (n in nombreR){
+            if (n.equals('ñ')){
+                tempNombre = tempNombre + 'n'
+            } else{
+                tempNombre = tempNombre + n
             }
         }
+        return tempNombre
     }
 }

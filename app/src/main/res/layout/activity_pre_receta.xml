@@ -196,38 +196,6 @@
                 android:layout_height="match_parent" />
         </TableLayout>
 
-        <Button
-            android:id="@+id/btn_izq"
-            android:layout_width="32dp"
-            android:layout_height="103dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="39dp"
-            android:layout_marginBottom="58dp"
-            android:background="@drawable/izq"
-            android:backgroundTint="#EFEFEF"
-            android:onClick="btn_izq"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Imagen_Portada"
-            app:layout_constraintEnd_toStartOf="@+id/Imagen_Portada"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Imagen_Portada" />
-
-        <Button
-            android:id="@+id/btn_der"
-            android:layout_width="32dp"
-            android:layout_height="103dp"
-            android:layout_marginTop="39dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="58dp"
-            android:background="@drawable/der"
-            android:backgroundTint="#EFEFEF"
-            android:onClick="btn_der"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Imagen_Portada"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Imagen_Portada"
-            app:layout_constraintTop_toTopOf="@+id/Imagen_Portada" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

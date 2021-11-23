@@ -18,9 +18,9 @@
         tools:context=".eval">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ImagenFinal"
             android:layout_width="322dp"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
@@ -66,18 +66,17 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="118dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="144dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="149dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="113dp"
             android:elegantTextHeight="false"
             android:text="DISFRUTA!!!"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="34sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/imageView3"
+            app:layout_constraintBottom_toTopOf="@+id/ImagenFinal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -166,7 +165,7 @@
             app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
         <Button
             android:id="@+id/comentarBtn"

@@ -66,42 +66,13 @@ class pre_receta : AppCompatActivity() {
 
     //Boton Cocinar
     fun btnCocinar(p0: View?) {
-        if (listaimagenes.isEmpty()){
-            println("la wea mala")
-        }else{
-            /*
-            println("la wea wena mano")
-            if(Tcount < pasos_totales+1){
-                findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes[Tcount])
-                Tcount += 1
-            }
-
-            else{
-                var pasoapaso = Intent(this, Pasoapaso::class.java)
-                pasoapaso.putExtra("lista", listapasos)
-                pasoapaso.putExtra("num", pasos_totales)
-                pasoapaso.putExtra("imagenes", listaimagenes)
-                pasoapaso.putExtra("nombreR", nombreR)
-                startActivity(pasoapaso)
-            }
-            */
-        }
-
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
         pasoapaso.putExtra("imagenes", listaimagenes)
         pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
-
-
-
-
     }
-
-
-
-
 
     //Coloca el nombre de la receta entre otras cosas
     fun rellenarDatos(nombre: String?){
@@ -110,11 +81,8 @@ class pre_receta : AppCompatActivity() {
         if (nombre != null){
             newTitulo = nombre
         }
-
         Titulo.text = Mayusculas(newTitulo)
-
     }
-
 
     fun Mayusculas(nombreR: String):String {
         var index = 0
@@ -164,11 +132,9 @@ class pre_receta : AppCompatActivity() {
                     pasos_totales = num.toInt()
                     println(pasos_totales)
 
-                    obtenerImagenPortada(nombreR)
+                    obtenerImagenPortada(nombreR, progressDialog)
                     //obtenerImagenes(nombreR,progressDialog)
-                    if (progressDialog.isShowing){
-                        progressDialog.dismiss()
-                    }
+
 
 
                 }else{
@@ -345,64 +311,7 @@ class pre_receta : AppCompatActivity() {
         return tempArray
     }
 
-
-    fun obtenerImagenes(nombreR: String,pr : ProgressDialog) {
-
-        var count = 0
-        val nombreT = traductordeÑ(nombreR).lowercase()
-
-        println("pasos totales : " + pasos_totales)
-        while (count <= pasos_totales-1){
-
-            var tempNombre : String= nombreT + count
-
-            println("nombre Imagen : "+ tempNombre)
-            obtenerBitmap(tempNombre,nombreR,count,pr,pasos_totales)
-
-            count+=1
-        }
-        println("obtenerImagenes: Done - ("+count + " : "+pasos_totales+")")
-
-
-
-    }
-
-    fun obtenerBitmap(tempNombre: String,nombreR: String,count : Int,pr : ProgressDialog,pasos:Int){
-
-        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
-        var localfile = File.createTempFile(tempNombre,".jpg")
-
-        if(referencia == null){
-            println("referencia null")
-        }
-        referencia.getFile(localfile).addOnSuccessListener {
-
-            tempbitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-
-            println("count in  : "+ count)
-            listaimagenes.add(tempbitmap)
-
-            if (pr.isShowing && count.equals(pasos-1)){
-                pr.dismiss()
-            }
-
-
-        }.addOnFailureListener{
-            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            if (pr.isShowing){
-                pr.dismiss()
-            }
-        }.addOnCanceledListener {
-            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (Cancelado)")
-            if (pr.isShowing){
-                pr.dismiss()
-            }
-        }
-        println("obtenerBitmap: Done - "+count+")")
-
-    }
-
-    fun obtenerImagenPortada(nombreR: String){
+    fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
 
         var tempNombre = traductordeÑ(nombreR).lowercase()
         var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
@@ -413,35 +322,19 @@ class pre_receta : AppCompatActivity() {
         referencia.getFile(localfile2).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
             findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(bitmap)
-
-
-
-
-
+            if (pr.isShowing){
+                pr.dismiss()
+            }
 
         }.addOnFailureListener{
+            if (pr.isShowing){
+                pr.dismiss()
+            }
             Toast.makeText(this,"Fallo en la carga de imagenes",Toast.LENGTH_SHORT).show()
-
         }
     }
 
-    fun btn_izq(p0: View?){
-        if (Tcount > 0){
-            findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes.get(Tcount))
-            Tcount -= 1
-            println("contador : "+Tcount+ "  -  Tamaño : "+ listaimagenes.size)
-        }
 
-    }
-    fun btn_der(p0: View?){
-        if (Tcount < listaimagenes.size-1){
-
-            findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes.get(Tcount))
-            Tcount += 1
-            println("contador : "+Tcount+ "  -  Tamaño : "+ listaimagenes.size)
-        }
-
-    }
 
     fun traductordeÑ(nombreR : String):String{
         var tempNombre = ""

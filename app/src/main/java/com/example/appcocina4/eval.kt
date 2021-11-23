@@ -1,6 +1,7 @@
 package com.example.appcocina4
 
 import android.app.ProgressDialog
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -11,10 +12,14 @@ import com.google.android.material.textfield.TextInputLayout
 //import com.google.firebase.appcheck.FirebaseAppCheck
 //import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 
 class eval : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
+    var db_Storage = Firebase.storage.reference
     var comentarios = ArrayList<Comentario>()
 
     var commentLayout: LinearLayout? = null
@@ -28,7 +33,53 @@ class eval : AppCompatActivity() {
         commentLayout = findViewById(R.id.comentarios)
         nombreR = intent.getStringExtra("nombreR")
 
+        var tempNombre : String = ""
+        if (nombreR != null){
+            tempNombre = nombreR.toString()
+        }
+        val pr = ProgressDialog(this)
+        pr.setMessage("Cargando...")
+        pr.setCancelable(false)
+        pr.show()
+
         obtenerComentarios()
+        obtenerImagenPortada(tempNombre,pr)
+    }
+
+    fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
+
+        var tempNombre = traductordeÑ(nombreR).lowercase()
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
+        if(referencia == null){
+            println("xd")
+        }
+        val localfile2 = File.createTempFile(tempNombre+"P",".jpg")
+        referencia.getFile(localfile2).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
+            findViewById<ImageView>(R.id.ImagenFinal).setImageBitmap(bitmap)
+            if (pr.isShowing){
+                pr.dismiss()
+            }
+
+        }.addOnFailureListener{
+            if (pr.isShowing){
+                pr.dismiss()
+            }
+            Toast.makeText(this,"Fallo en la carga de imagenes",Toast.LENGTH_SHORT).show()
+
+
+        }
+    }
+    fun traductordeÑ(nombreR : String):String{
+        var tempNombre = ""
+        for (n in nombreR){
+            if (n.equals('ñ')){
+                tempNombre = tempNombre + 'n'
+            } else{
+                tempNombre = tempNombre + n
+            }
+        }
+        return tempNombre
     }
 
     fun cleanComentarios() {
