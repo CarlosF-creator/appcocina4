@@ -50,6 +50,7 @@ class login : AppCompatActivity(), View.OnClickListener {
                             )
                             var mainhub = Intent(this, MainHub::class.java)
                             startActivity(mainhub)
+                            finish()
                         }else{
                             Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                         }
@@ -102,6 +103,7 @@ class login : AppCompatActivity(), View.OnClickListener {
                     var mainhub = Intent(this, MainHub::class.java)
                     mainhub.putExtra("Nombre_U", newEmail)
                     startActivity(mainhub)
+                    finish()
                 }else{
                     Toast.makeText(applicationContext,"Se ha producido un Error de Autentificacion, Comprueba tus datos", Toast.LENGTH_SHORT).show()
                 }
