@@ -44,10 +44,11 @@ class pre_receta : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_receta)
 
-        var nombre : String? = "no se encontro"
+        var nombre : String? = null
         var nombreweno : String = "no se encontro"
 
         nombre = intent.getStringExtra("nombre")
+        println("ASDasdasdasdasd :  "+ nombre)
 
         if (nombre != null){
             nombreweno = nombre.toString()

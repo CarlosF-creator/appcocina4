@@ -141,10 +141,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="19dp"
             android:onClick="btnConfirmar"
             android:text="Confirmar"
-            app:layout_constraintBottom_toTopOf="@+id/textView24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_Tpreparacion" />
@@ -154,14 +152,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="149dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="150dp"
             android:text="Paso a Paso :"
             android:textColor="@color/Letras_Blancas"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Confirmar" />
+            app:layout_constraintTop_toBottomOf="@+id/btnImagenPortada" />
 
         <Button
             android:id="@+id/btn_Buscar"
@@ -235,12 +233,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edt_Titulo" />
 
+        <Button
+            android:id="@+id/btnImagenPortada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
+            android:foreground="@android:drawable/ic_menu_gallery"
+            android:foregroundGravity="left|center"
+            android:onClick="btn_SubirImagenPortada"
+            android:paddingLeft="35dp"
+            android:text="Subir Imagen Portada"
+            app:layout_constraintBottom_toTopOf="@+id/textView24"
+            app:layout_constraintEnd_toStartOf="@+id/txt_ImagenPortada"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Confirmar" />
+
+        <TextView
+            android:id="@+id/txt_ImagenPortada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="18dp"
+            android:text="Imagen.jpg"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnImagenPortada"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Confirmar" />
+
         <TableLayout
             android:id="@+id/LinearPasos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical"
@@ -277,9 +306,71 @@
                     android:ems="10"
                     android:hint="Explicacion del Paso"
                     android:inputType="textMultiLine" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/table3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btn_Imagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btn_SubirImagen"
+                    android:text="Subir Imagen" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/table4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:id="@+id/table5espacio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/Espacio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:text="-------------------------------------------------------------------------------------------------------------" />
             </TableRow>
 
         </TableLayout>
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="5dp"
+            android:text="Tamaño de Imagen Recomendada : ( 280 x 170 )*"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnImagenPortada"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="* Las imagenes se subiran por orden de llegada,\n  Por favor siga el Orden*"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/LinearPasos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

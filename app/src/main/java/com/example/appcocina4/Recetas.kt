@@ -2,7 +2,12 @@ package com.example.appcocina4
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.view.View.LAYOUT_DIRECTION_LOCALE
+import android.text.*
 import android.media.Image
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +18,9 @@ import android.widget.*
 import androidx.annotation.Dimension
 import androidx.core.view.get
 import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.core.view.size
+import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -54,7 +61,8 @@ class Recetas() : AppCompatActivity() {
                 for (btn in listabotones){
                     if (btn.id == seleccion.id){
                         var prereceta = Intent(this, pre_receta::class.java)
-                        prereceta.putExtra("nombre", btn.text)
+                        prereceta.putExtra("nombre", btn.text.toString())
+                        println("asdasdasdasdas dasdasdasdas das das : " +btn.text)
                         startActivity(prereceta)
                         break
                     }
@@ -73,11 +81,14 @@ class Recetas() : AppCompatActivity() {
         for (l in listanombres){
             var tempbtn = crearBoton()
             tempbtn.id = index
-            tempbtn.text = l
+            tempbtn.setTextColor(android.R.color.primary_text_dark_nodisable!!)
+            tempbtn.setTextColor(getColor(R.color.design_default_color_on_secondary))
+            tempbtn.setText(l,TextView.BufferType.SPANNABLE)
 
-            //obtenerImagenBtn(l.toString(), tempbtn)
+            obtenerImagenBtn(l.toString(), tempbtn)
             listabotones.add(tempbtn)
             radiobutton.addView(tempbtn,index)
+            radiobutton.addView(TextView(baseContext))
             index+=1
         }
 
@@ -89,10 +100,10 @@ class Recetas() : AppCompatActivity() {
 
 
         tempBtn.height = 400
-        tempBtn.width = 735
-        tempBtn.textSize = 20F
+        tempBtn.width = 700
+        tempBtn.textSize = 30F
         tempBtn.setOnClickListener { btndeRecetas(p0 = View(this)) }
-        tempBtn.setPadding(0,170,0,0)
+        tempBtn.setPadding(0,0,0,0)
 
 
         return tempBtn
@@ -108,9 +119,7 @@ class Recetas() : AppCompatActivity() {
         }
         val localfile2 = File.createTempFile(tempNombre+"P",".jpg")
         referencia.getFile(localfile2).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
-            findViewById<ImageView>(R.id.ImagenFinal).setImageBitmap(bitmap)
-            //tempbtn.background = localfile2.get
+            tempbtn.background = Drawable.createFromPath(localfile2.absolutePath)
 
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()

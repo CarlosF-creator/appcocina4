@@ -50,7 +50,8 @@ class Pasoapaso : AppCompatActivity() {
         var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
 
         text_numPaso.text = "Paso: ${cont+1}/$numpasos"
-        text_paso.text = listapasos[cont]
+
+
 
 
         if (nombre != null){
@@ -59,7 +60,10 @@ class Pasoapaso : AppCompatActivity() {
         }else{
             println("Nombre Null")
         }
-        obtenerImagenPaso(nombreR, 0)
+        if (listapasos.isNotEmpty()){
+            text_paso.text = listapasos[cont]
+            obtenerImagenPaso(nombreR, 0)
+        }
 
 
 
