@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.firebase.ui.auth.AuthUI
 
 class MainHub : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
@@ -29,6 +30,7 @@ class MainHub : AppCompatActivity() {
         obtenerNombresRecetas()
         obtenerIngredientes()
         obtenerNombreUsuario()
+        CerrarSesion()
 
 
 
@@ -124,4 +126,17 @@ class MainHub : AppCompatActivity() {
             Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
     }
-}
+    fun CerrarSesion(){
+        var btnCerrar = findViewById<Button>(R.id.buttonCerrarSesion)
+        btnCerrar.setOnClickListener {
+            btnCerrar.isEnabled = false
+            AuthUI.getInstance().signOut(this).addOnSuccessListener {
+                startActivity(Intent(this, login::class.java))
+                Toast.makeText(this,"Hasta pronto",Toast.LENGTH_SHORT).show()
+                finish()
+            }.addOnFailureListener {
+                btnCerrar.isEnabled = true
+                Toast.makeText(this,"Ocurrio un error ${it.message}",Toast.LENGTH_SHORT).show()
+
+            }
+}}}
