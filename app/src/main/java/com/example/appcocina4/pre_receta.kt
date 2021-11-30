@@ -91,24 +91,8 @@ class pre_receta : AppCompatActivity() {
     fun btnCocinar(p0: View?) {
         if (listaimagenes.isEmpty()){
             println("la wea mala")
-        }else{
-            println("la wea wena mano")
-            if(Tcount < pasos_totales+1){
-                findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes[Tcount])
-                Tcount += 1
-            }
-            /*
-            else{
-                var pasoapaso = Intent(this, Pasoapaso::class.java)
-                pasoapaso.putExtra("lista", listapasos)
-                pasoapaso.putExtra("num", pasos_totales)
-                pasoapaso.putExtra("imagenes", listaimagenes)
-                pasoapaso.putExtra("nombreR", nombreR)
-                startActivity(pasoapaso)
-            }
-            */
         }
-        findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(null)
+
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
