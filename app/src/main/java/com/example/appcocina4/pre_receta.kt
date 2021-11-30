@@ -1,6 +1,8 @@
 package com.example.appcocina4
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,8 +10,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +24,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.safetynet.SafetyNet
 import com.google.android.gms.safetynet.SafetyNetApi.AttestationResponse
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 //import com.google.firebase.appcheck.FirebaseAppCheck
 //import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,42 +43,87 @@ class pre_receta : AppCompatActivity() {
     var tempbitmap : Bitmap? = null
     var nombreR : String? = null
     var Tcount = 0
+    var estrellas: RatingBar? = null
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_receta)
 
-        var nombre : String? = null
+        var nombre : String? = "no se encontro"
         var nombreweno : String = "no se encontro"
 
         nombre = intent.getStringExtra("nombre")
-        println("ASDasdasdasdasd :  "+ nombre)
 
         if (nombre != null){
             nombreweno = nombre.toString()
             nombreR = nombreweno
+
         }else{
             println("Nombre Null")
         }
 
+         estrellas = findViewById<RatingBar>(R.id.ratingBar)
+
+
+        estrellas!!.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener()
+        { ratingBar: RatingBar, fl: Float, b: Boolean ->
+
+
+            escribirEstrella(ratingBar.rating.toInt())
+
+            Log.d("rate", ratingBar.rating.toString())
+
+        }
+
+        obtenerEvaluaciones()
         obtenerNumeroPasos(nombreweno)
         rellenarDatos(nombre)
         obtenerDescripcion(nombreweno)
         obtenerTpreparacion(nombreweno)
         obtenerListaPasos(nombreweno)
 
+
     }
 
     //Boton Cocinar
     fun btnCocinar(p0: View?) {
+        if (listaimagenes.isEmpty()){
+            println("la wea mala")
+        }else{
+            println("la wea wena mano")
+            if(Tcount < pasos_totales+1){
+                findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes[Tcount])
+                Tcount += 1
+            }
+            /*
+            else{
+                var pasoapaso = Intent(this, Pasoapaso::class.java)
+                pasoapaso.putExtra("lista", listapasos)
+                pasoapaso.putExtra("num", pasos_totales)
+                pasoapaso.putExtra("imagenes", listaimagenes)
+                pasoapaso.putExtra("nombreR", nombreR)
+                startActivity(pasoapaso)
+            }
+            */
+        }
+        findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(null)
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
         pasoapaso.putExtra("imagenes", listaimagenes)
         pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
+
+
+
+
     }
+
+
+
+
 
     //Coloca el nombre de la receta entre otras cosas
     fun rellenarDatos(nombre: String?){
@@ -82,8 +132,11 @@ class pre_receta : AppCompatActivity() {
         if (nombre != null){
             newTitulo = nombre
         }
+
         Titulo.text = Mayusculas(newTitulo)
+
     }
+
 
     fun Mayusculas(nombreR: String):String {
         var index = 0
@@ -132,10 +185,8 @@ class pre_receta : AppCompatActivity() {
                 if (num != null){
                     pasos_totales = num.toInt()
                     println(pasos_totales)
-
-                    obtenerImagenPortada(nombreR, progressDialog)
-                    //obtenerImagenes(nombreR,progressDialog)
-
+                    //obtenerImagenes(nombreR)
+                    obtenerImagenPortada(nombreR,progressDialog)
 
 
                 }else{
@@ -312,7 +363,50 @@ class pre_receta : AppCompatActivity() {
         return tempArray
     }
 
-    fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
+
+    fun obtenerImagenes(nombreR: String) {
+
+        var count = 0
+        val nombreT = traductordeÑ(nombreR).lowercase()
+
+        println("pasos totales : " + pasos_totales)
+        while (count < pasos_totales){
+
+            var tempNombre : String= nombreT + count
+
+            println("nombre Imagen : "+ tempNombre)
+            obtenerBitmap(tempNombre,nombreR,count)
+
+            count+=1
+        }
+
+
+    }
+
+    fun obtenerBitmap(tempNombre: String,nombreR: String,count : Int){
+
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
+        var localfile = File.createTempFile(tempNombre,".jpg")
+
+        if(referencia == null){
+            println("referencia null")
+        }
+        referencia.getFile(localfile).addOnSuccessListener {
+
+            tempbitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+
+            println("count in  : "+ count)
+            listaimagenes.add(tempbitmap)
+
+
+        }.addOnFailureListener{
+            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        }.addOnCanceledListener {
+            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (Cancelado)")
+        }
+    }
+
+    fun obtenerImagenPortada(nombreR: String,pr : ProgressDialog){
 
         var tempNombre = traductordeÑ(nombreR).lowercase()
         var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
@@ -327,15 +421,15 @@ class pre_receta : AppCompatActivity() {
                 pr.dismiss()
             }
 
+
         }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la carga de imagenes",Toast.LENGTH_SHORT).show()
             if (pr.isShowing){
                 pr.dismiss()
             }
-            Toast.makeText(this,"Fallo en la carga de imagenes",Toast.LENGTH_SHORT).show()
+
         }
     }
-
-
 
     fun traductordeÑ(nombreR : String):String{
         var tempNombre = ""
@@ -350,5 +444,62 @@ class pre_receta : AppCompatActivity() {
     }
 
 
+    /*fun obtenerNombreUsuario(){
+        print("U::: ${FirebaseAuth.getInstance()}")
+        db.collection("users").get().addOnSuccessListener{ document ->
 
+            for (d in document){
+                //print("DATOS: 0 "+d.data.toString())
+                if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
+                    print("DATOS: 1 "+d.data.toString())
+                    *//*verificarUsuario(d.id.lowercase())
+                    sugerencias(d.id.lowercase())
+                    findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
+                    break*//*
+                }
+            }
+        }.addOnFailureListener{
+            print("F:::")
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
+        }
+    }*/
+
+    fun obtenerEvaluaciones(){
+        var promedio = 0
+        var count = 0
+
+        db.collection("evaluacion").get().addOnSuccessListener{ document ->
+
+            for (d in document){
+
+
+                promedio += d.getLong("puntuacion")!!.toInt();
+                count++
+
+
+
+
+            }
+            document.count()
+
+            estrellas!!.setRating((promedio/count).toFloat())
+
+        }.addOnFailureListener{
+
+            Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun escribirEstrella( numStar: Int){
+        val evaluacion = hashMapOf(
+            "user" to FirebaseAuth.getInstance().uid,
+            "puntuacion" to numStar,
+            "receta" to nombreR
+        )
+
+        db.collection("evaluacion").add(evaluacion).addOnSuccessListener { print("DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e ->print("E::: $e")}
+    }
 }
+
+
