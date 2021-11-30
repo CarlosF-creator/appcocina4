@@ -1,6 +1,7 @@
 package com.example.appcocina4
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
@@ -9,11 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 //import com.google.firebase.appcheck.FirebaseAppCheck
 //import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.eval.*
 import java.io.File
 
 
@@ -21,6 +26,9 @@ class eval : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var db_Storage = Firebase.storage.reference
     var comentarios = ArrayList<Comentario>()
+    var listanombres = ArrayList<String?>()
+    var listafavoritos = ArrayList<String?>()
+    var userID: String? = null;
 
     var commentLayout: LinearLayout? = null
     var nombreR : String? = null
@@ -32,6 +40,49 @@ class eval : AppCompatActivity() {
 
         commentLayout = findViewById(R.id.comentarios)
         nombreR = intent.getStringExtra("nombreR")
+        obtenerFavoritos()
+
+
+        switch1.setOnCheckedChangeListener { button, isChecked ->
+            if(isChecked){
+                println("Usuario : ${userID}");
+
+                db.collection("favoritos").get().addOnSuccessListener { documentos ->
+                    for(d in documentos){
+                        if(d.data["uid"] == userID){
+                            var recetas = d.data["recetas"] as ArrayList<String?>;
+                            var index = recetas.indexOf(nombreR);
+
+                            println("Favoritos: ${recetas} index ${nombreR} ${index}");
+                            if(index == -1){
+                                recetas.add(nombreR);
+                                val data = hashMapOf("recetas" to recetas)
+                                db.collection("favoritos").document(d.id).set(data, SetOptions.merge())
+                                listafavoritos.add(nombreR)
+                            }
+                        }
+                    }
+                }
+            }else{
+                println("Usuario : ${userID}");
+                db.collection("favoritos").get().addOnSuccessListener { documentos ->
+                    for(d in documentos){
+                        if(d.data["uid"] == userID){
+                            var recetas = d.data["recetas"] as ArrayList<String?>;
+                            var index = recetas.indexOf(nombreR);
+                            println("Favoritos: ${recetas} index ${nombreR} ${index}");
+                            if(index != -1){
+                                recetas.remove(nombreR);
+                                val data = hashMapOf("recetas" to recetas)
+                                db.collection("favoritos").document(d.id).set(data, SetOptions.merge())
+                                println("Documento: ${d.id}");
+                                listafavoritos.remove(nombreR)
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         var tempNombre : String = ""
         if (nombreR != null){
@@ -42,10 +93,19 @@ class eval : AppCompatActivity() {
         pr.setCancelable(false)
         pr.show()
 
+        obtenerNombresRecetas()
+        obtenerFavoritos()
         obtenerComentarios()
         obtenerImagenPortada(tempNombre,pr)
     }
 
+
+    fun btnFavorito(p0: View?){
+        var tempFavoritos = Intent(this,Favoritos::class.java)
+        tempFavoritos.putExtra("listanombres",listanombres)
+        tempFavoritos.putExtra("listafavoritos",listafavoritos)
+        startActivity(tempFavoritos)
+    }
     fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
 
         var tempNombre = traductordeÑ(nombreR).lowercase()
@@ -114,6 +174,42 @@ class eval : AppCompatActivity() {
         }else {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         }
+    }
+    fun obtenerNombresRecetas(){
+        listanombres.clear()
+        db.collection("recetas").get().addOnSuccessListener { documento ->
+            for (d in documento){
+                var temp = d.data?.get("publica").toString()
+                if (temp.toString() == "true"){
+                    listanombres.add(d.id)
+                }else{
+                    if (temp.toString() == "false"){
+
+                    }else{
+                        println("Errrrrrrrrrrrrrrooooor")
+                    }
+                }
+
+            }
+        }
+    }
+    fun obtenerFavoritos(){
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        userID = userid;
+        db.collection("favoritos").get().addOnSuccessListener {
+                documentos -> for(documento in documentos){
+            if(documento.data["uid"] == userid){
+                listafavoritos = documento.data["recetas"] as ArrayList<String?>;
+
+                if(listafavoritos.contains(nombreR)){
+                    switch1.isChecked = true;
+                }else{
+                    switch1.isChecked = false;
+                }
+            }
+        }
+        }
+
     }
 
     fun guardarComentatio(nombreR : String, text : String, user : String) {

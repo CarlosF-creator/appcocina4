@@ -12,6 +12,7 @@
         <activity android:name=".MainActivity2" >
         </activity>
         <activity android:name=".login" />
+        <activity android:name=".Favoritos" />
         <activity android:name=".CrearRecetas" />
         <activity android:name=".Select_Ingredientes" />
         <activity android:name=".Pasoapaso" />

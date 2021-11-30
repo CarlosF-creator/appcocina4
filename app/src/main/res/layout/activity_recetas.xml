@@ -30,7 +30,7 @@
 
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/buscar"
             android:layout_width="345dp"
             android:layout_height="40dp"
             android:layout_marginTop="130dp"
@@ -38,6 +38,7 @@
             android:hint="Buscar"
             android:inputType="textPersonName"
 
+            android:onClick="filtrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
+            app:layout_constraintTop_toBottomOf="@+id/buscar">
 
 
             <Button

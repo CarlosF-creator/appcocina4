@@ -16,6 +16,7 @@ import com.firebase.ui.auth.AuthUI
 class MainHub : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var listanombres = ArrayList<String?>()
+    var listafavoritos = ArrayList<String?>()
     var listaingredientes = ArrayList<String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +26,23 @@ class MainHub : AppCompatActivity() {
         btnNuevaReceta.isVisible = false
         var txtSugerencias = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
 
-
-
         obtenerNombresRecetas()
+        obtenerFavoritos()
         obtenerIngredientes()
         obtenerNombreUsuario()
         CerrarSesion()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        obtenerFavoritos()
+    }
 
+    fun btnFavorito(p0: View?){
+        var tempFavoritos = Intent(this,Favoritos::class.java)
+        tempFavoritos.putExtra("listanombres",listanombres)
+        tempFavoritos.putExtra("listafavoritos",listafavoritos)
+        startActivity(tempFavoritos)
 
     }
 
@@ -69,6 +79,18 @@ class MainHub : AppCompatActivity() {
 
             }
         }
+    }
+    fun obtenerFavoritos(){
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+
+        db.collection("favoritos").get().addOnSuccessListener {
+                documentos -> for(documento in documentos){
+            if(documento.data["uid"] == userid){
+                listafavoritos = documento.data["recetas"] as ArrayList<String?>;
+            }
+        }
+        }
+
     }
 
     fun obtenerIngredientes(){

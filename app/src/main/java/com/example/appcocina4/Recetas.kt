@@ -24,10 +24,12 @@ import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_recetas.*
 import java.io.File
 
 class Recetas() : AppCompatActivity() {
     var nombresRecetas = ArrayList<String?>()
+    var recetasOriginales = ArrayList<String?>()
     var listabotones = ArrayList<Button>()
     var portadas = ArrayList<Image?>()
     var db = FirebaseFirestore.getInstance()
@@ -40,8 +42,10 @@ class Recetas() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recetas)
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
+        recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>;
 
         instanciarBotones()
+
     }
 
     fun instanciarBotones(){
@@ -49,6 +53,21 @@ class Recetas() : AppCompatActivity() {
         botones(nombresRecetas)
         var botonreceta = findViewById<Button>(R.id.btndereceta)
         botonreceta.isVisible = false
+    }
+
+    fun filtrar(p0: View?){
+
+        var texto = buscar.text;
+
+        if(texto.contains("l")){
+
+            nombresRecetas.remove("lasaña")
+        }
+
+        //PARA REINICIAR LA VISTA ( BORRAR LOS DATOS )
+        val intent = intent
+        finish()
+        startActivity(intent)
     }
 
     fun btndeRecetas(p0: View?){
@@ -93,6 +112,7 @@ class Recetas() : AppCompatActivity() {
         }
 
     }
+
 
     fun crearBoton():Button{
         var btnreceta = findViewById<Button>(R.id.btndereceta)
