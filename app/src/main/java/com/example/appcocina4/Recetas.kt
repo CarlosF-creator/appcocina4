@@ -4,7 +4,9 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View.LAYOUT_DIRECTION_LOCALE
 import android.text.*
@@ -13,7 +15,9 @@ import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.Gravity
 import android.view.View
+import android.view.View.TEXT_ALIGNMENT_CENTER
 import android.widget.*
 import androidx.annotation.Dimension
 import androidx.core.view.get
@@ -25,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_recetas.*
+import org.w3c.dom.Text
 import java.io.File
 
 class Recetas() : AppCompatActivity() {
@@ -34,7 +39,8 @@ class Recetas() : AppCompatActivity() {
     var portadas = ArrayList<Image?>()
     var db = FirebaseFirestore.getInstance()
     var db_Storage = Firebase.storage.reference
-
+    var context_txtRecetas = baseContext
+    var context_txtEspacio = baseContext
 
 
 
@@ -44,6 +50,9 @@ class Recetas() : AppCompatActivity() {
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
         recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>;
 
+        context_txtRecetas = findViewById<TextView>(R.id.txt_Receta).context
+        context_txtEspacio = findViewById<TextView>(R.id.txtEspacio).context
+
         instanciarBotones()
 
     }
@@ -52,6 +61,7 @@ class Recetas() : AppCompatActivity() {
         listabotones.clear()
         botones(nombresRecetas)
         var botonreceta = findViewById<Button>(R.id.btndereceta)
+        findViewById<TextView>(R.id.txt_Receta).isVisible = false
         botonreceta.isVisible = false
     }
 
@@ -96,19 +106,40 @@ class Recetas() : AppCompatActivity() {
 
     fun botones(listanombres : ArrayList<String?>){
         var radiobutton = findViewById<RadioGroup>(R.id.radiobutton)
-        var index : Int= 0
+        var index : Int= 1
         for (l in listanombres){
+            var temptxt = TextView(context_txtRecetas)
+            var tempEspacio = TextView(context_txtEspacio)
+            tempEspacio.textSize = 17F
+
+
+            temptxt.gravity = Gravity.CENTER
+            temptxt.setTextColor(Color.WHITE)
+            temptxt.fontFeatureSettings = R.font.anton.toString()
+            temptxt.setBackgroundResource(R.color.browser_actions_divider_color!!)
+
+
+            temptxt.setText(l.toString().uppercase())
+
+            temptxt.textSize = 25F
+
+
+
             var tempbtn = crearBoton()
-            tempbtn.id = index
-            tempbtn.setTextColor(android.R.color.primary_text_dark_nodisable!!)
-            tempbtn.setTextColor(getColor(R.color.design_default_color_on_secondary))
-            tempbtn.setText(l,TextView.BufferType.SPANNABLE)
+
+            tempbtn.id = index+1
+            tempbtn.setText(l.toString())
+            tempbtn.textSize = 0F
 
             obtenerImagenBtn(l.toString(), tempbtn)
+
+
             listabotones.add(tempbtn)
-            radiobutton.addView(tempbtn,index)
-            radiobutton.addView(TextView(baseContext))
-            index+=1
+            radiobutton.addView(temptxt,index)
+            radiobutton.addView(tempbtn,index+1)
+            radiobutton.addView(tempEspacio,index+2)
+
+            index+=3
         }
 
     }
