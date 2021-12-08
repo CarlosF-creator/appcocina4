@@ -31,53 +31,93 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TableLayout
-            android:id="@+id/LinearIngredientes"
+        <ListView
+            android:id="@+id/listviews"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6">
+            app:layout_constraintTop_toBottomOf="@+id/textView6" >
 
-            <TableRow
-                android:id="@+id/TablaTxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <TextView
+                android:id="@+id/txtprueba"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="asdasdasdsda" />
+        </ListView>
 
-                <TextView
-                    android:id="@+id/txt_tipoing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Vegetal:"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-            </TableRow>
+<!--        <TableLayout-->
+<!--            android:id="@+id/LinearIngredientes"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:layout_marginBottom="32dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView6">-->
 
-            <TableRow
-                android:id="@+id/TablaCheck"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+<!--            <TableRow-->
+<!--                android:id="@+id/TablaTxt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1">-->
 
-                <CheckBox
-                    android:id="@+id/checkBoxTemp"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Acelga" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_tipoing"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Vegetal:"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="20sp" />-->
+<!--            </TableRow>-->
+
+<!--            <TableRow-->
+<!--                android:id="@+id/TablaCheck"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="horizontal">-->
 
 
-            </TableRow>
+<!--                <com.google.android.material.chip.ChipGroup-->
+<!--                    android:id="@+id/Chipgroup"-->
+<!--                    android:layout_width="314dp"-->
+<!--                    android:layout_height="108dp"-->
+<!--                    android:layout_weight="1">-->
 
-        </TableLayout>
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/checkBoxTemp3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="CheckBox" />-->
+
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/checkBoxTemp2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="CheckBox" />-->
+
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/checkBoxTemp1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Acelga" />-->
+<!--                </com.google.android.material.chip.ChipGroup>-->
+<!--            </TableRow>-->
+
+<!--        </TableLayout>-->
 
         <Button
             android:id="@+id/button"

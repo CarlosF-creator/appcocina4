@@ -116,12 +116,12 @@ class Recetas() : AppCompatActivity() {
             temptxt.gravity = Gravity.CENTER
             temptxt.setTextColor(Color.WHITE)
             temptxt.fontFeatureSettings = R.font.anton.toString()
-            temptxt.setBackgroundResource(R.color.browser_actions_divider_color!!)
+            temptxt.setBackgroundResource(R.color.common_google_signin_btn_text_dark_disabled!!)
 
 
             temptxt.setText(l.toString().uppercase())
 
-            temptxt.textSize = 25F
+            temptxt.textSize = 24F
 
 
 
@@ -129,9 +129,13 @@ class Recetas() : AppCompatActivity() {
 
             tempbtn.id = index+1
             tempbtn.setText(l.toString())
+
             tempbtn.textSize = 0F
 
+
             obtenerImagenBtn(l.toString(), tempbtn)
+
+
 
 
             listabotones.add(tempbtn)
@@ -171,6 +175,7 @@ class Recetas() : AppCompatActivity() {
         val localfile2 = File.createTempFile(tempNombre+"P",".jpg")
         referencia.getFile(localfile2).addOnSuccessListener {
             tempbtn.background = Drawable.createFromPath(localfile2.absolutePath)
+
 
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()
