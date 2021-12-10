@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.activity_recetas.*
 import org.w3c.dom.Text
 import java.io.File
 
-class Recetas() : AppCompatActivity() {
+class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
     var nombresRecetas = ArrayList<String?>()
     var recetasOriginales = ArrayList<String?>()
     var listabotones = ArrayList<Button>()
@@ -41,6 +41,10 @@ class Recetas() : AppCompatActivity() {
     var db_Storage = Firebase.storage.reference
     var context_txtRecetas = baseContext
     var context_txtEspacio = baseContext
+    var context_btn = baseContext
+
+
+    var tempArray = ArrayList<String?>()
 
 
 
@@ -50,38 +54,75 @@ class Recetas() : AppCompatActivity() {
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
         recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>;
 
-        context_txtRecetas = findViewById<TextView>(R.id.txt_Receta).context
-        context_txtEspacio = findViewById<TextView>(R.id.txtEspacio).context
+        var botonreceta = findViewById<Button>(R.id.btndereceta)
+        var temptxtreceta = findViewById<TextView>(R.id.txt_Receta)
+        var temptxtespacio = findViewById<TextView>(R.id.txtEspacio)
+
+
+
+
+
+        context_btn = botonreceta.context
+        context_txtRecetas = temptxtreceta.context
+        context_txtEspacio = temptxtespacio.context
+
+        botonreceta.isVisible = false
+        temptxtespacio.isVisible = false
+        temptxtreceta.isVisible = false
+
+        var txtBuscar = findViewById<SearchView>(R.id.Buscador)
 
         instanciarBotones()
 
+        txtBuscar.setOnQueryTextListener(this)
+
+    }
+
+    fun Buscador(txtBuscar : String){
+        var largo = txtBuscar.length
+        var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
+
+        if (largo == 0){
+
+            instanciarBotones()
+
+        } else{
+            tempArray.clear()
+            for (l in nombresRecetas){
+                if (l.toString().lowercase().contains(txtBuscar.lowercase())){
+                    tempArray.add(l.toString().lowercase())
+                }
+            }
+
+            listabotones.clear()
+            botones(tempArray)
+        }
     }
 
     fun instanciarBotones(){
         listabotones.clear()
+
         botones(nombresRecetas)
-        var botonreceta = findViewById<Button>(R.id.btndereceta)
-        findViewById<TextView>(R.id.txt_Receta).isVisible = false
-        botonreceta.isVisible = false
+
     }
 
     fun filtrar(p0: View?){
 
-        var texto = buscar.text;
+        //var texto = buscar.text;
 
-        if(texto.contains("l")){
+        //if(texto.contains("l")){
 
-            nombresRecetas.remove("lasaña")
-        }
+        //    nombresRecetas.remove("lasaña")
+        //}
 
         //PARA REINICIAR LA VISTA ( BORRAR LOS DATOS )
-        val intent = intent
-        finish()
-        startActivity(intent)
+       // val intent = intent
+        //finish()
+        //startActivity(intent)
     }
 
     fun btndeRecetas(p0: View?){
-        var radiobutton = findViewById<RadioGroup>(R.id.radiobutton)
+        var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
         var a :Int= 0
 
         while (a < radiobutton.size){
@@ -105,8 +146,9 @@ class Recetas() : AppCompatActivity() {
 
 
     fun botones(listanombres : ArrayList<String?>){
-        var radiobutton = findViewById<RadioGroup>(R.id.radiobutton)
-        var index : Int= 1
+        var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
+        radiobutton.removeAllViewsInLayout()
+        var index : Int= 0
         for (l in listanombres){
             var temptxt = TextView(context_txtRecetas)
             var tempEspacio = TextView(context_txtEspacio)
@@ -150,8 +192,8 @@ class Recetas() : AppCompatActivity() {
 
 
     fun crearBoton():Button{
-        var btnreceta = findViewById<Button>(R.id.btndereceta)
-        var tempBtn : Button = Button(btnreceta.context)
+
+        var tempBtn : Button = Button(context_btn)
 
 
         tempBtn.height = 400
@@ -193,5 +235,14 @@ class Recetas() : AppCompatActivity() {
             }
         }
         return tempNombre
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        Buscador(newText.toString())
+        return false
     }
 }

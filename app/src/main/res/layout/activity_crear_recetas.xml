@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="33dp"
-            android:layout_marginEnd="175dp"
+            android:layout_marginEnd="150dp"
             android:ems="10"
             android:inputType="numberSigned"
             android:textSize="20sp"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="115dp"
+            android:layout_marginEnd="100dp"
             android:ems="10"
             android:inputType="numberSigned"
             android:nextFocusDown="@id/btn_Confirmar"
@@ -94,11 +94,10 @@
 
         <TextView
             android:id="@+id/textView19"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"
             android:text="Numero de Pasos :"
             android:textColor="#EFEFEF"
             android:textSize="20sp"
@@ -108,11 +107,10 @@
 
         <TextView
             android:id="@+id/textView23"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
             android:text="Tiempo de Preparacion :"
             android:textColor="#EFEFEF"
             android:textSize="20sp"
@@ -316,7 +314,7 @@
 
                 <Button
                     android:id="@+id/btn_Imagen"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="btn_SubirImagen"
@@ -336,7 +334,7 @@
 
                 <TextView
                     android:id="@+id/Espacio"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:text="-------------------------------------------------------------------------------------------------------------" />
@@ -346,20 +344,22 @@
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="8dp"
             android:text="Tamaño de Imagen Recomendada : ( 280 x 170 )*"
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/btnImagenPortada"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Confirmar" />
 
         <TextView
             android:id="@+id/textView20"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"

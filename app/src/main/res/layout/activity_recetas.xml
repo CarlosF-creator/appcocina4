@@ -22,39 +22,40 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="24dp"
-            android:background="#33B5B5B5"
+            android:background="#59373737"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
 
-        <EditText
-            android:id="@+id/buscar"
-            android:layout_width="345dp"
+        <SearchView
+            android:id="@+id/Buscador"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="130dp"
-            android:ems="10"
-            android:hint="Buscar"
-            android:inputType="textPersonName"
-
-            android:onClick="filtrar"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="#80222222"
+            app:layout_constraintBottom_toTopOf="@+id/radiobutton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
-        <RadioGroup
+        <LinearLayout
             android:id="@+id/radiobutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="60dp"
             android:gravity="center|top"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buscar">
+            app:layout_constraintTop_toBottomOf="@+id/Buscador">
 
 
             <TextView
@@ -65,7 +66,7 @@
                 android:background="#80222222"
                 android:fontFamily="@font/anton"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="0"
                 android:textColor="@color/Letras_Blancas"
                 android:textSize="24sp" />
 
@@ -91,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-        </RadioGroup>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
