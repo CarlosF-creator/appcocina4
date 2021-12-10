@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondohub4"
+    android:fillViewport="true"
+    tools:context=".MainHub"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="216dp"
+            android:layout_height="141dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+
+        <Button
+            android:id="@+id/buttoningredientes"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btningredientes"
+            android:fontFamily="@font/anton"
+            android:onClick="btningredientes"
+            android:text="Cocina con tus Ingredientes"
+            android:textAllCaps="false"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/buttonrecetas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Nombre_usuario" />
+
+        <Button
+            android:id="@+id/buttonrecetas"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/btnrecetas2"
+            android:fontFamily="@font/anton"
+            android:onClick="btnrecetas"
+            android:text="Mira todas\n las Recetas"
+            android:textAllCaps="false"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttoningredientes" />
+
+        <Button
+            android:id="@+id/buttonfavoritos"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/btnfav"
+            android:fontFamily="@font/anton"
+            android:onClick="btnFavorito"
+            android:text="Mis Favoritos"
+            android:textAllCaps="false"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonrecetas" />
+
+        <Button
+            android:id="@+id/botonNuevaReceta"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/btncrearrecetaeceta"
+            android:fontFamily="@font/anton"
+            android:onClick="btnNuevaReceta"
+            android:text="Crear Nueva\n Receta"
+            android:textAllCaps="false"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonsugerencias" />
+
+
+        <Button
+            android:id="@+id/buttonsugerencias"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="45dp"
+            android:text="enviar sugerencias"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLinesugerencias" />
+
+        <EditText
+            android:id="@+id/editTextTextMultiLinesugerencias"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="7dp"
+            android:background="#31000000"
+            android:backgroundTint="#000000"
+            android:clickable="true"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Sugerencias"
+            android:inputType="textMultiLine"
+            android:textAlignment="gravity"
+            android:textColorHint="#D6D6D6"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonsugerencias"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonfavoritos" />
+
+        <TextView
+            android:id="@+id/Nombre_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/anton"
+            android:text="Bienvenido :"
+            android:textColor="@color/Letras_Blancas"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttoningredientes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <Button
+            android:id="@+id/buttonCerrarSesion"
+            android:layout_width="35dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="232dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#00FFFFFF"
+            android:foreground="@drawable/cerrar"
+            android:paddingLeft="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

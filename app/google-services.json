@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "730908180957",
+    "project_id": "kuzinna-d27d7",
+    "storage_bucket": "kuzinna-d27d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730908180957:android:0ba2f277a4f9119421f634",
+        "android_client_info": {
+          "package_name": "com.example.appcocina4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730908180957-mqt7efpnre1gr8ed2ft1iq8jitr1mkd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi7jR62hoS4njg2leDupwsx1eyv0xk7-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730908180957-mqt7efpnre1gr8ed2ft1iq8jitr1mkd0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/posiblefondo1"
+    android:fillViewport="true"
+    tools:context=".Pasoapaso">
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Pasoapaso">
+
+        <ImageView
+            android:id="@+id/Imagen_Paso"
+            android:layout_width="328dp"
+            android:layout_height="190dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/text_paso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textNumPasos"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="36dp"
+            android:text="Paso:  0/10"
+            android:textAlignment="center"
+            android:textColor="#EFEFEF"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/Imagen_Paso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.739" />
+
+        <Button
+            android:id="@+id/btnAtras"
+            android:layout_width="130dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="28dp"
+            android:foreground="@android:drawable/ic_media_previous"
+            android:foregroundGravity="left|center"
+            android:onClick="btnAtras"
+            android:paddingStart="20dp"
+            android:text="Atras"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnSiguiente"
+            android:layout_width="130dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="28dp"
+            android:foreground="@android:drawable/ic_media_next"
+            android:foregroundGravity="center|right"
+            android:onClick="btnSiguiente"
+            android:paddingRight="25dp"
+            android:text="Siguente"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/text_paso"
+            android:layout_width="324dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="11dp"
+            android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cada lámina, otra vez la bechamel y así hasta tener 3 pisos. Se pueden hacer las capas de lasaña que quieras, bueno las que te permita la fuente. Finalmente rematamos con una capa generosa de bechamel. Y para aquellos que le guste el queso, rallamos aquel que más os guste, que sea especial para gratinar. Os recomiendo un queso curadito tipo parmesano. "
+            android:textColor="#EFEFEF"
+            android:textColorHint="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAtras"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="190dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="16dp"
+            android:background="#000000"
+            android:backgroundTint="#33B5B5B5"
+            app:layout_constraintBottom_toTopOf="@+id/textNumPasos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
