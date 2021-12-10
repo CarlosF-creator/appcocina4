@@ -46,6 +46,7 @@ class pre_receta : AppCompatActivity() {
     var estrellas: RatingBar? = null
 
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,18 +65,18 @@ class pre_receta : AppCompatActivity() {
             println("Nombre Null")
         }
 
-         estrellas = findViewById<RatingBar>(R.id.ratingBar)
+        estrellas = findViewById<RatingBar>(R.id.ratingBar)
 
 
-        estrellas!!.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener()
-        { ratingBar: RatingBar, fl: Float, b: Boolean ->
+       /*estrellas!!.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener()
+       { ratingBar: RatingBar, fl: Float, b: Boolean ->
 
 
-            escribirEstrella(ratingBar.rating.toInt())
+           escribirEstrella(ratingBar.rating.toInt())
 
-            Log.d("rate", ratingBar.rating.toString())
+           Log.d("rate", ratingBar.rating.toString())
 
-        }
+       }*/
 
         obtenerEvaluaciones()
         obtenerNumeroPasos(nombreweno)
@@ -91,8 +92,24 @@ class pre_receta : AppCompatActivity() {
     fun btnCocinar(p0: View?) {
         if (listaimagenes.isEmpty()){
             println("la wea mala")
+        }else{
+            println("la wea wena mano")
+            if(Tcount < pasos_totales+1){
+                findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(listaimagenes[Tcount])
+                Tcount += 1
+            }
+            /*
+            else{
+                var pasoapaso = Intent(this, Pasoapaso::class.java)
+                pasoapaso.putExtra("lista", listapasos)
+                pasoapaso.putExtra("num", pasos_totales)
+                pasoapaso.putExtra("imagenes", listaimagenes)
+                pasoapaso.putExtra("nombreR", nombreR)
+                startActivity(pasoapaso)
+            }
+            */
         }
-
+        findViewById<ImageView>(R.id.Imagen_Portada).setImageBitmap(null)
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
@@ -461,8 +478,6 @@ class pre_receta : AppCompatActivity() {
                 count++
 
 
-
-
             }
             document.count()
 
@@ -474,7 +489,7 @@ class pre_receta : AppCompatActivity() {
         }
     }
 
-    fun escribirEstrella( numStar: Int){
+    /* fun escribirEstrella( numStar: Int){
         val evaluacion = hashMapOf(
             "user" to FirebaseAuth.getInstance().uid,
             "puntuacion" to numStar,
@@ -483,7 +498,6 @@ class pre_receta : AppCompatActivity() {
 
         db.collection("evaluacion").add(evaluacion).addOnSuccessListener { print("DocumentSnapshot successfully written!") }
             .addOnFailureListener { e ->print("E::: $e")}
-    }
+    } */
 }
-
 
