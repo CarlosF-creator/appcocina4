@@ -53,6 +53,7 @@
             android:rating="0"
             android:clickable="true"
             android:stepSize="1"
+            android:isIndicator="true"
             app:layout_constraintBottom_toTopOf="@+id/Titulo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"
@@ -61,11 +62,10 @@
 
         <TextView
             android:id="@+id/Titulo"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:fontFamily="@font/anton"
             android:gravity="center"
             android:text="Lasaña"
             android:textColor="#EFEFEF"
@@ -83,7 +83,6 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="2dp"
-            android:background="#331B1B1B"
             android:text="Este clásico de la cocina es famoso en todo el mundo, no sólo en Italia. Ideal para llevar en el tupper al trabajo o al colegio, y que sin duda triunfa entre los más pequeños de casa."
             android:textColor="#EFEFEF"
             android:textSize="20sp"
@@ -100,7 +99,6 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
-            android:background="#331B1B1B"
             android:text="Tiempo de Preparacion: 70 min"
             android:textColor="#EFEFEF"
             android:textSize="20sp"
@@ -116,11 +114,10 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="30dp"
-            android:fontFamily="@font/anton"
             android:gravity="center"
             android:text="Ingedientes "
             android:textColor="#EFEFEF"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -138,52 +135,72 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearing"
+        <TableLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="15dp"
-            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/button8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Txt_Ingredientes">
 
-            <LinearLayout
-                android:id="@+id/linearing1"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <CheckBox
-                    android:id="@+id/checkBoxing"
-                    android:layout_width="match_parent"
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="CheckBox"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    android:text="CheckBox" />
 
-            <LinearLayout
-                android:id="@+id/linearing2"
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textViewdetalle"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/checkBox17"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+
+                <CheckBox
+                    android:id="@+id/checkBox15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CheckBox" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

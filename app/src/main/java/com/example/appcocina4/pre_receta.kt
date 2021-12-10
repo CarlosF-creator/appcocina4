@@ -44,9 +44,9 @@ class pre_receta : AppCompatActivity() {
     var Tcount = 0
     var estrellas: RatingBar? = null
 
+
     var Check1 = baseContext
     var TxtIng = baseContext
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,6 @@ class pre_receta : AppCompatActivity() {
 
         tempcheck.isVisible = false
         temptextview.isVisible = false
-
 
         var nombre : String? = "no se encontro"
         var nombreweno : String = "no se encontro"
@@ -79,7 +78,7 @@ class pre_receta : AppCompatActivity() {
          estrellas = findViewById<RatingBar>(R.id.ratingBar)
 
 
-        estrellas!!.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener()
+        /*estrellas!!.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener()
         { ratingBar: RatingBar, fl: Float, b: Boolean ->
 
 
@@ -87,7 +86,7 @@ class pre_receta : AppCompatActivity() {
 
             Log.d("rate", ratingBar.rating.toString())
 
-        }
+            }*/
 
         obtenerEvaluaciones()
         obtenerNumeroPasos(nombreweno)
@@ -96,7 +95,6 @@ class pre_receta : AppCompatActivity() {
         obtenerTpreparacion(nombreweno)
         obtenerListaPasos(nombreweno)
         obtenerIngredientes(nombreweno)
-
 
     }
 
@@ -117,6 +115,9 @@ class pre_receta : AppCompatActivity() {
 
 
     }
+
+
+
 
 
     //Coloca el nombre de la receta entre otras cosas
@@ -179,6 +180,7 @@ class pre_receta : AppCompatActivity() {
                 if (num != null){
                     pasos_totales = num.toInt()
                     println(pasos_totales)
+
                     obtenerImagenPortada(nombreR,progressDialog)
 
 
@@ -217,7 +219,6 @@ class pre_receta : AppCompatActivity() {
         if (nombreR != "no se encontro") {
             db.collection("recetas").document(nombreR).get().addOnSuccessListener { inst ->
                 val des = inst.data?.get("descripcion").toString()
-
                 var txt_des = findViewById<TextView>(R.id.Txt_Descripcion)
                 if (des != null){
                     txt_des.text = des
@@ -356,7 +357,6 @@ class pre_receta : AppCompatActivity() {
         return tempArray
     }
 
-
     fun obtenerImagenPortada(nombreR: String,pr : ProgressDialog){
 
         var tempNombre = traductordeÑ(nombreR).lowercase()
@@ -434,7 +434,7 @@ class pre_receta : AppCompatActivity() {
         }
     }
 
-    fun escribirEstrella( numStar: Int){
+    /*fun escribirEstrella( numStar: Int){
         val evaluacion = hashMapOf(
             "user" to FirebaseAuth.getInstance().uid,
             "puntuacion" to numStar,
@@ -443,8 +443,7 @@ class pre_receta : AppCompatActivity() {
 
         db.collection("evaluacion").add(evaluacion).addOnSuccessListener { print("DocumentSnapshot successfully written!") }
             .addOnFailureListener { e ->print("E::: $e")}
-    }
-
+    }*/
 
     fun obtenerIngredientes(nombreR : String){
         if (nombreR != "no se encontro") {
@@ -502,8 +501,6 @@ class pre_receta : AppCompatActivity() {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
         }
     }
-
-
 }
 
 
