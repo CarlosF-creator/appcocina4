@@ -168,6 +168,8 @@ class pre_receta : AppCompatActivity() {
         }
     }
 
+
+
     //Obtenemos el numero de pasos desde la base de datos
     fun obtenerNumeroPasos(nombreR : String) {
         if (nombreR != "no se encontro") {
