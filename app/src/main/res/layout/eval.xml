@@ -9,21 +9,15 @@
     android:fillViewport="true"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
-
         tools:context=".eval">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ImagenFinal"
             android:layout_width="322dp"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
@@ -34,7 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             app:srcCompat="@drawable/posiblefondodecarga" />
-
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
@@ -51,8 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-
-
         <Button
             android:id="@+id/button5"
             android:layout_width="119dp"
@@ -61,6 +52,7 @@
             android:layout_marginEnd="145dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/white"
+            android:onClick="btnFavorito"
             android:text="Ir a recetas favoritas"
             android:textColor="#4CAF50"
             app:layout_constraintBottom_toTopOf="@+id/switch1"
@@ -69,25 +61,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
-
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="118dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="144dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="149dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="113dp"
             android:elegantTextHeight="false"
             android:text="DISFRUTA!!!"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="34sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/imageView3"
+            app:layout_constraintBottom_toTopOf="@+id/ImagenFinal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:id="@+id/comentarios"
             android:layout_width="0dp"
@@ -101,9 +90,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
-
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/comentarLayout"
             android:layout_width="0dp"
@@ -116,9 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
-
         </LinearLayout>
-
         <Button
             android:id="@+id/button4"
             android:layout_width="122dp"
@@ -128,6 +113,7 @@
             android:layout_marginEnd="145dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="#FCFFFFFF"
+            android:onClick="btnSalir"
             android:text="SALIR"
             android:textAlignment="center"
             android:textColor="#4CAF50"
@@ -137,7 +123,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comentarBtn" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comentario"
             android:layout_width="match_parent"
@@ -150,15 +135,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comentarioText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="comenta..." />
-
         </com.google.android.material.textfield.TextInputLayout>
-
         <RatingBar
             android:id="@+id/ratingBar2"
             android:layout_width="wrap_content"
@@ -173,9 +155,7 @@
             app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
         <Button
             android:id="@+id/comentarBtn"
@@ -190,7 +170,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comentario" />
-
         <TextView
             android:id="@+id/textView21"
             android:layout_width="0dp"
@@ -203,6 +182,5 @@
             app:layout_constraintBottom_toTopOf="@+id/comentario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
