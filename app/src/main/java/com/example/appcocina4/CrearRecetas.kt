@@ -29,6 +29,7 @@ class CrearRecetas : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var db_Storage = Firebase.storage.reference
     var listaPasos = ArrayList<EditText>()
+    var listap = ArrayList<String?>()
     var temptablecontext1 = baseContext
     var temptablecontext2 = baseContext
     var temptablecontext3 = baseContext
@@ -141,21 +142,17 @@ class CrearRecetas : AppCompatActivity() {
                     "publica" to false
                 )
             ).addOnSuccessListener {
+
                 if (progressDialog.isShowing) {
                     progressDialog.dismiss()
                 }
-                Toast.makeText(
-                    applicationContext,
-                    "Receta Creada Correctamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-                instanciarPasos(edt_Npasos.text.toString().toInt())
+
+                Toast.makeText(applicationContext, "Receta Creada Correctamente", Toast.LENGTH_SHORT).show()
+                obtenerListaPasos(newtitulo, edt_Npasos.text.toString().toInt())
+
             }.addOnFailureListener {
-                Toast.makeText(
-                    applicationContext,
-                    "Ocurrio un Error, intentelo mas tarde",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -184,8 +181,11 @@ class CrearRecetas : AppCompatActivity() {
             tempPaso.id = index
             tempPaso.hint = "Explicacion del Paso " + index
             tempPaso.textSize = 20F
-            tempPaso.width = 1000
+            tempPaso.width = 925
 
+            if (listap.isNotEmpty()){
+                tempPaso.setText(listap[index-1])
+            }
 
             listaPasos.add(tempPaso)
 
@@ -199,17 +199,17 @@ class CrearRecetas : AppCompatActivity() {
             temptxt.width = 500
             temptxt.textSize = 20F
             temptxt.setText("Paso " + index + " :")
+
             tempbtn.text = "Subir Imagen"
             tempbtn.setOnClickListener { btn_SubirImagen(p0 = View(this)) }
-            tempEspacio.height = 50
-            tempEspacio.text = "___________________________________________________"
 
+            tempEspacio.height = 50
+            tempEspacio.text = "_____________________________________________________"
 
             tempTabla1.addView(temptxt)
             tempTabla2.addView(tempPaso)
             tempTabla3.addView(tempbtn)
             tempTabla5.addView(tempEspacio)
-
 
             linearpasos.addView(tempTabla1)
             linearpasos.addView(tempTabla2)
@@ -259,13 +259,159 @@ class CrearRecetas : AppCompatActivity() {
                             tempEstado.text = "Visible : No"
                         }
                     }
-                    instanciarPasos(tempNp.text.toString().toInt())
+                    obtenerListaPasos(tempEdt.text.toString().lowercase(),tempNp.text.toString().toInt())
+
                 }
 
             }.addOnFailureListener {
                 Toast.makeText(applicationContext, "Esta receta no existe", Toast.LENGTH_SHORT)
                     .show()
             }
+    }
+
+    //Obtenemos los pasos desde la base de Datos
+    fun obtenerListaPasos(nombreR : String, npasos : Int) {
+        listap.clear()
+        if (nombreR != "no se encontro"){
+            db.collection("recetas").document(nombreR).collection("Info").document("Instrucciones")
+                .get().addOnSuccessListener { inst ->
+                    var tempnum = 1
+                    var Pasos = inst.toObject(Instrucciones::class.java)
+                    listap = Pasos?.let { obtenerInstrucciones(it) }!!
+
+                    instanciarPasos(npasos)
+                }.addOnFailureListener { _ ->
+                    println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                }}else{
+            print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+        }
+    }
+
+    //Descomponemos el Map que obtuvimos de Firebase
+    fun obtenerInstrucciones(inst: Instrucciones): ArrayList<String?> {
+        val tempArray = ArrayList<String?>()
+        if (inst.paso1 != null) {
+            tempArray.add(inst.paso1)
+        }
+        if (inst.paso2 != null) {
+            tempArray.add(inst.paso2)
+        }
+        if (inst.paso3 != null) {
+            tempArray.add(inst.paso3)
+        }
+        if (inst.paso4 != null) {
+            tempArray.add(inst.paso4)
+        }
+        if (inst.paso5 != null) {
+            tempArray.add(inst.paso5)
+        }
+        if (inst.paso6 != null) {
+            tempArray.add(inst.paso6)
+        }
+        if (inst.paso7 != null) {
+            tempArray.add(inst.paso7)
+        }
+        if (inst.paso8 != null) {
+            tempArray.add(inst.paso8)
+        }
+        if (inst.paso9 != null) {
+            tempArray.add(inst.paso9)
+        }
+        if (inst.paso10 != null) {
+            tempArray.add(inst.paso10)
+        }
+        if (inst.paso11 != null) {
+            tempArray.add(inst.paso11)
+        }
+        if (inst.paso12 != null) {
+            tempArray.add(inst.paso12)
+        }
+        if (inst.paso13 != null) {
+            tempArray.add(inst.paso13)
+        }
+        if (inst.paso14 != null) {
+            tempArray.add(inst.paso14)
+        }
+        if (inst.paso15 != null) {
+            tempArray.add(inst.paso15)
+        }
+        if (inst.paso16 != null) {
+            tempArray.add(inst.paso16)
+        }
+        if (inst.paso17 != null) {
+            tempArray.add(inst.paso17)
+        }
+        if (inst.paso18 != null) {
+            tempArray.add(inst.paso18)
+        }
+        if (inst.paso19 != null) {
+            tempArray.add(inst.paso19)
+        }
+        if (inst.paso20 != null) {
+            tempArray.add(inst.paso20)
+        }
+        if (inst.paso21 != null) {
+            tempArray.add(inst.paso21)
+        }
+        if (inst.paso22 != null) {
+            tempArray.add(inst.paso22)
+        }
+        if (inst.paso23 != null) {
+            tempArray.add(inst.paso23)
+        }
+        if (inst.paso24 != null) {
+            tempArray.add(inst.paso24)
+        }
+        if (inst.paso25 != null) {
+            tempArray.add(inst.paso25)
+        }
+        if (inst.paso26 != null) {
+            tempArray.add(inst.paso26)
+        }
+        if (inst.paso27 != null) {
+            tempArray.add(inst.paso7)
+        }
+        if (inst.paso8 != null) {
+            tempArray.add(inst.paso8)
+        }
+        if (inst.paso9 != null) {
+            tempArray.add(inst.paso9)
+        }
+        if (inst.paso10 != null) {
+            tempArray.add(inst.paso10)
+        }
+        if (inst.paso11 != null) {
+            tempArray.add(inst.paso11)
+        }
+        if (inst.paso12 != null) {
+            tempArray.add(inst.paso12)
+        }
+        if (inst.paso13 != null) {
+            tempArray.add(inst.paso13)
+        }
+        if (inst.paso14 != null) {
+            tempArray.add(inst.paso14)
+        }
+        if (inst.paso15 != null) {
+            tempArray.add(inst.paso15)
+        }
+        if (inst.paso16 != null) {
+            tempArray.add(inst.paso16)
+        }
+        if (inst.paso17 != null) {
+            tempArray.add(inst.paso17)
+        }
+        if (inst.paso18 != null) {
+            tempArray.add(inst.paso18)
+        }
+        if (inst.paso19 != null) {
+            tempArray.add(inst.paso19)
+        }
+        if (inst.paso20 != null) {
+            tempArray.add(inst.paso20)
+        }
+        return tempArray
     }
 
 

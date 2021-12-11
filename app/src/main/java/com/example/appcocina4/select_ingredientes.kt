@@ -3,16 +3,14 @@ package com.example.appcocina4
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.FirebaseFirestore
 
 class select_ingredientes : AppCompatActivity() {
     var listaingredientes = ArrayList<String?>()
     var db = FirebaseFirestore.getInstance()
+    var tipo : Int = -1
 
 
     var Check1 = baseContext
@@ -26,12 +24,18 @@ class select_ingredientes : AppCompatActivity() {
         setContentView(R.layout.activity_select_ingredientes)
 
         listaingredientes = intent.getStringArrayListExtra("listaingredientes") as ArrayList<String?>
-
+        tipo = intent.getIntExtra("tipo",-1)
 
         var tempCheck1 = findViewById<CheckBox>(R.id.check1)
         var tempCheck2 = findViewById<CheckBox>(R.id.check2)
         var tempTxtVisible= findViewById<TextView>(R.id.txtVisible)
         var tempTxtEspacio = findViewById<TextView>(R.id.txtEspacio2)
+        var tempbtn = findViewById<Button>(R.id.btn_Singredientes)
+
+
+        if (tipo == 2){
+            tempbtn.setText("Listo")
+        }
 
 
 

@@ -5,17 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 //import com.bumptech.glide.Glide
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -42,11 +41,22 @@ class pre_receta : AppCompatActivity() {
     var Tcount = 0
     var estrellas: RatingBar? = null
 
+    var Check1 = baseContext
+    var TxtIng = baseContext
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_receta)
+        var tempcheck = findViewById<CheckBox>(R.id.checkBoxing)
+        var temptextview = findViewById<TextView>(R.id.textViewdetalle)
+
+        Check1 = tempcheck.context
+        TxtIng = temptextview.context
+
+        tempcheck.isVisible = false
+        temptextview.isVisible = false
+
         var nombre : String? = "no se encontro"
         var nombreweno : String = "no se encontro"
         nombre = intent.getStringExtra("nombre")
@@ -67,6 +77,7 @@ class pre_receta : AppCompatActivity() {
         obtenerDescripcion(nombreweno)
         obtenerTpreparacion(nombreweno)
         obtenerListaPasos(nombreweno)
+        obtenerIngredientes(nombreweno)
     }
     //Boton Cocinar
     fun btnCocinar(p0: View?) {
@@ -264,74 +275,48 @@ class pre_receta : AppCompatActivity() {
         if (inst.paso27 != null) {
             tempArray.add(inst.paso7)
         }
-        if (inst.paso8 != null) {
+        if (inst.paso28 != null) {
             tempArray.add(inst.paso8)
         }
-        if (inst.paso9 != null) {
+        if (inst.paso29 != null) {
             tempArray.add(inst.paso9)
         }
-        if (inst.paso10 != null) {
+        if (inst.paso30 != null) {
             tempArray.add(inst.paso10)
         }
-        if (inst.paso11 != null) {
+        if (inst.paso31 != null) {
             tempArray.add(inst.paso11)
         }
-        if (inst.paso12 != null) {
+        if (inst.paso32 != null) {
             tempArray.add(inst.paso12)
         }
-        if (inst.paso13 != null) {
+        if (inst.paso33 != null) {
             tempArray.add(inst.paso13)
         }
-        if (inst.paso14 != null) {
+        if (inst.paso34 != null) {
             tempArray.add(inst.paso14)
         }
-        if (inst.paso15 != null) {
+        if (inst.paso35 != null) {
             tempArray.add(inst.paso15)
         }
-        if (inst.paso16 != null) {
+        if (inst.paso36 != null) {
             tempArray.add(inst.paso16)
         }
-        if (inst.paso17 != null) {
+        if (inst.paso37 != null) {
             tempArray.add(inst.paso17)
         }
-        if (inst.paso18 != null) {
+        if (inst.paso38 != null) {
             tempArray.add(inst.paso18)
         }
-        if (inst.paso19 != null) {
+        if (inst.paso39 != null) {
             tempArray.add(inst.paso19)
         }
-        if (inst.paso20 != null) {
+        if (inst.paso40 != null) {
             tempArray.add(inst.paso20)
         }
         return tempArray
     }
-    fun obtenerImagenes(nombreR: String) {
-        var count = 0
-        val nombreT = traductordeÑ(nombreR).lowercase()
-        println("pasos totales : " + pasos_totales)
-        while (count < pasos_totales){
-            var tempNombre : String= nombreT + count
-            println("nombre Imagen : "+ tempNombre)
-            obtenerBitmap(tempNombre,nombreR,count)
-            count+=1
-        }
-    }
-    fun obtenerBitmap(tempNombre: String,nombreR: String,count : Int){
-        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
-        var localfile = File.createTempFile(tempNombre,".jpg")
-        if(referencia == null){
-            println("referencia null")
-        }
-        referencia.getFile(localfile).addOnSuccessListener {
-            tempbitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            println("count in  : "+ count)
-            listaimagenes.add(tempbitmap)
-        }.addOnFailureListener{
-            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        }.addOnCanceledListener {
-            println("la wea malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (Cancelado)")
-        }
-    }
+
     fun obtenerImagenPortada(nombreR: String,pr : ProgressDialog){
         var tempNombre = traductordeÑ(nombreR).lowercase()
         var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+"P.jpg")
@@ -389,9 +374,6 @@ class pre_receta : AppCompatActivity() {
                 promedio += d.getLong("puntuacion")!!.toInt();
                 count++
 
-
-
-
             }
             document.count()
 
@@ -400,6 +382,58 @@ class pre_receta : AppCompatActivity() {
             Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
         }
     }
+    fun obtenerIngredientes(nombreR : String){
+        if (nombreR != "no se encontro") {
+            db.collection("recetas").document(nombreR).collection("Ingredientes").get().addOnSuccessListener { doc ->
+                var j = 0
+                var linear1 : LinearLayout = findViewById<LinearLayout>(R.id.linearing1)
+                var linear2 : LinearLayout = findViewById<LinearLayout>(R.id.linearing2)
 
+                while (j < doc.size()){
+
+                    var tempCheck1 : CheckBox = CheckBox(Check1)
+                    var tempdetalle : TextView = TextView(TxtIng)
+
+
+                    tempCheck1.id = j
+                    tempCheck1.textSize = 22F
+                    tempCheck1.setTextColor(Color.WHITE)
+                    tempCheck1.setText(doc.documents.get(j).id)
+
+
+                    linear1.addView(tempCheck1)
+
+                    tempdetalle.id = j
+                    tempdetalle.textSize = 22.5F
+                    tempdetalle.setTextColor(Color.WHITE)
+                    if (doc.documents.get(j).get("detalle").toString() == " "){
+                        tempdetalle.textSize = 26.5F
+                        tempdetalle.setText("     ")
+                    } else{
+                        tempdetalle.setText(doc.documents.get(j).get("detalle").toString())
+                    }
+
+                    if(doc.documents.get(j).id.length > 10){
+                        var tempEspacio : TextView = TextView(baseContext)
+                        tempEspacio.textSize = 22F
+                        tempEspacio.setText("     ")
+                        linear2.addView(tempEspacio)
+                    }
+
+
+                    linear2.addView(tempdetalle)
+
+
+                    println(doc.documents.get(j).id+"  "+ doc.documents.get(j).get("detalle").toString())
+                    j+=1
+                }
+            }.addOnFailureListener{
+                Toast.makeText(this,"Error al cargar Ingredientes, Intenta mas tarde", Toast.LENGTH_SHORT).show()
+
+            }
+        }else{
+            print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
+        }
+    }
     
 }
