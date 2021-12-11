@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Layout
@@ -39,9 +40,14 @@ class CrearRecetas : AppCompatActivity() {
     var btnSubirReceta = baseContext
     var text_Imagen = baseContext
     var text_Espacio = baseContext
+    var textdetalle = baseContext
+    var textnombre = baseContext
+    var Lineartemp = baseContext
+
     var File = 1
     var count = 0
     var portada = false
+    var j = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +60,9 @@ class CrearRecetas : AppCompatActivity() {
         var temptablett2 = findViewById<TableRow>(R.id.table2)
         var temptablett3 = findViewById<TableRow>(R.id.table3)
         var temptablett5 = findViewById<TableRow>(R.id.table5espacio)
+        var tempTextnombre = findViewById<EditText>(R.id.txtCrearIngNombre)
+        var tempTextdetalle = findViewById<EditText>(R.id.txtCrearIngDetalle)
+        var lineartemp : LinearLayout = findViewById<LinearLayout>(R.id.tempLinearIng)
 
         temptablecontext1 = temptablett1.context
         temptablecontext2 = temptablett2.context
@@ -62,6 +71,9 @@ class CrearRecetas : AppCompatActivity() {
         temptablecontextpaso1 = tempEditText.context
         temptablecontexttxt2 = tempTextView.context
         btnSubirReceta = tempBtnSubir.context
+        textdetalle = tempTextdetalle.context
+        textnombre = tempTextnombre.context
+        Lineartemp = lineartemp.context
 
         text_Espacio = tempTextespacio.context
 
@@ -69,6 +81,8 @@ class CrearRecetas : AppCompatActivity() {
         tempTextView.isVisible = false
         temptablett1.isVisible = false
         temptablett2.isVisible = false
+        lineartemp.isVisible = false
+
 
         tempBtnSubir.isVisible = false
     }
@@ -149,6 +163,7 @@ class CrearRecetas : AppCompatActivity() {
 
                 Toast.makeText(applicationContext, "Receta Creada Correctamente", Toast.LENGTH_SHORT).show()
                 obtenerListaPasos(newtitulo, edt_Npasos.text.toString().toInt())
+                obtenerIngredientes(newtitulo)
 
             }.addOnFailureListener {
 
@@ -224,8 +239,8 @@ class CrearRecetas : AppCompatActivity() {
 
     fun btnBuscar(p0: View?) {
         var tempEdt = findViewById<EditText>(R.id.edt_Titulo)
-
-        db.collection("recetas").document(tempEdt.text.toString().lowercase()).get()
+        var tempnombre = tempEdt.text.toString().lowercase()
+        db.collection("recetas").document(tempnombre).get()
             .addOnSuccessListener { tempData ->
                 var tempDes = findViewById<EditText>(R.id.edt_descripcion)
                 var tempNp = findViewById<EditText>(R.id.edt_NPasos)
@@ -259,7 +274,8 @@ class CrearRecetas : AppCompatActivity() {
                             tempEstado.text = "Visible : No"
                         }
                     }
-                    obtenerListaPasos(tempEdt.text.toString().lowercase(),tempNp.text.toString().toInt())
+                    obtenerListaPasos(tempnombre,tempNp.text.toString().toInt())
+                    obtenerIngredientes(tempnombre)
 
                 }
 
@@ -441,6 +457,7 @@ class CrearRecetas : AppCompatActivity() {
             ).addOnSuccessListener {
                 if (progressDialog.isShowing) {
                     progressDialog.dismiss()
+                    SubirIngredientes(newtitulo)
                     Toast.makeText(
                         applicationContext,
                         "Se ha guardado correctamente",
@@ -505,34 +522,88 @@ class CrearRecetas : AppCompatActivity() {
                 instruc.set(numpaso, l.text.toString())
                 index += 1
             }
-            db.collection("recetas").document(newtitulo).collection("Info")
-                .document("Instrucciones").set(
-                instruc
-            ).addOnSuccessListener {
+            db.collection("recetas").document(newtitulo).collection("Info").document("Instrucciones").set(instruc).addOnSuccessListener {
                 if (progressDialog.isShowing) {
                     progressDialog.dismiss()
                     habilitarReceta(newtitulo)
-                    Toast.makeText(
-                        applicationContext,
-                        "Se a guardado correctamente",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    SubirIngredientes(newtitulo)
+                    Toast.makeText(applicationContext, "Se a guardado correctamente", Toast.LENGTH_SHORT).show()
                 }
 
             }.addOnFailureListener {
-                Toast.makeText(
-                    applicationContext,
-                    "Ocurrio un Error, intentelo mas tarde",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
 
             }
 
         } else {
-            Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun SubirIngredientes(nombreR: String){
+        var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
+
+        var i = 1
+        while (i < linearGrande.size) {
+            var templinear : LinearLayout = linearGrande[i] as LinearLayout
+            var tempnombre : EditText = templinear[0] as EditText
+            var tempdetalle : EditText = templinear[1] as EditText
+
+            db.collection("recetas").document(nombreR).collection("Ingredientes").document(tempnombre.text.toString().lowercase()).set(
+                hashMapOf(
+                    "detalle" to tempdetalle.text.toString().lowercase()
+                )
+            ).addOnSuccessListener {
+                Toast.makeText(applicationContext, "Ingredientes Subidos correctamente", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener{
+                Toast.makeText(applicationContext, "Error al subir ingredientes", Toast.LENGTH_SHORT).show()
+            }
+            i+=1
+        }
+    }
+
+    fun obtenerIngredientes(nombreR : String){
+        if (nombreR != "no se encontro") {
+            var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
+            db.collection("recetas").document(nombreR).collection("Ingredientes").get().addOnSuccessListener { doc ->
+                var i = 1
+                while (i <= doc.size()){
+
+                    var templinear : LinearLayout = LinearLayout(Lineartemp)
+                    var tempnombre : EditText = EditText(textnombre)
+                    var tempdetalle : EditText = EditText(textdetalle)
+
+                    tempnombre.id = 1!!
+                    tempnombre.textSize = 20F
+                    tempnombre.width = 450
+                    tempnombre.setText(doc.documents[i-1].id)
+
+
+                    tempdetalle.id = 2!!
+                    tempdetalle.textSize = 20F
+                    tempdetalle.width = 450
+                    tempdetalle.setText(doc.documents[i-1].get("detalle").toString())
+
+
+                    templinear.id = i
+                    templinear.addView(tempnombre)
+                    templinear.addView(tempdetalle)
+                    linearGrande.addView(templinear)
+                    i +=1
+                }
+            }.addOnFailureListener{
+                Toast.makeText(this,"Error al cargar Ingredientes, Intenta mas tarde", Toast.LENGTH_SHORT).show()
+
+            }
+        }else{
+            print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
+        }
+    }
+
+
+
+
+    //Botones
 
     fun btn_SubirImagen(p0: View?) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -544,6 +615,40 @@ class CrearRecetas : AppCompatActivity() {
         intent.type = "*/*"
         portada = true
         startActivityForResult(intent, File)
+    }
+
+    fun btn_masIng(p0: View?){
+        var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
+        var templinear : LinearLayout = LinearLayout(Lineartemp)
+        var tempnombre : EditText = EditText(textnombre)
+        var tempdetalle : EditText = EditText(textdetalle)
+
+        tempnombre.id = 1!!
+        tempnombre.textSize = 20F
+        tempnombre.width = 450
+        tempnombre.hint = "Ingrediente "+j
+
+
+        tempdetalle.id = 2!!
+        tempdetalle.textSize = 20F
+        tempdetalle.width = 450
+        tempdetalle.hint = "Detalle "+j
+
+
+        templinear.id = j
+        templinear.addView(tempnombre)
+        templinear.addView(tempdetalle)
+        linearGrande.addView(templinear)
+
+
+        j+=1
+    }
+    fun btn_menosIng(p0: View?){
+        if (j > 1){
+            var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
+            linearGrande.removeViewAt(linearGrande.size-1)
+            j-=1
+        }
     }
 }
 

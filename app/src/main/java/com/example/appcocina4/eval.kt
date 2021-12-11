@@ -56,7 +56,7 @@ class eval : AppCompatActivity() {
 
         }
 
-        obtenerComentarios()
+        //obtenerComentarios()
 
         obtenerFavoritos()
 

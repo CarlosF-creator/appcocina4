@@ -22,6 +22,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#40222222"
             android:ems="10"
             android:hint="Titulo"
             android:inputType="textPersonName"
@@ -56,6 +57,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="33dp"
+            android:background="#40222222"
             android:ems="10"
             android:inputType="textMultiLine"
             android:textSize="20sp"
@@ -152,7 +154,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/anton"
@@ -277,6 +279,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
+            android:background="#40222222"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/btn_Guardar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -394,20 +397,20 @@
             app:layout_constraintTop_toBottomOf="@+id/btnImagenPortada" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayout_Ing"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="5dp"
+            android:background="#40222222"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btnmasing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7">
 
             <LinearLayout
+                android:id="@+id/tempLinearIng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -418,7 +421,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Ingrediente"
+                    android:hint="Ingrediente 1"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -427,7 +430,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Detalle"
+                    android:hint="Detalle 1"
                     android:inputType="textPersonName" />
 
             </LinearLayout>
@@ -441,7 +444,7 @@
             android:text="Nombre Ingrediente :"
             android:textColor="@color/Letras_Blancas"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout_Ing"
             app:layout_constraintEnd_toStartOf="@+id/textView25"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -453,7 +456,7 @@
             android:text="Detalle :"
             android:textColor="@color/Letras_Blancas"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout_Ing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView22" />
 
@@ -465,24 +468,31 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
+            android:background="#802C8115"
+            android:onClick="btn_masIng"
             android:paddingTop="2dp"
             android:text="+"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/textView24"
-            app:layout_constraintEnd_toStartOf="@+id/button7"
+            app:layout_constraintEnd_toStartOf="@+id/btnmenosing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_Ing" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btnmenosing"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="22dp"
-            android:text="Button"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:background="#80811515"
+            android:onClick="btn_menosIng"
+            android:paddingTop="2dp"
+            android:text="-"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnmasing"
-            tools:layout_editor_absoluteY="850dp" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_Ing" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
