@@ -43,6 +43,7 @@ class pre_receta : AppCompatActivity() {
 
     var Check1 = baseContext
     var TxtIng = baseContext
+    var linearlay = baseContext
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +51,13 @@ class pre_receta : AppCompatActivity() {
         setContentView(R.layout.activity_pre_receta)
         var tempcheck = findViewById<CheckBox>(R.id.checkBoxing)
         var temptextview = findViewById<TextView>(R.id.textViewdetalle)
+        var linear1 : LinearLayout = findViewById<LinearLayout>(R.id.linearing1)
 
         Check1 = tempcheck.context
         TxtIng = temptextview.context
+        linearlay = linear1.context
 
+        linear1.isVisible = false
         tempcheck.isVisible = false
         temptextview.isVisible = false
 
@@ -348,24 +352,7 @@ class pre_receta : AppCompatActivity() {
         }
         return tempNombre
     }
-    /*fun obtenerNombreUsuario(){
-        print("U::: ${FirebaseAuth.getInstance()}")
-        db.collection("users").get().addOnSuccessListener{ document ->
-            for (d in document){
-                //print("DATOS: 0 "+d.data.toString())
-                if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
-                    print("DATOS: 1 "+d.data.toString())
-                    *//*verificarUsuario(d.id.lowercase())
-                    sugerencias(d.id.lowercase())
-                    findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
-                    break*//*
-                }
-            }
-        }.addOnFailureListener{
-            print("F:::")
-            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
-        }
-    }*/
+
     fun obtenerEvaluaciones(){
         var promedio = 0
         var count = 0
@@ -385,12 +372,11 @@ class pre_receta : AppCompatActivity() {
     fun obtenerIngredientes(nombreR : String){
         if (nombreR != "no se encontro") {
             db.collection("recetas").document(nombreR).collection("Ingredientes").get().addOnSuccessListener { doc ->
+                var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearing)
                 var j = 0
-                var linear1 : LinearLayout = findViewById<LinearLayout>(R.id.linearing1)
-                var linear2 : LinearLayout = findViewById<LinearLayout>(R.id.linearing2)
-
                 while (j < doc.size()){
 
+                    var tempLinearlay : LinearLayout = LinearLayout(linearlay)
                     var tempCheck1 : CheckBox = CheckBox(Check1)
                     var tempdetalle : TextView = TextView(TxtIng)
 
@@ -398,30 +384,22 @@ class pre_receta : AppCompatActivity() {
                     tempCheck1.id = j
                     tempCheck1.textSize = 22F
                     tempCheck1.setTextColor(Color.WHITE)
-                    tempCheck1.setText(doc.documents.get(j).id)
+                    tempCheck1.setText(Mayusculas(doc.documents.get(j).id))
 
 
-                    linear1.addView(tempCheck1)
+                    tempLinearlay.addView(tempCheck1)
 
                     tempdetalle.id = j
                     tempdetalle.textSize = 22.5F
                     tempdetalle.setTextColor(Color.WHITE)
-                    if (doc.documents.get(j).get("detalle").toString() == " "){
-                        tempdetalle.textSize = 26.5F
-                        tempdetalle.setText("     ")
-                    } else{
-                        tempdetalle.setText(doc.documents.get(j).get("detalle").toString())
-                    }
-
-                    if(doc.documents.get(j).id.length > 10){
-                        var tempEspacio : TextView = TextView(baseContext)
-                        tempEspacio.textSize = 22F
-                        tempEspacio.setText("     ")
-                        linear2.addView(tempEspacio)
-                    }
+                    tempdetalle.setText(" - "+doc.documents.get(j).get("detalle").toString())
 
 
-                    linear2.addView(tempdetalle)
+
+
+                    tempLinearlay.addView(tempdetalle)
+
+                    linearGrande.addView(tempLinearlay)
 
 
                     println(doc.documents.get(j).id+"  "+ doc.documents.get(j).get("detalle").toString())

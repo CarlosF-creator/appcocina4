@@ -451,31 +451,23 @@ class CrearRecetas : AppCompatActivity() {
                 instruc.set(numpaso, l.text.toString())
                 index += 1
             }
-            db.collection("recetas").document(newtitulo).collection("Info")
-                .document("Instrucciones").set(
-                instruc
-            ).addOnSuccessListener {
+            db.collection("recetas").document(newtitulo).collection("Info").document("Instrucciones").set(instruc).addOnSuccessListener {
+
                 if (progressDialog.isShowing) {
                     progressDialog.dismiss()
+
+                    deshabilitarReceta(newtitulo)
                     SubirIngredientes(newtitulo)
-                    Toast.makeText(
-                        applicationContext,
-                        "Se ha guardado correctamente",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    Toast.makeText(applicationContext, "Se ha guardado correctamente", Toast.LENGTH_SHORT).show()
                 }
-
             }.addOnFailureListener {
-                Toast.makeText(
-                    applicationContext,
-                    "Ocurrio un Error, intentelo mas tarde",
-                    Toast.LENGTH_SHORT
-                ).show()
 
+                Toast.makeText(applicationContext, "Ocurrio un Error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT)
-                .show()
+
+            Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -492,6 +484,28 @@ class CrearRecetas : AppCompatActivity() {
                     "numeroPasos" to edt_Npasos.text.toString().toInt(),
                     "tPreparacion" to edt_Tpreparacion.text.toString().toInt(),
                     "publica" to true
+                )
+            ).addOnSuccessListener {
+                println("Se guardo todo correctamente")
+            }
+        } else {
+            Toast.makeText(applicationContext, "Faltan Datos por rellenar", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+    fun deshabilitarReceta(newtitulo: String) {
+        var edt_titulo = findViewById<EditText>(R.id.edt_Titulo)
+        var edt_descripcion = findViewById<EditText>(R.id.edt_descripcion)
+        var edt_Npasos = findViewById<EditText>(R.id.edt_NPasos)
+        var edt_Tpreparacion = findViewById<EditText>(R.id.edt_Tpreparacion)
+
+        if (edt_titulo.text.isNotEmpty() && edt_descripcion.text.isNotEmpty() && edt_Npasos.text.isNotEmpty() && edt_Tpreparacion.text.isNotEmpty()) {
+            db.collection("recetas").document(newtitulo).set(
+                hashMapOf(
+                    "descripcion" to edt_descripcion.text.toString(),
+                    "numeroPasos" to edt_Npasos.text.toString().toInt(),
+                    "tPreparacion" to edt_Tpreparacion.text.toString().toInt(),
+                    "publica" to false
                 )
             ).addOnSuccessListener {
                 println("Se guardo todo correctamente")
@@ -565,6 +579,7 @@ class CrearRecetas : AppCompatActivity() {
     fun obtenerIngredientes(nombreR : String){
         if (nombreR != "no se encontro") {
             var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
+            linearGrande.removeAllViews()
             db.collection("recetas").document(nombreR).collection("Ingredientes").get().addOnSuccessListener { doc ->
                 var i = 1
                 while (i <= doc.size()){
