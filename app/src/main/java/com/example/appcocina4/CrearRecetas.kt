@@ -198,7 +198,7 @@ class CrearRecetas : AppCompatActivity() {
             tempPaso.textSize = 20F
             tempPaso.width = 925
 
-            if (listap.isNotEmpty()){
+            if (listap.isNotEmpty() && index <= listap.size){
                 tempPaso.setText(listap[index-1])
             }
 
@@ -556,7 +556,7 @@ class CrearRecetas : AppCompatActivity() {
 
     fun SubirIngredientes(nombreR: String){
         var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
-
+        var completado = false
         var i = 1
         while (i < linearGrande.size) {
             var templinear : LinearLayout = linearGrande[i] as LinearLayout
@@ -568,11 +568,17 @@ class CrearRecetas : AppCompatActivity() {
                     "detalle" to tempdetalle.text.toString().lowercase()
                 )
             ).addOnSuccessListener {
-                Toast.makeText(applicationContext, "Ingredientes Subidos correctamente", Toast.LENGTH_SHORT).show()
+                completado = true
+
             }.addOnFailureListener{
-                Toast.makeText(applicationContext, "Error al subir ingredientes", Toast.LENGTH_SHORT).show()
+
             }
             i+=1
+        }
+        if (completado){
+            Toast.makeText(applicationContext, "Ingredientes Subidos correctamente", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(applicationContext, "Error al subir ingredientes", Toast.LENGTH_SHORT).show()
         }
     }
 

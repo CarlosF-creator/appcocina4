@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/fondo4"
     android:fillViewport="true"
-    tools:context=".select_ingredientes"
+    tools:context=".Select_Ing"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 
@@ -98,6 +98,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="32dp"
+            android:onClick="btn_buscarReceta"
             android:text="Buscar Recetas"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.example.appcocina4
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,9 +12,12 @@ import androidx.core.view.isVisible
 import androidx.core.view.size
 import com.google.firebase.firestore.FirebaseFirestore
 
-class select_ingredientes : AppCompatActivity() {
+class Select_Ing : AppCompatActivity() {
+
     var listaingredientes = ArrayList<String?>()
+    var newListaRecetas = ArrayList<String?>()
     var listaNombresR = ArrayList<String?>()
+    var listaCheck = ArrayList<CheckBox>()
     var db = FirebaseFirestore.getInstance()
     var tipo : Int = -1
 
@@ -26,7 +30,7 @@ class select_ingredientes : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_ingredientes)
+        setContentView(R.layout.activity_select_ing)
 
         listaingredientes = intent.getStringArrayListExtra("listaingredientes") as ArrayList<String?>
         listaNombresR = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
@@ -62,7 +66,13 @@ class select_ingredientes : AppCompatActivity() {
             i+=1
         }
 
+
+
     }
+
+
+
+
 
 
     fun instanciarCheck(NombreI : String, index : Int){
@@ -97,7 +107,7 @@ class select_ingredientes : AppCompatActivity() {
                     tempCheck1.setText(doc.documents.get(j).id)
 
                     linear1.addView(tempCheck1)
-
+                    listaCheck.add(tempCheck1)
                     if (j == doc.size()-1){
                         var tempTxtEspacio2 = TextView(TxtEspacio)
 
@@ -113,6 +123,7 @@ class select_ingredientes : AppCompatActivity() {
                         tempCheck2.setText(doc.documents.get(j).id)
 
                         linear2.addView(tempCheck2)
+                        listaCheck.add(tempCheck2)
                     }
                 }
                 j+=1
@@ -124,44 +135,116 @@ class select_ingredientes : AppCompatActivity() {
     }
 
     fun btn_buscarReceta(p0: View?){
-//        val progressDialog = ProgressDialog(this)
-//        progressDialog.setMessage("Cargando...")
-//        progressDialog.setCancelable(false)
-//        progressDialog.show()
-        var linear1 : LinearLayout = findViewById<LinearLayout>(R.id.linear1)
-        var linear2 : LinearLayout = findViewById<LinearLayout>(R.id.linear2)
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Cargando...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
         var tempArray = ArrayList<String?>()
+        var tempArray2 = ArrayList<String?>()
+
+        var count = 1
+        for (check in listaCheck){
+            if (check.isChecked){
+                tempArray.add(check.text.toString().lowercase())
+                println("ingrediente "+ count + " : "+ check.text.toString().lowercase())
+                count +=1
+
+            }
+        }
+
         var i = 0
-        while ( i < linear1.size){
-            if (linear1.get(i).isPressed){
-                tempArray.add(linear1.get(i).id.toString())
+        var j = 0
+        var k = 0
+        var salir = false
+
+        newListaRecetas.clear()
+        println(listaNombresR.size)
+        if (tempArray.isNotEmpty()){
+            while (j < listaNombresR.size){
+                var tempnombre = listaNombresR[j].toString().lowercase()
+                println(tempnombre)
+                tempArray2.clear()
+                db.collection("recetas").document(tempnombre).collection("Ingredientes").get().addOnSuccessListener { doc ->
+                    println("            ")
+
+                    tempArray2.clear()
+                    for (a in doc.documents){
+                        tempArray2.add(a.id)
+                    }
+                    if (tempArray2.isNotEmpty()){
+                        var tempResult : String? = filtro( tempnombre , tempArray , tempArray2)
+                        if ( tempResult != null && tempResult.isNotEmpty()) {
+                            println("Receta Agregada: "+tempResult)
+                            newListaRecetas.add(tempResult)
+                        }
+                        i+=1
+                    }
+
+
+
+                }.addOnFailureListener {
+                    Toast.makeText(this,"Algo Salio Mal :c", Toast.LENGTH_SHORT).show()
+                }.addOnCanceledListener{
+                    Toast.makeText(this,"Algo Salio Mal :c", Toast.LENGTH_SHORT).show()
+                }.addOnSuccessListener {
+
+                    if (i == listaNombresR.size  ){
+                        println("Lista : "+newListaRecetas)
+                        if (newListaRecetas.isNotEmpty()){
+                            var tempRecetas = Intent(this, Recetas::class.java)
+                            tempRecetas.putExtra("listanombres", newListaRecetas)
+                            startActivity(tempRecetas)
+                        }
+
+                    }
+                }
+                j+=1
+
+                if (j == listaNombresR.size-1 ){
+                    if (progressDialog.isShowing){
+                        progressDialog.dismiss()
+                    }
+
+                }
             }
-        }
-        i = 0
-        while ( i < linear2.size){
-            if (linear2.get(i).isPressed){
-                tempArray.add(linear2.get(i).id.toString())
-            }
+
         }
 
-        for (a in tempArray){
-            println(a)
-        }
 
-//        for (l in listaNombresR){
-//
-//            db.collection("recetas").document(l.toString().lowercase()).collection("Ingredientes").get().addOnSuccessListener {
-//
-//            }.addOnFailureListener {
-//
-//            }
-//        }
+
+
+
+
+
+
+
+
 
 
 
     }
 
 
+    // -------------- Filtra las recetas con los ingredientes de cada una y los ingredientes seleccionados ------------------------
+    fun filtro(nombreR : String, misIng : ArrayList<String?>, dbIng : ArrayList<String?>): String?{
+
+        var k = 0
+        var i = 0
+        while (i < misIng.size){
+            k = 0
+            while (k < dbIng.size){
+                //println(dbIng[k].toString().lowercase() + " = " + misIng[i].toString().lowercase())
+                if (dbIng[k].toString().lowercase().contains(misIng[i].toString().lowercase())){
+                    //println("Nuevo : "+nombreR)
+                    return nombreR
+                }
+                k += 1
+            }
+            i += 1
+        }
+        return null
+    }
 
 
 

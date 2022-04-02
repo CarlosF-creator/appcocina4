@@ -73,7 +73,7 @@
             <Button
                 android:id="@+id/btndereceta"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/lasanamala"
                 android:fontFamily="@font/anton"

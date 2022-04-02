@@ -1,5 +1,6 @@
 package com.example.appcocina4
 
+import android.app.ActionBar
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -15,9 +16,11 @@ import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.service.autofill.FieldClassification
 import android.view.Gravity
 import android.view.View
 import android.view.View.TEXT_ALIGNMENT_CENTER
+import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.Dimension
 import androidx.core.view.get
@@ -83,9 +86,7 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
         var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
 
         if (largo == 0){
-
             instanciarBotones()
-
         } else{
             tempArray.clear()
             for (l in nombresRecetas){
@@ -93,7 +94,6 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
                     tempArray.add(l.toString().lowercase())
                 }
             }
-
             listabotones.clear()
             botones(tempArray)
         }
@@ -196,9 +196,9 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
         var tempBtn : Button = Button(context_btn)
 
 
-        tempBtn.height = 400
-        tempBtn.width = 700
-        tempBtn.textSize = 30F
+        tempBtn.layoutParams = LinearLayout.LayoutParams(700,350)
+        //tempBtn.width = 600
+
         tempBtn.setOnClickListener { btndeRecetas(p0 = View(this)) }
         tempBtn.setPadding(0,0,0,0)
 

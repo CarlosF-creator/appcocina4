@@ -17,6 +17,7 @@ import com.example.appcocina4.databinding.ActivityPasoapasoBinding
 import com.example.appcocina4.databinding.ActivityPreRecetaBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.util.regex.Pattern
@@ -79,11 +80,16 @@ class Pasoapaso : AppCompatActivity() {
         pr.show()
 
         var tempNombre = traductordeÑ(nombreR).lowercase()+count
-        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
-        if(referencia == null){
-            println("xd")
+        var nombreImagen = ""
+
+        try {
+            var tempReferencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
+            nombreImagen = ".jpg"
+        }catch (e: Exception){
+            nombreImagen = ".JPG"
         }
-        val localfile2 = File.createTempFile(tempNombre,".jpg")
+        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+nombreImagen)
+        val localfile2 = File.createTempFile(tempNombre,nombreImagen)
         referencia.getFile(localfile2).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
             findViewById<ImageView>(R.id.Imagen_Paso).setImageBitmap(bitmap)

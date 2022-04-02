@@ -48,8 +48,9 @@ class MainHub : AppCompatActivity() {
 
 
     fun btningredientes(p0: View?){
-        var tempingredientes = Intent(this, select_ingredientes::class.java)
+        var tempingredientes = Intent(this, Select_Ing::class.java)
         tempingredientes.putExtra("listaingredientes", listaingredientes)
+        tempingredientes.putExtra("listanombres", listanombres)
         startActivity(tempingredientes)
     }
 
