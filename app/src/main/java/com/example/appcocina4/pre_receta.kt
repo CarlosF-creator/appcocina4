@@ -364,7 +364,7 @@ class pre_receta : AppCompatActivity() {
             }
             document.count()
 
-            estrellas!!.setRating((promedio/count).toFloat())
+            //estrellas!!.setRating((promedio/count).toFloat())
         }.addOnFailureListener{
             Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
         }
