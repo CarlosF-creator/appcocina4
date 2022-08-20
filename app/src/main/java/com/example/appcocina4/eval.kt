@@ -58,51 +58,9 @@ class eval : AppCompatActivity() {
 
         }
 
-        //obtenerComentarios()
-        obtenerNombreUsuario()
-        obtenerFavoritos()
 
 
-        switch1.setOnCheckedChangeListener { button, isChecked ->
-            if(isChecked){
-                println("Usuario : ${userID}");
 
-                db.collection("favoritos").get().addOnSuccessListener { documentos ->
-                    for(d in documentos){
-                        if(d.data["uid"] == userID){
-                            var recetas = d.data["recetas"] as ArrayList<String?>;
-                            var index = recetas.indexOf(nombreR);
-
-                            println("Favoritos: ${recetas} index ${nombreR} ${index}");
-                            if(index == -1){
-                                recetas.add(nombreR);
-                                val data = hashMapOf("recetas" to recetas)
-                                db.collection("favoritos").document(d.id).set(data, SetOptions.merge())
-                                listafavoritos.add(nombreR)
-                            }
-                        }
-                    }
-                }
-            }else{
-                println("Usuario : ${userID}");
-                db.collection("favoritos").get().addOnSuccessListener { documentos ->
-                    for(d in documentos){
-                        if(d.data["uid"] == userID){
-                            var recetas = d.data["recetas"] as ArrayList<String?>;
-                            var index = recetas.indexOf(nombreR);
-                            println("Favoritos: ${recetas} index ${nombreR} ${index}");
-                            if(index != -1){
-                                recetas.remove(nombreR);
-                                val data = hashMapOf("recetas" to recetas)
-                                db.collection("favoritos").document(d.id).set(data, SetOptions.merge())
-                                println("Documento: ${d.id}");
-                                listafavoritos.remove(nombreR)
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         var tempNombre : String = ""
         if (nombreR != null){
@@ -113,18 +71,18 @@ class eval : AppCompatActivity() {
         pr.setCancelable(false)
         pr.show()
 
-        obtenerNombresRecetas()
-        obtenerFavoritos()
+        obtenerNombreUsuario()
+        //obtenerNombresRecetas()
+
         obtenerComentarios()
         obtenerImagenPortada(tempNombre,pr)
     }
 
 
     fun btnFavorito(p0: View?){
-        var tempFavoritos = Intent(this,Favoritos::class.java)
-        tempFavoritos.putExtra("listanombres",listanombres)
-        tempFavoritos.putExtra("listafavoritos",listafavoritos)
-        startActivity(tempFavoritos)
+        var temprecetas = Intent(this, Recetas::class.java)
+        temprecetas.putExtra("listanombres", listanombres)
+        startActivity(temprecetas)
     }
     fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
 
@@ -182,7 +140,7 @@ class eval : AppCompatActivity() {
                 for (document in documents) {
                     var text = document.data?.get("text").toString()
                     var userText = document.data?.get("user").toString()
-                    // TODO: Modificar username
+
                     comentarios.add(Comentario(" "+userText+" : "+text, userText))
                 }
                 mostrarComentarios()
@@ -212,20 +170,13 @@ class eval : AppCompatActivity() {
         }
     }
     fun obtenerFavoritos(){
-        val userid = FirebaseAuth.getInstance().currentUser?.uid
-        userID = userid;
-        db.collection("favoritos").get().addOnSuccessListener {
-                documentos -> for(documento in documentos){
-            if(documento.data["uid"] == userid){
-                listafavoritos = documento.data["recetas"] as ArrayList<String?>;
-
-                if(listafavoritos.contains(nombreR)){
-                    switch1.isChecked = true;
-                }else{
-                    switch1.isChecked = false;
-                }
+        listanombres.clear()
+        db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
+            for (d in document){
+                listanombres.add(d.id)
             }
-        }
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -284,6 +235,8 @@ class eval : AppCompatActivity() {
             for (d in document){
                 if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
                     userName = d.data?.get("user").toString()
+                    userID = d.id
+                    obtenerFavoritos()
                     break
                 }
             }

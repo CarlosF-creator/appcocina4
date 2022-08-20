@@ -55,7 +55,7 @@
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/white"
             android:onClick="btnFavorito"
-            android:text="Ir a recetas favoritas"
+            android:text="Recetas favoritas"
             android:textColor="#4CAF50"
             app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,16 +152,14 @@
             android:id="@+id/ratingBar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="85dp"
+            android:layout_marginStart="57dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="86dp"
             android:clickable="true"
             android:numStars="5"
             android:progressTint="#F2FFDE3B"
             android:rating="0"
             android:stepSize="1"
             app:layout_constraintBottom_toTopOf="@+id/button5"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
@@ -192,5 +190,19 @@
             app:layout_constraintBottom_toTopOf="@+id/comentario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="55dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="57dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar2"
+            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal"
+            app:srcCompat="@drawable/corazon_vacio" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
