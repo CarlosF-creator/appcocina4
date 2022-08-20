@@ -29,10 +29,12 @@ class eval : AppCompatActivity() {
     var comentarios = ArrayList<Comentario>()
     var listanombres = ArrayList<String?>()
     var listafavoritos = ArrayList<String?>()
-    var userID: String? = null;
+    var userID: String? = null
+    var userName : String? = null
 
     var commentLayout: LinearLayout? = null
     var nombreR : String? = null
+
 
     var estrellas: RatingBar? = null
 
@@ -57,7 +59,7 @@ class eval : AppCompatActivity() {
         }
 
         //obtenerComentarios()
-
+        obtenerNombreUsuario()
         obtenerFavoritos()
 
 
@@ -179,8 +181,9 @@ class eval : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     var text = document.data?.get("text").toString()
+                    var userText = document.data?.get("user").toString()
                     // TODO: Modificar username
-                    comentarios.add(Comentario(text, "Username"))
+                    comentarios.add(Comentario(" "+userText+" : "+text, userText))
                 }
                 mostrarComentarios()
             }.addOnFailureListener { _ ->
@@ -249,10 +252,11 @@ class eval : AppCompatActivity() {
         var comentarLayout = findViewById<LinearLayout>(R.id.comentarLayout)
         var comentarioView = comentarLayout.findViewById<TextInputLayout>(R.id.comentario)
         var comantarioText = findViewById<TextInputEditText>(R.id.comentarioText)
-        
 
+
+        print(userName)
         if (comantarioText.text != null && comantarioText.text!!.isNotEmpty()) {
-            var tempComentario = Comentario(comantarioText.text.toString(), "Username")
+            var tempComentario = Comentario(comantarioText.text.toString(), userName)
             db.collection("recetas").document(nombreR.toString()).collection("Comentarios")
                 .add(tempComentario).addOnSuccessListener {
                 if (progressDialog.isShowing) {
@@ -273,6 +277,18 @@ class eval : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+    fun obtenerNombreUsuario() {
+        db.collection("users").get().addOnSuccessListener{ document ->
+            for (d in document){
+                if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
+                    userName = d.data?.get("user").toString()
+                    break
+                }
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
     }
 

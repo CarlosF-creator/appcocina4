@@ -28,6 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             app:srcCompat="@drawable/posiblefondodecarga" />
+
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="88dp"
             android:autoText="false"
-            android:text="Añadir receta a favoritas"
+            android:background="#40222222"
+            android:text="  Añadir receta a favoritas"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView21"
@@ -71,6 +73,7 @@
             android:elegantTextHeight="false"
             android:text="DISFRUTA!!!"
             android:textAlignment="center"
+            android:textColor="#EFEFEF"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/ImagenFinal"
@@ -123,6 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comentarBtn" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comentario"
             android:layout_width="match_parent"
@@ -131,16 +135,19 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="5dp"
+            android:background="#40222222"
             app:layout_constraintBottom_toTopOf="@+id/comentarBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comentarioText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="comenta..." />
         </com.google.android.material.textfield.TextInputLayout>
+
         <RatingBar
             android:id="@+id/ratingBar2"
             android:layout_width="wrap_content"
@@ -148,9 +155,10 @@
             android:layout_marginStart="85dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="86dp"
-            android:numStars="5"
-            android:rating="0"
             android:clickable="true"
+            android:numStars="5"
+            android:progressTint="#F2FFDE3B"
+            android:rating="0"
             android:stepSize="1"
             app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -170,6 +178,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comentario" />
+
         <TextView
             android:id="@+id/textView21"
             android:layout_width="0dp"
@@ -178,6 +187,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="7dp"
             android:text="Comenta aqui!"
+            android:textColor="#EFEFEF"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/comentario"
             app:layout_constraintEnd_toEndOf="parent"

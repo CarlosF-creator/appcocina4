@@ -71,7 +71,7 @@ class pre_receta : AppCompatActivity() {
             println("Nombre Null")
         }
 
-         estrellas = findViewById<RatingBar>(R.id.ratingBar)
+        estrellas = findViewById<RatingBar>(R.id.ratingBar)
 
 
 
@@ -277,46 +277,46 @@ class pre_receta : AppCompatActivity() {
             tempArray.add(inst.paso26)
         }
         if (inst.paso27 != null) {
-            tempArray.add(inst.paso7)
+            tempArray.add(inst.paso27)
         }
         if (inst.paso28 != null) {
-            tempArray.add(inst.paso8)
+            tempArray.add(inst.paso28)
         }
         if (inst.paso29 != null) {
-            tempArray.add(inst.paso9)
+            tempArray.add(inst.paso29)
         }
         if (inst.paso30 != null) {
-            tempArray.add(inst.paso10)
+            tempArray.add(inst.paso30)
         }
         if (inst.paso31 != null) {
-            tempArray.add(inst.paso11)
+            tempArray.add(inst.paso31)
         }
         if (inst.paso32 != null) {
-            tempArray.add(inst.paso12)
+            tempArray.add(inst.paso32)
         }
         if (inst.paso33 != null) {
-            tempArray.add(inst.paso13)
+            tempArray.add(inst.paso33)
         }
         if (inst.paso34 != null) {
-            tempArray.add(inst.paso14)
+            tempArray.add(inst.paso34)
         }
         if (inst.paso35 != null) {
-            tempArray.add(inst.paso15)
+            tempArray.add(inst.paso35)
         }
         if (inst.paso36 != null) {
-            tempArray.add(inst.paso16)
+            tempArray.add(inst.paso36)
         }
         if (inst.paso37 != null) {
-            tempArray.add(inst.paso17)
+            tempArray.add(inst.paso37)
         }
         if (inst.paso38 != null) {
-            tempArray.add(inst.paso18)
+            tempArray.add(inst.paso38)
         }
         if (inst.paso39 != null) {
-            tempArray.add(inst.paso19)
+            tempArray.add(inst.paso39)
         }
         if (inst.paso40 != null) {
-            tempArray.add(inst.paso20)
+            tempArray.add(inst.paso40)
         }
         return tempArray
     }
@@ -364,7 +364,7 @@ class pre_receta : AppCompatActivity() {
             }
             document.count()
 
-            //estrellas!!.setRating((promedio/count).toFloat())
+            estrellas!!.setRating((promedio/count).toFloat())
         }.addOnFailureListener{
             Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
         }

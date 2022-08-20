@@ -10,15 +10,16 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:cardCornerRadius="5dp">
 
         <TextView
             android:id="@+id/cm_item"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="18sp"
+            android:textSize="20sp"
             tools:text="Item" />
     </androidx.cardview.widget.CardView>
 

@@ -43,14 +43,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
+
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:progressTint="#FFEB3B"
-            android:stepSize="1"
             android:isIndicator="true"
+            android:progressTint="#F2FFDE3B"
+            android:stepSize="1"
             app:layout_constraintBottom_toTopOf="@+id/Titulo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"
