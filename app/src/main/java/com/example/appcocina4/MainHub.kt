@@ -24,7 +24,7 @@ class MainHub : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
         btnNuevaReceta.isVisible = false
-        var txtSugerencias = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
+
 
         obtenerNombresRecetas()
         obtenerFavoritos()
@@ -62,6 +62,11 @@ class MainHub : AppCompatActivity() {
     fun btnNuevaReceta(p0:View?){
         var crearRecetas = Intent(this, CrearRecetas::class.java)
         startActivity(crearRecetas)
+    }
+    fun btnCalculadora(p0: View?){
+        var tempCalculadora = Intent(this, Select_Ing::class.java)
+        tempCalculadora.putExtra("listaingredientes", listaingredientes)
+        startActivity(tempCalculadora)
     }
     fun obtenerNombresRecetas(){
         listanombres.clear()
@@ -105,28 +110,11 @@ class MainHub : AppCompatActivity() {
     }
 
 
-    fun sugerencias(usuario:String){
-        var btnsuge = findViewById<Button>(R.id.buttonsugerencias)
-
-        btnsuge.setOnClickListener{
-            var suge = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
-            if(suge.text.isNotEmpty()){
-                db.collection("sugerencias").document(usuario).set(
-                    hashMapOf("sugerencia" to suge.text.toString())).addOnSuccessListener {
-                    Toast.makeText(applicationContext,"La sugerencia se a enviado correctamente", Toast.LENGTH_SHORT).show()
-                }
-
-            } else{
-                Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()
-            }
-        } }
-
     fun obtenerNombreUsuario(){
         db.collection("users").get().addOnSuccessListener{ document ->
             for (d in document){
                 if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
                     verificarUsuario(d.id.lowercase())
-                    sugerencias(d.id.lowercase())
                     findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
                     break
                 }

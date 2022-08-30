@@ -51,6 +51,25 @@
             app:layout_constraintTop_toBottomOf="@+id/Nombre_usuario" />
 
         <Button
+            android:id="@+id/buttonCalculadora"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/btningredientes"
+            android:fontFamily="@font/anton"
+            android:onClick="btningredientes"
+            android:text="Calculadora"
+            android:textAllCaps="false"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonfavoritos" />
+
+        <Button
             android:id="@+id/buttonrecetas"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -89,14 +108,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonrecetas" />
 
+
         <Button
             android:id="@+id/botonNuevaReceta"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="45dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="40dp"
             android:layout_weight="1"
             android:background="@drawable/btncrearrecetaeceta"
             android:fontFamily="@font/anton"
@@ -108,45 +128,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonsugerencias" />
-
-
-        <Button
-            android:id="@+id/buttonsugerencias"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="45dp"
-            android:text="enviar sugerencias"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLinesugerencias" />
-
-        <EditText
-            android:id="@+id/editTextTextMultiLinesugerencias"
-            android:layout_width="0dp"
-            android:layout_height="82dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="45dp"
-            android:layout_marginBottom="7dp"
-            android:background="#31000000"
-            android:backgroundTint="#000000"
-            android:clickable="true"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Sugerencias"
-            android:inputType="textMultiLine"
-            android:textAlignment="gravity"
-            android:textColorHint="#D6D6D6"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonsugerencias"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonfavoritos" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonCalculadora" />
 
         <TextView
             android:id="@+id/Nombre_usuario"
