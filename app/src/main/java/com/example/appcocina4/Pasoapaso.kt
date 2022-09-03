@@ -44,7 +44,7 @@ class Pasoapaso : AppCompatActivity() {
 
         listapasos = intent.getStringArrayListExtra("lista") as ArrayList<String?>
         numpasos = intent.getIntExtra("num",-500)
-        listaimagenes = intent.getStringArrayListExtra("imagenes") as ArrayList<Bitmap>
+        //listaimagenes = intent.getStringArrayListExtra("imagenes") as ArrayList<Bitmap>
         var nombre = intent.getStringExtra("nombreR")
 
         var text_paso = findViewById<TextView>(R.id.text_paso)
@@ -63,45 +63,59 @@ class Pasoapaso : AppCompatActivity() {
         }
         if (listapasos.isNotEmpty()){
             text_paso.text = listapasos[cont]
-            obtenerImagenPaso(nombreR, 0)
+            //obtenerImagenPaso(nombreR, 0)
+            obtenerImagenesPasos(nombreR, numpasos, 0)
         }
-
-
-
-
-
     }
 
-    fun obtenerImagenPaso(nombreR: String, count: Int){
 
+    fun obtenerImagenesPasos(nombreR: String, nPasos: Int, count: Int){
+        var validador = false
         val pr = ProgressDialog(this)
         pr.setMessage("Cargando...")
         pr.setCancelable(false)
         pr.show()
+        for (i in 0..(nPasos-1)) {
 
-        var tempNombre = traductordeÑ(nombreR).lowercase()+count
-        var nombreImagen = ""
 
-        try {
-            var tempReferencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+".jpg")
-            nombreImagen = ".jpg"
-        }catch (e: Exception){
-            nombreImagen = ".JPG"
+            var tempNombre = traductordeÑ(nombreR).lowercase() + i.toString()
+            var nombreImagen = ""
+
+            try {
+                var tempReferencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre" + ".jpg")
+                nombreImagen = ".jpg"
+            } catch (e: Exception) {
+                nombreImagen = ".JPG"
+            }
+            var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre" + nombreImagen)
+            val localfile2 = File.createTempFile(tempNombre, nombreImagen)
+            referencia.getFile(localfile2).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
+                listaimagenes.add(bitmap)
+
+                println(listaimagenes.size)
+                if (listaimagenes.size == 1){
+                    aplicarImagenes(count)
+                    if (pr.isShowing){
+                        pr.dismiss()
+                    }
+                }
+
+            }.addOnFailureListener {
+
+                Toast.makeText(this, "Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()
+
+            }
         }
-        var referencia = db_Storage.child("fotos_recetas/$nombreR/$tempNombre"+nombreImagen)
-        val localfile2 = File.createTempFile(tempNombre,nombreImagen)
-        referencia.getFile(localfile2).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localfile2.absolutePath)
-            findViewById<ImageView>(R.id.Imagen_Paso).setImageBitmap(bitmap)
-            if (pr.isShowing){
-                pr.dismiss()
-            }
-        }.addOnFailureListener{
-            if (pr.isShowing){
-                pr.dismiss()
-            }
-            Toast.makeText(this,"Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()
 
+    }
+
+    fun aplicarImagenes(count: Int){
+        if (listaimagenes.size != 0){
+            findViewById<ImageView>(R.id.Imagen_Paso).setImageBitmap(listaimagenes[count])
+        }
+        else{
+            Toast.makeText(this, "Fallo al mostrar las imagenes", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -120,8 +134,8 @@ class Pasoapaso : AppCompatActivity() {
             var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
             var text_paso = findViewById<TextView>(R.id.text_paso)
             println(cont)
-            obtenerImagenPaso(nombreR , cont)
-
+            //obtenerImagenPaso(nombreR , cont)
+            aplicarImagenes(cont)
 
             text_paso.text = listapasos[cont]
             text_numPaso.text = "Paso: ${cont+1}/$numpasos"
@@ -139,8 +153,8 @@ class Pasoapaso : AppCompatActivity() {
             var text_numPaso = findViewById<TextView>(R.id.textNumPasos)
             var text_paso = findViewById<TextView>(R.id.text_paso)
             println(cont)
-            obtenerImagenPaso(nombreR , cont)
-
+            //obtenerImagenPaso(nombreR , cont)
+            aplicarImagenes(cont)
 
             text_paso.text = listapasos[cont]
             text_numPaso.text = "Paso: ${cont+1}/$numpasos"

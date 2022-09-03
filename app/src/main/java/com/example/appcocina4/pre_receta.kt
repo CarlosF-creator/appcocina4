@@ -75,7 +75,7 @@ class pre_receta : AppCompatActivity() {
 
 
 
-        obtenerEvaluaciones()
+        obtenerEvaluaciones(nombreweno)
         obtenerNumeroPasos(nombreweno)
         rellenarDatos(nombre)
         obtenerDescripcion(nombreweno)
@@ -92,7 +92,7 @@ class pre_receta : AppCompatActivity() {
         var pasoapaso = Intent(this, Pasoapaso::class.java)
         pasoapaso.putExtra("lista", listapasos)
         pasoapaso.putExtra("num", pasos_totales)
-        pasoapaso.putExtra("imagenes", listaimagenes)
+        //pasoapaso.putExtra("imagenes", listaimagenes)
         pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
     }
@@ -150,6 +150,7 @@ class pre_receta : AppCompatActivity() {
                     pasos_totales = num.toInt()
                     println(pasos_totales)
                     //obtenerImagenes(nombreR)
+
                     obtenerImagenPortada(nombreR,progressDialog)
                 }else{
                     print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
@@ -195,6 +196,8 @@ class pre_receta : AppCompatActivity() {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
         }
     }
+
+
     //Descomponemos el Map que obtuvimos de Firebase
     fun obtenerInstrucciones(inst: Instrucciones): ArrayList<String?> {
         val tempArray = ArrayList<String?>()
@@ -353,7 +356,7 @@ class pre_receta : AppCompatActivity() {
         return tempNombre
     }
 
-    fun obtenerEvaluaciones(){
+    fun obtenerEvaluaciones(nombreR: String){
         var promedio = 0
         var count = 0
         db.collection("evaluacion").get().addOnSuccessListener{ document ->

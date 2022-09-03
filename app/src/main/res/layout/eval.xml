@@ -29,35 +29,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             app:srcCompat="@drawable/posiblefondodecarga" />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="88dp"
-            android:autoText="false"
-            android:background="#40222222"
-            android:text="  Añadir receta a favoritas"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
-
         <Button
             android:id="@+id/button5"
             android:layout_width="119dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="145dp"
             android:layout_marginEnd="145dp"
-            android:layout_marginBottom="4dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#F8F8F8"
             android:onClick="btnFavorito"
             android:text="Recetas favoritas"
             android:textColor="#4CAF50"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,39 +88,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
         </LinearLayout>
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="122dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="144dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="145dp"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="#FCFFFFFF"
-            android:onClick="btnSalir"
-            android:text="SALIR"
-            android:textAlignment="center"
-            android:textColor="#4CAF50"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comentarBtn" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comentario"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="7dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="5dp"
             android:background="#40222222"
             app:layout_constraintBottom_toTopOf="@+id/comentarBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comentarioText"
@@ -166,39 +126,39 @@
         <Button
             android:id="@+id/comentarBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:onClick="btnComentar"
             android:text="Comentar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comentario" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="7dp"
             android:text="Comenta aqui!"
             android:textColor="#EFEFEF"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/comentario"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button5" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnFav"
             android:layout_width="55dp"
             android:layout_height="57dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
             android:layout_marginEnd="57dp"
             android:background="#00FFFFFF"
+            android:onClick="btnCorazon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ratingBar2"
             app:layout_constraintTop_toBottomOf="@+id/ImagenFinal"

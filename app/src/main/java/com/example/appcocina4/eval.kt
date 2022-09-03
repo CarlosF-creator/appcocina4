@@ -3,6 +3,7 @@ package com.example.appcocina4
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference
 //import com.google.firebase.appcheck.FirebaseAppCheck
 //import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -34,7 +36,7 @@ class eval : AppCompatActivity() {
 
     var commentLayout: LinearLayout? = null
     var nombreR : String? = null
-
+    var estadoCorazon : Int = 0
 
     var estrellas: RatingBar? = null
 
@@ -57,11 +59,6 @@ class eval : AppCompatActivity() {
             Log.d("rate", ratingBar.rating.toString())
 
         }
-
-
-
-
-
         var tempNombre : String = ""
         if (nombreR != null){
             tempNombre = nombreR.toString()
@@ -84,6 +81,48 @@ class eval : AppCompatActivity() {
         temprecetas.putExtra("listanombres", listanombres)
         startActivity(temprecetas)
     }
+    fun btnCorazon(p0: View?){
+        if (estadoCorazon == 1){
+            cambioCorazonFav(0)
+            cambiarEstadoFavorito(nombreR.toString(),estadoCorazon)
+        }
+        else{
+            cambioCorazonFav(1)
+            cambiarEstadoFavorito(nombreR.toString(),estadoCorazon)
+        }
+    }
+    fun btnComentar(p0: View?) {
+        var comantarioText = findViewById<TextInputEditText>(R.id.comentarioText)
+
+        print(userName)
+        if (comantarioText.text != null && comantarioText.text!!.isNotEmpty() && comantarioText.text.toString() != "") {
+            var tempComentario = Comentario(comantarioText.text.toString(), userName)
+            db.collection("recetas").document(nombreR.toString()).collection("Comentarios")
+                .add(tempComentario).addOnSuccessListener {
+                    Toast.makeText(
+                        applicationContext,
+                        "Comentario Creado Correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    comantarioText.setText("")
+                    cleanComentarios()
+                    obtenerComentarios()
+                    mostrarComentarios()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        applicationContext,
+                        "Ocurrio un Error, intentelo mas tarde",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+        else{
+            Toast.makeText(this,"Comentario vacio... Intenta escribir algo", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
     fun obtenerImagenPortada(nombreR: String, pr : ProgressDialog){
 
         var tempNombre = traductordeÑ(nombreR).lowercase()
@@ -108,40 +147,19 @@ class eval : AppCompatActivity() {
 
         }
     }
-    fun traductordeÑ(nombreR : String):String{
-        var tempNombre = ""
-        for (n in nombreR){
-            if (n.equals('ñ')){
-                tempNombre = tempNombre + 'n'
-            } else{
-                tempNombre = tempNombre + n
-            }
-        }
-        return tempNombre
-    }
 
-    fun cleanComentarios() {
-        comentarios.clear()
-        commentLayout?.removeAllViewsInLayout()
-    }
-    fun mostrarComentarios() {
-        for (comentario in comentarios) {
-            var view = layoutInflater.inflate(R.layout.comentario, null)
-            val cmItem: TextView = view.findViewById(R.id.cm_item)
-            cmItem.text = comentario.text
-            commentLayout?.addView(view)
-        }
-    }
+
+
     // obtener los comentarios de la receta
     fun obtenerComentarios() {
         if (nombreR != null) {
             db.collection("recetas").document(nombreR.toString()).collection("Comentarios").get()
-            .addOnSuccessListener { documents ->
+                .addOnSuccessListener { documents ->
                 for (document in documents) {
                     var text = document.data?.get("text").toString()
                     var userText = document.data?.get("user").toString()
 
-                    comentarios.add(Comentario(" "+userText+" : "+text, userText))
+                    comentarios.add(Comentario(""+userText+" : "+text, userText))
                 }
                 mostrarComentarios()
             }.addOnFailureListener { _ ->
@@ -151,29 +169,19 @@ class eval : AppCompatActivity() {
             print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         }
     }
-    fun obtenerNombresRecetas(){
-        listanombres.clear()
-        db.collection("recetas").get().addOnSuccessListener { documento ->
-            for (d in documento){
-                var temp = d.data?.get("publica").toString()
-                if (temp.toString() == "true"){
-                    listanombres.add(d.id)
-                }else{
-                    if (temp.toString() == "false"){
 
-                    }else{
-                        println("Errrrrrrrrrrrrrrooooor")
-                    }
-                }
-
-            }
-        }
-    }
     fun obtenerFavoritos(){
         listanombres.clear()
         db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
             for (d in document){
-                listanombres.add(d.id)
+
+                var visible = d.data?.get("visible").toString()
+                if (d.id == nombreR && visible == "true"){
+                    cambioCorazonFav(1)
+                }
+                if (visible == "true"){
+                    listanombres.add(d.id)
+                }
             }
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
@@ -181,55 +189,6 @@ class eval : AppCompatActivity() {
 
     }
 
-    fun guardarComentatio(nombreR : String, text : String, user : String) {
-        if (nombreR != "no se encontro") {
-            var tempComentario = Comentario(text, user)
-            db.collection("recetas").document(nombreR).set(tempComentario)
-        } else {
-            print("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        }
-    }
-    fun btnSalir(p0: View?){
-        finish()
-        finish()
-    }
-
-    fun btnComentar(p0: View?) {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Cargando...")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
-
-        var comentarLayout = findViewById<LinearLayout>(R.id.comentarLayout)
-        var comentarioView = comentarLayout.findViewById<TextInputLayout>(R.id.comentario)
-        var comantarioText = findViewById<TextInputEditText>(R.id.comentarioText)
-
-
-        print(userName)
-        if (comantarioText.text != null && comantarioText.text!!.isNotEmpty()) {
-            var tempComentario = Comentario(comantarioText.text.toString(), userName)
-            db.collection("recetas").document(nombreR.toString()).collection("Comentarios")
-                .add(tempComentario).addOnSuccessListener {
-                if (progressDialog.isShowing) {
-                    progressDialog.dismiss()
-                }
-                Toast.makeText(
-                    applicationContext,
-                    "Comentario Creado Correctamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-                    cleanComentarios()
-                    obtenerComentarios()
-                    mostrarComentarios()
-            }.addOnFailureListener {
-                Toast.makeText(
-                    applicationContext,
-                    "Ocurrio un Error, intentelo mas tarde",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
     fun obtenerNombreUsuario() {
         db.collection("users").get().addOnSuccessListener{ document ->
             for (d in document){
@@ -245,6 +204,45 @@ class eval : AppCompatActivity() {
         }
     }
 
+    fun cambioCorazonFav(estado : Int){
+        var btnfav = findViewById<ImageButton>(R.id.btnFav)
+        var cora_lleno = getResources().getDrawable(R.drawable.corazon_lleno)
+        var cora_vacio = getResources().getDrawable(R.drawable.corazon_vacio)
+        if (estado == 1){
+            btnfav.setImageDrawable(cora_lleno)
+            estadoCorazon = 1
+        }
+        else{
+            btnfav.setImageDrawable(cora_vacio)
+            estadoCorazon = 0
+        }
+
+    }
+
+    fun cambiarEstadoFavorito(nombreR: String,estado: Int){
+        if (estado == 1){
+            //Guardar como favorito la receta actual
+            db.collection("users").document(userID.toString()).collection("Favoritos").document(nombreR).set(
+                hashMapOf("visible" to true)).addOnSuccessListener {
+                obtenerFavoritos()
+                Toast.makeText(this,"Receta guardada en Favoritos",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error al guardar en Favoritos",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        else{
+            //Eliminar de favoritos
+            db.collection("users").document(userID.toString()).collection("Favoritos").document(nombreR).set(
+                hashMapOf("visible" to false)).addOnSuccessListener {
+                obtenerFavoritos()
+                Toast.makeText(this,"Receta eliminada de Favoritos",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error al eliminar en Favoritos",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     fun escribirEstrella( numStar: Int){
         val evaluacion = hashMapOf(
             "user" to FirebaseAuth.getInstance().uid,
@@ -255,4 +253,28 @@ class eval : AppCompatActivity() {
         db.collection("evaluacion").add(evaluacion).addOnSuccessListener { print("DocumentSnapshot successfully written!") }
             .addOnFailureListener { e ->print("E::: $e")}
     }
-} 
+    fun cleanComentarios() {
+        comentarios.clear()
+        commentLayout?.removeAllViewsInLayout()
+    }
+    fun mostrarComentarios() {
+        for (comentario in comentarios) {
+            var view = layoutInflater.inflate(R.layout.comentario, null)
+            val cmItem: TextView = view.findViewById(R.id.cm_item)
+            cmItem.text = comentario.text
+            commentLayout?.addView(view)
+        }
+    }
+
+    fun traductordeÑ(nombreR : String):String{
+        var tempNombre = ""
+        for (n in nombreR){
+            if (n.equals('ñ')){
+                tempNombre = tempNombre + 'n'
+            } else{
+                tempNombre = tempNombre + n
+            }
+        }
+        return tempNombre
+    }
+}

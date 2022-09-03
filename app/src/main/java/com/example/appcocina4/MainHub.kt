@@ -18,6 +18,7 @@ class MainHub : AppCompatActivity() {
     var listanombres = ArrayList<String?>()
     var listafavoritos = ArrayList<String?>()
     var listaingredientes = ArrayList<String?>()
+    var userID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,23 +28,17 @@ class MainHub : AppCompatActivity() {
         var txtSugerencias = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
 
         obtenerNombresRecetas()
-        obtenerFavoritos()
         obtenerIngredientes()
         obtenerNombreUsuario()
         CerrarSesion()
     }
 
-    override fun onResume() {
-        super.onResume()
-        obtenerFavoritos()
-    }
+
 
     fun btnFavorito(p0: View?){
-        var tempFavoritos = Intent(this,Favoritos::class.java)
-        tempFavoritos.putExtra("listanombres",listanombres)
-        tempFavoritos.putExtra("listafavoritos",listafavoritos)
-        startActivity(tempFavoritos)
-
+        var temprecetas = Intent(this, Recetas::class.java)
+        temprecetas.putExtra("listanombres", listafavoritos)
+        startActivity(temprecetas)
     }
 
 
@@ -81,15 +76,18 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
-    fun obtenerFavoritos(){
-        val userid = FirebaseAuth.getInstance().currentUser?.uid
-
-        db.collection("favoritos").get().addOnSuccessListener {
-                documentos -> for(documento in documentos){
-            if(documento.data["uid"] == userid){
-                listafavoritos = documento.data["recetas"] as ArrayList<String?>;
+    fun obtenerFavoritos(userID : String){
+        listafavoritos.clear()
+        db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
+            for (d in document){
+                var visible = d.data?.get("visible").toString()
+                if (visible == "true"){
+                    listafavoritos.add(d.id)
+                }
             }
-        }
+            println("favoritos ingresados")
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -127,6 +125,7 @@ class MainHub : AppCompatActivity() {
                 if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
                     verificarUsuario(d.id.lowercase())
                     sugerencias(d.id.lowercase())
+                    obtenerFavoritos(d.id.lowercase())
                     findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
                     break
                 }
