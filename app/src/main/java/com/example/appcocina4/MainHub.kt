@@ -18,33 +18,27 @@ class MainHub : AppCompatActivity() {
     var listanombres = ArrayList<String?>()
     var listafavoritos = ArrayList<String?>()
     var listaingredientes = ArrayList<String?>()
+    var userID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var btnNuevaReceta = findViewById<Button>(R.id.botonNuevaReceta)
         btnNuevaReceta.isVisible = false
-
+        //var txtSugerencias = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
 
         obtenerNombresRecetas()
-        obtenerFavoritos()
         obtenerIngredientes()
         obtenerNombreUsuario()
         CerrarSesion()
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        obtenerFavoritos()
-    }
+
 
     fun btnFavorito(p0: View?){
-        var tempFavoritos = Intent(this,Favoritos::class.java)
-        tempFavoritos.putExtra("listanombres",listanombres)
-        tempFavoritos.putExtra("listafavoritos",listafavoritos)
-        startActivity(tempFavoritos)
-
+        var temprecetas = Intent(this, Recetas::class.java)
+        temprecetas.putExtra("listanombres", listafavoritos)
+        startActivity(temprecetas)
     }
 
 
@@ -87,21 +81,24 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
-    fun obtenerFavoritos(){
-        val userid = FirebaseAuth.getInstance().currentUser?.uid
-
-        db.collection("favoritos").get().addOnSuccessListener {
-                documentos -> for(documento in documentos){
-            if(documento.data["uid"] == userid){
-                listafavoritos = documento.data["recetas"] as ArrayList<String?>;
+    fun obtenerFavoritos(userID : String){
+        listafavoritos.clear()
+        db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
+            for (d in document){
+                var visible = d.data?.get("visible").toString()
+                if (visible == "true"){
+                    listafavoritos.add(d.id)
+                }
             }
-        }
+            println("favoritos ingresados")
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
 
     }
 
     fun obtenerIngredientes(){
-        listanombres.clear()
+        listaingredientes.clear()
         db.collection("ingredientes").get().addOnSuccessListener { documento ->
             for (d in documento){
                 listaingredientes.add(d.id)
@@ -110,12 +107,30 @@ class MainHub : AppCompatActivity() {
         }
     }
 
+/*
+    fun sugerencias(usuario:String){
+        var btnsuge = findViewById<Button>(R.id.buttonsugerencias)
 
+        btnsuge.setOnClickListener{
+            var suge = findViewById<EditText>(R.id.editTextTextMultiLinesugerencias)
+            if(suge.text.isNotEmpty()){
+                db.collection("sugerencias").document(usuario).set(
+                    hashMapOf("sugerencia" to suge.text.toString())).addOnSuccessListener {
+                    Toast.makeText(applicationContext,"La sugerencia se a enviado correctamente", Toast.LENGTH_SHORT).show()
+                }
+
+            } else{
+                Toast.makeText(applicationContext,"favor escribir alguna sugerencia", Toast.LENGTH_SHORT).show()
+            }
+        } }
+*/
     fun obtenerNombreUsuario(){
         db.collection("users").get().addOnSuccessListener{ document ->
             for (d in document){
                 if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
                     verificarUsuario(d.id.lowercase())
+                    //sugerencias(d.id.lowercase())
+                    obtenerFavoritos(d.id.lowercase())
                     findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
                     break
                 }

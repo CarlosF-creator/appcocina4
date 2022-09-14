@@ -70,11 +70,6 @@ class Select_Ing : AppCompatActivity() {
 
     }
 
-
-
-
-
-
     fun instanciarCheck(NombreI : String, index : Int){
 
         db.collection("ingredientes").document(NombreI).collection("Ingredientes").get().addOnSuccessListener { doc ->
@@ -210,18 +205,6 @@ class Select_Ing : AppCompatActivity() {
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
