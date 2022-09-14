@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.appcocina4.databinding.ActivityMainBinding
 import com.example.appcocina4.databinding.ActivityPasoapasoBinding
 import com.example.appcocina4.databinding.ActivityPreRecetaBinding
+import kotlin.math.roundToInt
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
@@ -94,7 +95,7 @@ class Pasoapaso : AppCompatActivity() {
                 listaimagenes.add(bitmap)
 
                 println(listaimagenes.size)
-                if (listaimagenes.size == 1){
+                if (listaimagenes.size == (nPasos/2).toInt()){
                     aplicarImagenes(count)
                     if (pr.isShowing){
                         pr.dismiss()
