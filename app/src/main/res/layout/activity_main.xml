@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:background="@drawable/btningredientes"
             android:fontFamily="@font/anton"
-            android:onClick="btningredientes"
+            android:onClick="btnCalculadora"
             android:text="Calculadora"
             android:textAllCaps="false"
             android:textSize="34sp"
