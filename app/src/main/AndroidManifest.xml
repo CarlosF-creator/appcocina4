@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".Calculadora2"></activity>
+        <activity android:name=".Calculadora2" />
         <activity android:name=".Select_Ing" />
         <activity android:name=".select_ingredientes" />
         <activity android:name=".login" />
@@ -17,7 +17,8 @@
         <activity android:name=".CrearRecetas" />
         <activity android:name=".Pasoapaso" />
         <activity android:name=".pre_receta" />
-        <activity android:name=".Recetas" />
+        <activity android:name=".Recetas_Old" />
+        <activity android:name=".Recetas2" />
         <activity android:name=".eval" />
         <activity android:name=".MainHub" />
         <activity

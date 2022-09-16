@@ -151,18 +151,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnFav"
-            android:layout_width="55dp"
-            android:layout_height="57dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="57dp"
-            android:background="#00FFFFFF"
+            android:background="@drawable/corazon_vacio"
             android:onClick="btnCorazon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ratingBar2"
-            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal"
-            app:srcCompat="@drawable/corazon_vacio" />
+            app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

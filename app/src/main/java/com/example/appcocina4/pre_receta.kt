@@ -33,6 +33,7 @@ class pre_receta : AppCompatActivity() {
     var db = FirebaseFirestore.getInstance()
     var db_Storage = Firebase.storage.reference
     var listapasos = ArrayList<String?>()
+    var listafav = ArrayList<String?>()
     var listaimagenes = ArrayList<Bitmap?>()
     var pasos_totales = -1
     var descripcion = ""
@@ -40,6 +41,9 @@ class pre_receta : AppCompatActivity() {
     var nombreR : String? = null
     var Tcount = 0
     var estrellas: RatingBar? = null
+    var estadoCorazon : Int = 0
+    var userID: String? = null
+    var userName : String? = null
 
     var Check1 = baseContext
     var TxtIng = baseContext
@@ -74,7 +78,7 @@ class pre_receta : AppCompatActivity() {
         estrellas = findViewById<RatingBar>(R.id.ratingBar)
 
 
-
+        obtenerNombreUsuario()
         obtenerEvaluaciones(nombreweno)
         obtenerNumeroPasos(nombreweno)
         rellenarDatos(nombre)
@@ -96,6 +100,89 @@ class pre_receta : AppCompatActivity() {
         pasoapaso.putExtra("nombreR", nombreR)
         startActivity(pasoapaso)
     }
+
+    // ------------ Corazon Fav --------------------
+    fun obtenerNombreUsuario() {
+        db.collection("users").get().addOnSuccessListener{ document ->
+            for (d in document){
+                if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
+                    userName = d.data?.get("user").toString()
+                    userID = d.id
+                    obtenerFavoritos()
+                    break
+                }
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun obtenerFavoritos(){
+        listafav.clear()
+        db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
+            for (d in document){
+                var visible = d.data?.get("visible").toString()
+                if (d.id == nombreR && visible == "true"){
+                    cambioCorazonFav(1)
+                }
+                if (visible == "true"){
+                    listafav.add(d.id)
+                }
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun btnCorazon(p0: View?){
+        if (estadoCorazon == 1){
+            cambioCorazonFav(0)
+            cambiarEstadoFavorito(nombreR.toString(),estadoCorazon)
+        }
+        else{
+            cambioCorazonFav(1)
+            cambiarEstadoFavorito(nombreR.toString(),estadoCorazon)
+        }
+    }
+    fun cambioCorazonFav(estado : Int){
+        var btnfav = findViewById<Button>(R.id.btnFav2)
+        var cora_lleno = getResources().getDrawable(R.drawable.corazon_lleno)
+        var cora_vacio = getResources().getDrawable(R.drawable.corazon_vacio)
+        if (estado == 1){
+            btnfav.background = cora_lleno
+            estadoCorazon = 1
+        }
+        else{
+            btnfav.background = cora_vacio
+            estadoCorazon = 0
+        }
+
+    }
+    fun cambiarEstadoFavorito(nombreR: String,estado: Int){
+        if (estado == 1){
+            //Guardar como favorito la receta actual
+            db.collection("users").document(userID.toString()).collection("Favoritos").document(nombreR).set(
+                hashMapOf("visible" to true)).addOnSuccessListener {
+                obtenerFavoritos()
+                Toast.makeText(this,"Receta guardada en Favoritos",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error al guardar en Favoritos",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        else{
+            //Eliminar de favoritos
+            db.collection("users").document(userID.toString()).collection("Favoritos").document(nombreR).set(
+                hashMapOf("visible" to false)).addOnSuccessListener {
+                obtenerFavoritos()
+                Toast.makeText(this,"Receta eliminada de Favoritos",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error al eliminar en Favoritos",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    //------------------------------------------------------------------------------------------------
+
     //Coloca el nombre de la receta entre otras cosas
     fun rellenarDatos(nombre: String?){
         var Titulo = findViewById<TextView>(R.id.Titulo)
@@ -372,6 +459,8 @@ class pre_receta : AppCompatActivity() {
             Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
         }
     }
+
+
     fun obtenerIngredientes(nombreR : String){
         if (nombreR != "no se encontro") {
             db.collection("recetas").document(nombreR).collection("Ingredientes").get().addOnSuccessListener { doc ->

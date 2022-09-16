@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/posiblefondo1"
     android:fillViewport="true"
-    tools:context=".Recetas"
+    tools:context=".Recetas_Old"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 

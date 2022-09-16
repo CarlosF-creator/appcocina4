@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.core.view.get
 import androidx.core.view.isVisible
-import androidx.core.view.size
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Select_Ing : AppCompatActivity() {
@@ -187,7 +185,7 @@ class Select_Ing : AppCompatActivity() {
                     if (i == listaNombresR.size  ){
                         println("Lista : "+newListaRecetas)
                         if (newListaRecetas.isNotEmpty()){
-                            var tempRecetas = Intent(this, Recetas::class.java)
+                            var tempRecetas = Intent(this, Recetas2::class.java)
                             tempRecetas.putExtra("listanombres", newListaRecetas)
                             startActivity(tempRecetas)
                         }
@@ -203,6 +201,12 @@ class Select_Ing : AppCompatActivity() {
 
                 }
             }
+
+        } else{
+            if (progressDialog.isShowing){
+                progressDialog.dismiss()
+            }
+            Toast.makeText(this,"Debe seleccionar al menos 1 ingrediente", Toast.LENGTH_SHORT).show()
 
         }
 

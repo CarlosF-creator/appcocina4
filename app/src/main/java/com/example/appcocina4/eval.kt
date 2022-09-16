@@ -3,25 +3,18 @@ package com.example.appcocina4
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 //import com.google.firebase.appcheck.FirebaseAppCheck
 //import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import kotlinx.android.synthetic.main.eval.*
 import java.io.File
 
 
@@ -77,7 +70,7 @@ class eval : AppCompatActivity() {
 
 
     fun btnFavorito(p0: View?){
-        var temprecetas = Intent(this, Recetas::class.java)
+        var temprecetas = Intent(this, Recetas2::class.java)
         temprecetas.putExtra("listanombres", listanombres)
         startActivity(temprecetas)
     }
@@ -174,7 +167,6 @@ class eval : AppCompatActivity() {
         listanombres.clear()
         db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
             for (d in document){
-
                 var visible = d.data?.get("visible").toString()
                 if (d.id == nombreR && visible == "true"){
                     cambioCorazonFav(1)
@@ -205,15 +197,15 @@ class eval : AppCompatActivity() {
     }
 
     fun cambioCorazonFav(estado : Int){
-        var btnfav = findViewById<ImageButton>(R.id.btnFav)
+        var btnfav = findViewById<Button>(R.id.btnFav)
         var cora_lleno = getResources().getDrawable(R.drawable.corazon_lleno)
         var cora_vacio = getResources().getDrawable(R.drawable.corazon_vacio)
         if (estado == 1){
-            btnfav.setImageDrawable(cora_lleno)
+            btnfav.background = cora_lleno
             estadoCorazon = 1
         }
         else{
-            btnfav.setImageDrawable(cora_vacio)
+            btnfav.background = cora_vacio
             estadoCorazon = 0
         }
 

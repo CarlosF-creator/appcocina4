@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_recetas.*
 import org.w3c.dom.Text
 import java.io.File
 
-class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
+class Recetas2() : AppCompatActivity() , SearchView.OnQueryTextListener {
     var nombresRecetas = ArrayList<String?>()
     var recetasOriginales = ArrayList<String?>()
     var listabotones = ArrayList<Button>()
@@ -45,7 +45,7 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
     var context_txtRecetas = baseContext
     var context_txtEspacio = baseContext
     var context_btn = baseContext
-
+    var linearlay = baseContext
 
     var tempArray = ArrayList<String?>()
 
@@ -53,13 +53,15 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recetas)
+        setContentView(R.layout.activity_recetas3)
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
         recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>;
 
-        var botonreceta = findViewById<Button>(R.id.btndereceta)
-        var temptxtreceta = findViewById<TextView>(R.id.txt_Receta)
-        var temptxtespacio = findViewById<TextView>(R.id.txtEspacio)
+
+
+        var botonreceta = findViewById<Button>(R.id.btndereceta2)
+        var temptxtreceta = findViewById<TextView>(R.id.txt_Receta2)
+        var temptxtespacio = findViewById<TextView>(R.id.txtEspacio3)
 
 
 
@@ -68,6 +70,7 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
         context_btn = botonreceta.context
         context_txtRecetas = temptxtreceta.context
         context_txtEspacio = temptxtespacio.context
+
 
         botonreceta.isVisible = false
         temptxtespacio.isVisible = false
@@ -116,38 +119,67 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
         //}
 
         //PARA REINICIAR LA VISTA ( BORRAR LOS DATOS )
-       // val intent = intent
+        // val intent = intent
         //finish()
         //startActivity(intent)
     }
 
     fun btndeRecetas(p0: View?){
-        var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
-        var a :Int= 0
+        var linearL1 = findViewById<LinearLayout>(R.id.Linear1)
+        var linearL2 = findViewById<LinearLayout>(R.id.Linear2)
+        var a : Int= 0
+        var b : Int=0
 
-        while (a < radiobutton.size){
-            val seleccion  = radiobutton[a]
+        while (a < linearL1.size){
+            val seleccion  = linearL1[a]
             if (seleccion.isPressed){
+                var countA : Int= 0
                 for (btn in listabotones){
-                    if (btn.id == seleccion.id){
-                        var prereceta = Intent(this, pre_receta::class.java)
-                        prereceta.putExtra("nombre", btn.text.toString())
-                        println("asdasdasdasdas dasdasdasdas das das : " +btn.text)
-                        startActivity(prereceta)
-                        break
+                    if (countA % 2 == 0 || countA == 0 ){
+                        if (btn.id == seleccion.id){
+                            var prereceta = Intent(this, pre_receta::class.java)
+                            prereceta.putExtra("nombre", btn.text.toString())
+                            println("asdasdasdasdas dasdasdasdas das das : " +btn.text)
+                            startActivity(prereceta)
+                            break
+                        }
                     }
-            }
+                    countA+=1
+                }
                 break
             }
             a+=1
+        }
+        while (b < linearL2.size){
+            val seleccion  = linearL2[b]
+            if (seleccion.isPressed){
+                var countB : Int= 0
+                for (btn in listabotones){
+                    if (countB % 2 != 0 || countB != 0 ){
+                        if (btn.id == seleccion.id){
+                            var prereceta = Intent(this, pre_receta::class.java)
+                            prereceta.putExtra("nombre", btn.text.toString())
+                            println("asdasdasdasdas dasdasdasdas das das : " +btn.text)
+                            startActivity(prereceta)
+                            break
+                        }
+                    }
+                    countB+=1
+                }
+                break
+            }
+            b+=1
+
         }
     }
 
 
 
     fun botones(listanombres : ArrayList<String?>){
-        var radiobutton = findViewById<LinearLayout>(R.id.radiobutton)
-        radiobutton.removeAllViewsInLayout()
+        val linearL1 = findViewById<LinearLayout>(R.id.Linear1)
+        val linearL2 = findViewById<LinearLayout>(R.id.Linear2)
+        linearL1.removeAllViewsInLayout()
+        linearL2.removeAllViewsInLayout()
         var index : Int= 0
         for (l in listanombres){
             var temptxt = TextView(context_txtRecetas)
@@ -178,14 +210,23 @@ class Recetas() : AppCompatActivity() , SearchView.OnQueryTextListener {
             obtenerImagenBtn(l.toString(), tempbtn)
 
 
+            if (listabotones.size % 2 == 0 || listabotones.size == 0) {
+                println("text :" + temptxt.text + " index:" + index)
+                listabotones.add(tempbtn)
+                linearL1.addView(temptxt,index)
+                linearL1.addView(tempbtn,index+1)
+                linearL1.addView(tempEspacio, index + 2)
+                index+=3
+            } else {
+                println("text :" + temptxt.text + " index:" + index)
+                listabotones.add(tempbtn)
+                linearL2.addView(temptxt, (index) - 3)
+                linearL2.addView(tempbtn, (index + 1) - 3)
+                linearL2.addView(tempEspacio, (index + 2) - 3)
+            }
 
 
-            listabotones.add(tempbtn)
-            radiobutton.addView(temptxt,index)
-            radiobutton.addView(tempbtn,index+1)
-            radiobutton.addView(tempEspacio,index+2)
 
-            index+=3
         }
 
     }

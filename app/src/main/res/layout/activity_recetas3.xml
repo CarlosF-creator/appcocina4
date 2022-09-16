@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/posiblefondo1"
     android:fillViewport="true"
-    tools:context=".Recetas"
+    tools:context=".Recetas2"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 
@@ -41,7 +41,6 @@
             android:text="Todas las Recetas"
             android:textColor="#EFEFEF"
             android:textSize="34sp"
-            app:layout_constraintBottom_toTopOf="@+id/Txt_Descripcion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,9 +52,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="8dp"
             android:background="#80222222"
-            app:layout_constraintBottom_toTopOf="@+id/radiobutton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titulo">
@@ -63,95 +60,66 @@
         </SearchView>
 
         <LinearLayout
-            android:id="@+id/radiobutton"
-            android:layout_width="match_parent"
+            android:id="@+id/Linear1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center|top"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Linear2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Buscador">
 
-            <LinearLayout
-                android:id="@+id/Linear1"
+            <TextView
+                android:id="@+id/txt_Receta2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="#80222222"
+                android:fontFamily="@font/anton"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/Letras_Blancas"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/txt_Receta4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#80222222"
-                    android:fontFamily="@font/anton"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/Letras_Blancas"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/txt_Receta3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#80222222"
-                    android:fontFamily="@font/anton"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/Letras_Blancas"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/Linear2"
+            <Button
+                android:id="@+id/btndereceta2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="@drawable/lasanamala"
+                android:fontFamily="@font/anton"
+                android:onClick="btndeRecetas"
+                android:paddingTop="120dp"
+                android:text="Lasaña"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btndereceta3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/lasanamala"
-                    android:fontFamily="@font/anton"
-                    android:onClick="btndeRecetas"
-                    android:paddingTop="120dp"
-                    android:text="Lasaña"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btndereceta4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/lasanamala"
-                    android:fontFamily="@font/anton"
-                    android:onClick="btndeRecetas"
-                    android:paddingTop="120dp"
-                    android:text="Lasaña"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <Space
+            <TextView
+                android:id="@+id/txtEspacio3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Linear1"
+            app:layout_constraintTop_toBottomOf="@+id/Buscador" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

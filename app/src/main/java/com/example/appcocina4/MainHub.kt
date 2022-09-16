@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -36,9 +35,7 @@ class MainHub : AppCompatActivity() {
 
 
     fun btnFavorito(p0: View?){
-        var temprecetas = Intent(this, Recetas::class.java)
-        temprecetas.putExtra("listanombres", listafavoritos)
-        startActivity(temprecetas)
+        obtenerFavoritos(1)
     }
 
 
@@ -50,7 +47,7 @@ class MainHub : AppCompatActivity() {
     }
 
     fun btnrecetas(p0: View?){
-        var temprecetas = Intent(this, Recetas::class.java)
+        var temprecetas = Intent(this, Recetas2::class.java)
         temprecetas.putExtra("listanombres", listanombres)
         startActivity(temprecetas)
     }
@@ -81,7 +78,7 @@ class MainHub : AppCompatActivity() {
             }
         }
     }
-    fun obtenerFavoritos(userID : String){
+    fun obtenerFavoritos(tipo : Int){
         listafavoritos.clear()
         db.collection("users").document(userID.toString()).collection("Favoritos").get().addOnSuccessListener{ document ->
             for (d in document){
@@ -91,6 +88,11 @@ class MainHub : AppCompatActivity() {
                 }
             }
             println("favoritos ingresados")
+            if (tipo == 1){
+                var temprecetas = Intent(this, Recetas2::class.java)
+                temprecetas.putExtra("listanombres", listafavoritos)
+                startActivity(temprecetas)
+            }
         }.addOnFailureListener{
             Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
         }
@@ -128,9 +130,10 @@ class MainHub : AppCompatActivity() {
         db.collection("users").get().addOnSuccessListener{ document ->
             for (d in document){
                 if (d.data?.get("Uid") == FirebaseAuth.getInstance().uid){
+                    userID = d.id.lowercase()
                     verificarUsuario(d.id.lowercase())
                     //sugerencias(d.id.lowercase())
-                    obtenerFavoritos(d.id.lowercase())
+                    obtenerFavoritos(0)
                     findViewById<TextView>(R.id.Nombre_usuario).setText("Bienvenido "+d.data?.get("user").toString())
                     break
                 }
