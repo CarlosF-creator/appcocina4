@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
+import kotlin.math.round
 
 
 class eval : AppCompatActivity() {
@@ -24,6 +25,7 @@ class eval : AppCompatActivity() {
     var comentarios = ArrayList<Comentario>()
     var listanombres = ArrayList<String?>()
     var listafavoritos = ArrayList<String?>()
+    var listaeval = ArrayList<Int?>()
     var userID: String? = null
     var userName : String? = null
 
@@ -47,7 +49,7 @@ class eval : AppCompatActivity() {
         { ratingBar: RatingBar, fl: Float, b: Boolean ->
 
 
-            escribirEstrella(ratingBar.rating.toInt())
+            obtenerEval(ratingBar.rating.toInt())
 
             Log.d("rate", ratingBar.rating.toString())
 
@@ -63,7 +65,6 @@ class eval : AppCompatActivity() {
 
         obtenerNombreUsuario()
         //obtenerNombresRecetas()
-
         obtenerComentarios()
         obtenerImagenPortada(tempNombre,pr)
     }
@@ -72,6 +73,7 @@ class eval : AppCompatActivity() {
     fun btnFavorito(p0: View?){
         var temprecetas = Intent(this, Recetas2::class.java)
         temprecetas.putExtra("listanombres", listanombres)
+        temprecetas.putExtra("Titulo", "Recetas Favoritas")
         startActivity(temprecetas)
     }
     fun btnCorazon(p0: View?){
@@ -180,6 +182,22 @@ class eval : AppCompatActivity() {
         }
 
     }
+    fun obtenerEval(numStar : Int){
+        listaeval.clear()
+        db.collection("recetas").document(nombreR.toString()).collection("Evaluacion").document("evaluacion").get().addOnSuccessListener{ document ->
+
+            listaeval.add(document.data?.get("1").toString().toInt())
+            listaeval.add(document.data?.get("2").toString().toInt())
+            listaeval.add(document.data?.get("3").toString().toInt())
+            listaeval.add(document.data?.get("4").toString().toInt())
+            listaeval.add(document.data?.get("5").toString().toInt())
+
+            escribirEstrella(numStar)
+        }.addOnFailureListener{
+            Toast.makeText(this,"Fallo en la Verificacion del Usuario", Toast.LENGTH_SHORT).show()
+        }
+
+    }
 
     fun obtenerNombreUsuario() {
         db.collection("users").get().addOnSuccessListener{ document ->
@@ -235,15 +253,38 @@ class eval : AppCompatActivity() {
         }
     }
 
-    fun escribirEstrella( numStar: Int){
+    fun escribirEstrella(numStar: Int){
+        var resultF : Int? = listaeval[numStar-1]!! +1
+        var result1 = listaeval[0]
+        var result2 = listaeval[1]
+        var result3 = listaeval[2]
+        var result4 = listaeval[3]
+        var result5 = listaeval[4]
+        if (numStar == 1){
+            result1 = resultF
+        }
+        if (numStar == 2){
+            result2 = resultF
+        }
+        if (numStar == 3){
+            result3 = resultF
+        }
+        if (numStar == 4){
+            result4 = resultF
+        }
+        if (numStar == 5){
+            result5 = resultF
+        }
         val evaluacion = hashMapOf(
-            "user" to FirebaseAuth.getInstance().uid,
-            "puntuacion" to numStar,
-            "receta" to nombreR
+            "1" to result1,
+            "2" to result2,
+            "3" to result3,
+            "4" to result4,
+            "5" to result5,
         )
-
-        db.collection("evaluacion").add(evaluacion).addOnSuccessListener { print("DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e ->print("E::: $e")}
+        db.collection("recetas").document(nombreR.toString()).collection("Evaluacion").document("evaluacion").set(evaluacion).addOnFailureListener {
+            Toast.makeText(this,"Error al guardar en Ranking",Toast.LENGTH_SHORT).show()
+        }
     }
     fun cleanComentarios() {
         comentarios.clear()

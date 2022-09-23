@@ -55,9 +55,13 @@ class Recetas2() : AppCompatActivity() , SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recetas3)
         nombresRecetas = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
-        recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>;
+        recetasOriginales = intent.getStringArrayListExtra("listanombres") as ArrayList<String?>
 
+        var titulo = intent.getStringExtra("Titulo")
 
+        var tituloView = findViewById<TextView>(R.id.titulo)
+
+        tituloView.setText(titulo.toString())
 
         var botonreceta = findViewById<Button>(R.id.btndereceta2)
         var temptxtreceta = findViewById<TextView>(R.id.txt_Receta2)

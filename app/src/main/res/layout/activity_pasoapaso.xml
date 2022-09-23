@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/posiblefondo1"
     android:fillViewport="true"
+    android:focusable="false"
     tools:context=".Pasoapaso">
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
@@ -20,7 +21,7 @@
             android:layout_width="328dp"
             android:layout_height="190dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="144dp"
+            android:layout_marginTop="138dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
@@ -45,41 +46,66 @@
 
         <Button
             android:id="@+id/btnAtras"
-            android:layout_width="130dp"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="11dp"
             android:layout_marginBottom="28dp"
             android:foreground="@android:drawable/ic_media_previous"
             android:foregroundGravity="left|center"
             android:onClick="btnAtras"
             android:paddingStart="20dp"
-            android:text="Atras"
+            android:text="     Atras  "
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/btnHerramienta"
+            app:layout_constraintStart_toStartOf="@+id/scrollView3"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
         <Button
             android:id="@+id/btnSiguiente"
-            android:layout_width="130dp"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="11dp"
             android:layout_marginBottom="28dp"
             android:foreground="@android:drawable/ic_media_next"
             android:foregroundGravity="center|right"
             android:onClick="btnSiguiente"
             android:paddingRight="25dp"
-            android:text="Siguente"
+            android:text=" Siguente "
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+            app:layout_constraintStart_toEndOf="@+id/btnHerramienta"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+        <Button
+            android:id="@+id/btnHerramienta"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="28dp"
+            android:foreground="@android:drawable/ic_menu_recent_history"
+            android:foregroundGravity="center|right"
+            android:nextFocusUp="@id/textNumTempMin"
+            android:onClick="btnTempo"
+            android:text="Tempo"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSiguiente"
+            app:layout_constraintStart_toEndOf="@+id/btnAtras"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
         <ScrollView
+            android:id="@+id/scrollView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="95dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
@@ -100,7 +126,7 @@
                     android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cada lámina, otra vez la bechamel y así hasta tener 3 pisos. Se pueden hacer las capas de lasaña que quieras, bueno las que te pe"
                     android:textColor="#EFEFEF"
                     android:textColorHint="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
             </LinearLayout>
         </ScrollView>
 
@@ -117,5 +143,77 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
+
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#A8332F2F"
+            android:foreground="@android:drawable/ic_media_play"
+            android:foregroundGravity="center"
+            android:nextFocusUp="@id/textNumTempMin"
+            android:onClick="btnPlay"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+
+        <EditText
+            android:id="@+id/textNumTempMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:background="#7A222222"
+            android:clickable="true"
+            android:focusable="auto"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:textColor="#EFEFEF"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toStartOf="@+id/textNumTempSeg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+
+        <EditText
+            android:id="@+id/textNumTempSeg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
+            android:background="#7A222222"
+            android:clickable="true"
+            android:focusable="auto"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:textColor="#EFEFEF"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+            app:layout_constraintStart_toEndOf="@+id/textNumTempMin"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+
+        <TextView
+            android:id="@+id/textViewdospuntos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:clickable="false"
+            android:duplicateParentState="false"
+            android:editable="false"
+            android:focusable="false"
+            android:text=":"
+            android:textColor="#EFEFEF"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toStartOf="@+id/textNumTempSeg"
+            app:layout_constraintStart_toEndOf="@+id/textNumTempMin"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

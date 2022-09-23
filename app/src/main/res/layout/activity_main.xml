@@ -17,12 +17,15 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="216dp"
+            android:layout_width="0dp"
             android:layout_height="141dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="45dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="46dp"
+            android:background="#0AFFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -141,7 +144,7 @@
             android:fontFamily="@font/anton"
             android:text="Bienvenido :"
             android:textColor="@color/Letras_Blancas"
-            android:textSize="24sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toTopOf="@+id/buttoningredientes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -150,16 +153,13 @@
         <Button
             android:id="@+id/buttonCerrarSesion"
             android:layout_width="35dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="232dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#00FFFFFF"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#14000000"
             android:foreground="@drawable/cerrar"
             android:paddingLeft="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

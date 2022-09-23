@@ -35,6 +35,7 @@ class pre_receta : AppCompatActivity() {
     var listapasos = ArrayList<String?>()
     var listafav = ArrayList<String?>()
     var listaimagenes = ArrayList<Bitmap?>()
+    var listaeval = ArrayList<Int?>()
     var pasos_totales = -1
     var descripcion = ""
     var tempbitmap : Bitmap? = null
@@ -75,7 +76,7 @@ class pre_receta : AppCompatActivity() {
             println("Nombre Null")
         }
 
-        estrellas = findViewById<RatingBar>(R.id.ratingBar)
+
 
 
         obtenerNombreUsuario()
@@ -443,21 +444,46 @@ class pre_receta : AppCompatActivity() {
         return tempNombre
     }
 
+
     fun obtenerEvaluaciones(nombreR: String){
-        var promedio = 0
-        var count = 0
-        db.collection("evaluacion").get().addOnSuccessListener{ document ->
-            for (d in document){
-                promedio += d.getLong("puntuacion")!!.toInt();
-                count++
+        listaeval.clear()
+        var estrellasR = findViewById<RatingBar>(R.id.ratingBar)
+        db.collection("recetas").document(nombreR).collection("Evaluacion").document("evaluacion").get().addOnSuccessListener{ document ->
 
+
+            var var1 = document.data?.get("1")
+            var var2 = document.data?.get("2")
+            var var3 = document.data?.get("3")
+            var var4 = document.data?.get("4")
+            var var5 = document.data?.get("5")
+
+            if (var1 != null && var2 != null && var3 != null && var4 != null && var5 != null){
+                var1 = var1.toString().toInt()
+                var2 = var2.toString().toInt()
+                var3 = var3.toString().toInt()
+                var4 = var4.toString().toInt()
+                var5 = var5.toString().toInt()
+                if (var1 != 0 || var2 != 0 || var3 != 0 || var4 != 0 || var5 != 0)
+                    estrellasR!!.setRating(((5*var5+4*var4+3*var3+2*var2+1*var1)/(var5+var4+var3+var2+var1)).toFloat())
+                else
+                    estrellasR!!.setRating(0F)
+            }else{
+                db.collection("recetas").document(nombreR).collection("Evaluacion").document("evaluacion").set(
+                    hashMapOf("1" to 0,
+                        "2" to 0,
+                        "3" to 0,
+                        "4" to 0,
+                        "5" to 0
+                    )
+                )
+                estrellasR!!.setRating(0F)
             }
-            document.count()
 
-            estrellas!!.setRating((promedio/count).toFloat())
+
         }.addOnFailureListener{
-            Toast.makeText(this,"No hay evaluaciones para esta receta", Toast.LENGTH_SHORT).show()
+
         }
+
     }
 
 

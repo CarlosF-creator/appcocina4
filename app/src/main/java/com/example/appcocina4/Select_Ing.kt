@@ -187,6 +187,7 @@ class Select_Ing : AppCompatActivity() {
                         if (newListaRecetas.isNotEmpty()){
                             var tempRecetas = Intent(this, Recetas2::class.java)
                             tempRecetas.putExtra("listanombres", newListaRecetas)
+                            tempRecetas.putExtra("Titulo", "Recetas con tus Ingredientes")
                             startActivity(tempRecetas)
                         }
 

@@ -49,6 +49,7 @@ class MainHub : AppCompatActivity() {
     fun btnrecetas(p0: View?){
         var temprecetas = Intent(this, Recetas2::class.java)
         temprecetas.putExtra("listanombres", listanombres)
+        temprecetas.putExtra("Titulo", "Todas las Recetas")
         startActivity(temprecetas)
     }
     fun btnNuevaReceta(p0:View?){
@@ -91,6 +92,7 @@ class MainHub : AppCompatActivity() {
             if (tipo == 1){
                 var temprecetas = Intent(this, Recetas2::class.java)
                 temprecetas.putExtra("listanombres", listafavoritos)
+                temprecetas.putExtra("Titulo", "Recetas Favoritas")
                 startActivity(temprecetas)
             }
         }.addOnFailureListener{
