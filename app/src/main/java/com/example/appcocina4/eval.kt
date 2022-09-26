@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -86,14 +87,16 @@ class eval : AppCompatActivity() {
             cambiarEstadoFavorito(nombreR.toString(),estadoCorazon)
         }
     }
-    fun btnComentar(p0: View?) {
-        var comantarioText = findViewById<TextInputEditText>(R.id.comentarioText)
 
+    fun btnComentar(p0: View?) {
+        var comantarioText = findViewById<EditText>(R.id.editTextComentar)
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(p0?.windowToken,0)
         print(userName)
         if (comantarioText.text != null && comantarioText.text!!.isNotEmpty() && comantarioText.text.toString() != "") {
-            var tempComentario = Comentario(comantarioText.text.toString(), userName)
-            db.collection("recetas").document(nombreR.toString()).collection("Comentarios")
-                .add(tempComentario).addOnSuccessListener {
+            var tempComentario = Comentario(comantarioText.text.toString(), userName,comentarios.size)
+            db.collection("recetas").document(nombreR.toString()).collection("Comentarios").document(comentarios.size.toString())
+                .set(tempComentario).addOnSuccessListener {
                     Toast.makeText(
                         applicationContext,
                         "Comentario Creado Correctamente",
@@ -102,7 +105,6 @@ class eval : AppCompatActivity() {
                     comantarioText.setText("")
                     cleanComentarios()
                     obtenerComentarios()
-                    mostrarComentarios()
                 }.addOnFailureListener {
                     Toast.makeText(
                         applicationContext,
@@ -150,13 +152,19 @@ class eval : AppCompatActivity() {
         if (nombreR != null) {
             db.collection("recetas").document(nombreR.toString()).collection("Comentarios").get()
                 .addOnSuccessListener { documents ->
+                var tempCount = 0
+                println(" size = "+ documents.size())
                 for (document in documents) {
                     var text = document.data?.get("text").toString()
                     var userText = document.data?.get("user").toString()
 
-                    comentarios.add(Comentario(" "+userText+" : "+text, userText))
+                    comentarios.add(index = document.id.toInt(),Comentario(" "+userText+" : "+text, userText))
+                    println("tempcount ="+tempCount+" size = "+ documents.size())
+                    if (tempCount == documents.size()-1){
+                        mostrarComentarios()
+                    }
+                    tempCount+=1
                 }
-                mostrarComentarios()
             }.addOnFailureListener { _ ->
                 println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             }
@@ -290,11 +298,12 @@ class eval : AppCompatActivity() {
         comentarios.clear()
         commentLayout?.removeAllViewsInLayout()
     }
+
     fun mostrarComentarios() {
-        for (comentario in comentarios) {
+        for (com in 0..comentarios.size-1) {
             var view = layoutInflater.inflate(R.layout.comentario, null)
             val cmItem: TextView = view.findViewById(R.id.cm_item)
-            cmItem.text = comentario.text
+            cmItem.text = comentarios.get(com).text
             commentLayout?.addView(view)
         }
     }

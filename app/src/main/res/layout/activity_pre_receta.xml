@@ -176,7 +176,7 @@
                 <CheckBox
                     android:id="@+id/checkBoxing"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="CheckBox"
                     android:textSize="20sp" />
@@ -184,7 +184,7 @@
                 <TextView
                     android:id="@+id/textViewdetalle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textSize="20sp" />

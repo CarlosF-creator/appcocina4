@@ -58,39 +58,9 @@
             android:textColor="#EFEFEF"
             android:textSize="24sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearTempo" />
-
-        <ScrollView
-            android:id="@+id/scrollView3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toTopOf="@id/comentarios"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textTituloPaso">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/text_paso"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#40222222"
-                    android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cadaz la"
-                    android:textColor="#EFEFEF"
-                    android:textColorHint="#000000"
-                    android:textSize="24sp" />
-            </LinearLayout>
-        </ScrollView>
 
         <ImageView
             android:id="@+id/imageView9"
@@ -111,14 +81,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutcomentar">
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/btnAtras"
@@ -150,7 +118,7 @@
             android:id="@+id/linearTempo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -281,28 +249,62 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/comentarios"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <ScrollView
+            android:id="@+id/scrollCom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="#40222222"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@id/layoutcomentar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/textTituloPaso">
+
+            <LinearLayout
+                android:id="@+id/comentarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#40222222"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTituloPaso">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_paso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#40222222"
+                    android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cadaz la"
+                    android:textColor="#EFEFEF"
+                    android:textColorHint="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/layoutcomentar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
             android:background="#40222222"
@@ -311,7 +313,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/comentarios">
+            app:layout_constraintTop_toBottomOf="@id/scrollCom">
 
             <EditText
                 android:id="@+id/editTextComentar"

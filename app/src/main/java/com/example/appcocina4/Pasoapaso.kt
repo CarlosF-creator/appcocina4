@@ -71,6 +71,7 @@ import kotlin.math.round
         var btnTempo = findViewById<Button>(R.id.btnTempo)
         var btnChat = findViewById<Button>(R.id.btnComentarios)
         var layComentar = findViewById<LinearLayout>(R.id.layoutcomentar)
+        var scrollCom = findViewById<ScrollView>(R.id.scrollCom)
 
         text_numPaso.text = "Paso: ${cont+1}/$numpasos"
 
@@ -82,6 +83,7 @@ import kotlin.math.round
         btnTempo.isVisible = false
         btnChat.isVisible = false
         layComentar.isVisible = false
+        scrollCom.isVisible = false
 
         if (nombre != null){
             var nombreweno :String = nombre.toString()
@@ -110,8 +112,11 @@ import kotlin.math.round
 
             text_paso.text = listapasos[cont]
             text_numPaso.text = "Paso: ${cont+1}/$numpasos"
-            cleanComentarios()
-            obtenerComentarios()
+            if (estadoCom!=0){
+                cleanComentarios()
+                obtenerComentarios()
+            }
+
         }else{
             var eval = Intent(this, eval::class.java)
             eval.putExtra("nombreR", nombreR)
@@ -131,8 +136,10 @@ import kotlin.math.round
 
             text_paso.text = listapasos[cont]
             text_numPaso.text = "Paso: ${cont+1}/$numpasos"
-            cleanComentarios()
-            obtenerComentarios()
+            if (estadoCom!=0){
+                cleanComentarios()
+                obtenerComentarios()
+            }
         }else{
             finish()
         }
@@ -250,11 +257,13 @@ import kotlin.math.round
           var btnComentario = findViewById<Button>(R.id.btnComentarios)
           var textTituloPaso = findViewById<TextView>(R.id.textTituloPaso)
           var layComentar = findViewById<LinearLayout>(R.id.layoutcomentar)
+          var scrollCom = findViewById<ScrollView>(R.id.scrollCom)
           if(estadoCom == 0){
               btnComentario.foreground = getResources().getDrawable(R.drawable.nochat)
               commentLayout?.isVisible = true
               scrollView3.isVisible = false
               layComentar.isVisible = true
+              scrollCom.isVisible = true
               textTituloPaso.text = "Comentarios"
               estadoCom+=1
               obtenerComentarios()
@@ -266,12 +275,14 @@ import kotlin.math.round
               layComentar.isVisible = false
               textTituloPaso.text = "Desarrollo"
               scrollView3.isVisible = true
+              scrollCom.isVisible = false
               cleanComentarios()
           }
       }
       fun btnComentar(p0: View?) {
           var comantarioText = findViewById<EditText>(R.id.editTextComentar)
-
+          val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+          imm.hideSoftInputFromWindow(p0?.windowToken,0)
           print(userName)
           if (comantarioText.text != null && comantarioText.text!!.isNotEmpty() && comantarioText.text.toString() != "") {
               var tempComentario = Comentario(comantarioText.text.toString(), userName,comentarios.size)

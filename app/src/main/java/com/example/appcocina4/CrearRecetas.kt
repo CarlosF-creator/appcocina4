@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_calculadora.*
 import org.w3c.dom.Text
 import java.io.File
 import kotlin.random.Random
@@ -31,6 +32,7 @@ class CrearRecetas : AppCompatActivity() {
     var db_Storage = Firebase.storage.reference
     var listaPasos = ArrayList<EditText>()
     var listap = ArrayList<String?>()
+    var listaRecetas = ArrayList<String?>()
     var temptablecontext1 = baseContext
     var temptablecontext2 = baseContext
     var temptablecontext3 = baseContext
@@ -85,10 +87,11 @@ class CrearRecetas : AppCompatActivity() {
 
 
         tempBtnSubir.isVisible = false
+        obtenerRecetasDisponibles()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var edt_titulo = findViewById<EditText>(R.id.edt_Titulo)
+        var edt_titulo = findViewById<AutoCompleteTextView>(R.id.edt_Titulo)
         var btn_portada = findViewById<Button>(R.id.btnImagenPortada)
         var nombreReceta = edt_titulo.text.toString().lowercase()
         var nombreImagen = ""
@@ -137,7 +140,7 @@ class CrearRecetas : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-        var edt_titulo = findViewById<EditText>(R.id.edt_Titulo)
+        var edt_titulo = findViewById<AutoCompleteTextView>(R.id.edt_Titulo)
         var edt_descripcion = findViewById<EditText>(R.id.edt_descripcion)
         var edt_Npasos = findViewById<EditText>(R.id.edt_NPasos)
         var edt_Tpreparacion = findViewById<EditText>(R.id.edt_Tpreparacion)
@@ -238,7 +241,7 @@ class CrearRecetas : AppCompatActivity() {
     }
 
     fun btnBuscar(p0: View?) {
-        var tempEdt = findViewById<EditText>(R.id.edt_Titulo)
+        var tempEdt = findViewById<AutoCompleteTextView>(R.id.edt_Titulo)
         var tempnombre = tempEdt.text.toString().lowercase()
         db.collection("recetas").document(tempnombre).get()
             .addOnSuccessListener { tempData ->
@@ -285,17 +288,44 @@ class CrearRecetas : AppCompatActivity() {
             }
     }
 
+    //Obtenemos todas las recetas disponibles
+    fun obtenerRecetasDisponibles() {
+        db.collection("recetas")
+            .get().addOnSuccessListener { inst ->
+                var tempCount = 0
+                for (n in inst){
+                    listaRecetas.add(n.id.toString())
+                    if (tempCount == inst.size()-1){
+                        autocompletado()
+                    }
+                    tempCount+=1
+                }
+            }.addOnFailureListener { _ ->
+                println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            }
+    }
+    fun autocompletado(){
+        var adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,listaRecetas)
+        var edit_titulo = findViewById<AutoCompleteTextView>(R.id.edt_Titulo)
+        edit_titulo.threshold=1
+        edit_titulo.setAdapter(adapter)
+        edit_titulo.setOnFocusChangeListener { view, b -> if (b) edit_titulo.showDropDown() }
+    }
+
     //Obtenemos los pasos desde la base de Datos
     fun obtenerListaPasos(nombreR : String, npasos : Int) {
         listap.clear()
         if (nombreR != "no se encontro"){
             db.collection("recetas").document(nombreR).collection("Info").document("Instrucciones")
                 .get().addOnSuccessListener { inst ->
+
                     var tempnum = 1
                     var Pasos = inst.toObject(Instrucciones::class.java)
-                    listap = Pasos?.let { obtenerInstrucciones(it) }!!
+                    if (Pasos != null){
+                        listap = Pasos?.let { obtenerInstrucciones(it) }!!
+                        instanciarPasos(npasos)
+                    }
 
-                    instanciarPasos(npasos)
                 }.addOnFailureListener { _ ->
                     println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 }}else{
@@ -574,11 +604,6 @@ class CrearRecetas : AppCompatActivity() {
 
             }
             i+=1
-        }
-        if (completado){
-            Toast.makeText(applicationContext, "Ingredientes Subidos correctamente", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(applicationContext, "Error al subir ingredientes", Toast.LENGTH_SHORT).show()
         }
     }
 

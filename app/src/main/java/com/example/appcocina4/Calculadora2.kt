@@ -130,8 +130,8 @@ fun obtenering(){
     grasass.add(grasas[posicion])
     carbosh.add(carbos[posicion])
 
-    calofinal = (calor[0]?.toFloat()?.times(numbe[0]!!?.toFloat())!!)
-    carbofinal = (carbosh[0]?.toInt()?.toFloat()?.times(numbe[0]!!?.toInt())!!)
+    //calofinal = (calor[0]?.toFloat()?.times(numbe[0]!!?.toFloat())!!)
+    //carbofinal = (carbosh[0]?.toInt()?.toFloat()?.times(numbe[0]!!?.toInt())!!)
     grasafinal = (grasass[0]?.toInt()?.times(numbe[0]!!?.toInt())!!)
     protefinal = (protes[0]?.toInt()?.times(numbe[0]!!?.toInt())!!)
 
