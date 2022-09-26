@@ -44,8 +44,8 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="328dp"
+        android:layout_height="17dp"
         android:text="2. En una cacerola gande,colocar el aceite, la cebolla,"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"

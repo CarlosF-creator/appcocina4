@@ -88,6 +88,7 @@
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
         <TextView
             android:id="@+id/Txt_Descripcion"
             android:layout_width="0dp"
@@ -98,12 +99,13 @@
             android:background="#40222222"
             android:text="Este clásico de la cocina es famoso en todo el mundo, no sólo en Italia. Ideal para llevar en el tupper al trabajo o al colegio, y que sin duda triunfa entre los más pequeños de casa."
             android:textColor="#EFEFEF"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/Txt_Tpreparacion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Titulo" />
+
         <TextView
             android:id="@+id/Txt_Tpreparacion"
             android:layout_width="0dp"
@@ -114,7 +116,7 @@
             android:background="#40222222"
             android:text="Tiempo de Preparacion: 70 min"
             android:textColor="#EFEFEF"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

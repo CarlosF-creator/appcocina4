@@ -154,7 +154,7 @@ class eval : AppCompatActivity() {
                     var text = document.data?.get("text").toString()
                     var userText = document.data?.get("user").toString()
 
-                    comentarios.add(Comentario(""+userText+" : "+text, userText))
+                    comentarios.add(Comentario(" "+userText+" : "+text, userText))
                 }
                 mostrarComentarios()
             }.addOnFailureListener { _ ->
