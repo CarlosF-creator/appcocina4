@@ -29,21 +29,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             app:srcCompat="@drawable/posiblefondodecarga" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="119dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="145dp"
-            android:layout_marginEnd="145dp"
-            android:backgroundTint="#F8F8F8"
-            android:onClick="btnFavorito"
-            android:text="Recetas favoritas"
-            android:textColor="#4CAF50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
-
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
@@ -61,6 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/comentarios"
             android:layout_width="0dp"
@@ -68,34 +54,20 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:background="#40222222"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/comentario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/comentarLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/comentario"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textView21"></LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comentario"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="5dp"
             android:background="#40222222"
             app:layout_constraintBottom_toTopOf="@+id/comentarBtn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,22 +86,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="57dp"
             android:layout_marginTop="3dp"
-            android:clickable="true"
             android:numStars="5"
             android:progressTint="#F2FFDE3B"
             android:rating="0"
-            android:stepSize="1"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ImagenFinal" />
 
         <Button
             android:id="@+id/comentarBtn"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="24dp"
             android:onClick="btnComentar"
             android:text="Comentar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,7 +118,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
         <Button
             android:id="@+id/btnFav"

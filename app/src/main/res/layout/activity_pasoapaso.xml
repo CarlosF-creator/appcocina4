@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/posiblefondo1"
     android:fillViewport="true"
-    android:focusable="false"
     tools:context=".Pasoapaso">
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
@@ -21,18 +20,21 @@
             android:layout_width="328dp"
             android:layout_height="190dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="138dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@id/linearTempo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textNumPasos" />
 
         <TextView
             android:id="@+id/textNumPasos"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="2dp"
             android:text="Paso:  0/10"
             android:textAlignment="center"
             android:textColor="#EFEFEF"
@@ -41,81 +43,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.739" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-        <Button
-            android:id="@+id/btnAtras"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="28dp"
-            android:foreground="@android:drawable/ic_media_previous"
-            android:foregroundGravity="left|center"
-            android:onClick="btnAtras"
-            android:paddingStart="20dp"
-            android:text="     Atras  "
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnHerramienta"
-            app:layout_constraintStart_toStartOf="@+id/scrollView3"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
-
-        <Button
-            android:id="@+id/btnSiguiente"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="28dp"
-            android:foreground="@android:drawable/ic_media_next"
-            android:foregroundGravity="center|right"
-            android:onClick="btnSiguiente"
-            android:paddingRight="25dp"
-            android:text=" Siguente "
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/scrollView3"
-            app:layout_constraintStart_toEndOf="@+id/btnHerramienta"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
-
-        <Button
-            android:id="@+id/btnHerramienta"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="28dp"
-            android:foreground="@android:drawable/ic_menu_recent_history"
-            android:foregroundGravity="center|right"
-            android:nextFocusUp="@id/textNumTempMin"
-            android:onClick="btnTempo"
-            android:text="Tempo"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnSiguiente"
-            app:layout_constraintStart_toEndOf="@+id/btnAtras"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+        <TextView
+            android:id="@+id/textTituloPaso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/anton"
+            android:gravity="center"
+            android:text="Desarrollo "
+            android:textColor="#EFEFEF"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearTempo" />
 
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="95dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/comentarios"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso">
+            app:layout_constraintTop_toBottomOf="@id/textTituloPaso">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -123,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#40222222"
-                    android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cada lámina, otra vez la bechamel y así hasta tener 3 pisos. Se pueden hacer las capas de lasaña que quieras, bueno las que te pe"
+                    android:text="Para montar la lasaña la cosa es muy sencilla. Ponemos en el fondo de la fuente unas cucharadas de la bechamel. Encima las láminas, una capa de la mezcla con la carne en cadaz la"
                     android:textColor="#EFEFEF"
                     android:textColorHint="#000000"
                     android:textSize="24sp" />
@@ -144,75 +106,231 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
-        <Button
-            android:id="@+id/btnPlay"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#A8332F2F"
-            android:foreground="@android:drawable/ic_media_play"
-            android:foregroundGravity="center"
-            android:nextFocusUp="@id/textNumTempMin"
-            android:onClick="btnPlay"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutcomentar">
 
-        <EditText
-            android:id="@+id/textNumTempMin"
+            <Button
+                android:id="@+id/btnAtras"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginEnd="100dp"
+                android:foreground="@android:drawable/ic_media_previous"
+                android:foregroundGravity="left|center"
+                android:onClick="btnAtras"
+                android:paddingStart="20dp"
+                android:text="     Atras  "
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnSiguiente"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginStart="10dp"
+                android:foreground="@android:drawable/ic_media_next"
+                android:foregroundGravity="center|right"
+                android:onClick="btnSiguiente"
+                android:paddingRight="25dp"
+                android:text=" Siguente "
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearTempo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/textTituloPaso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso">
+
+            <EditText
+                android:id="@+id/textNumTempMin"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="#7A222222"
+                android:editable="true"
+                android:hint="00"
+                android:inputType="number"
+                android:maxLength="2"
+                android:textAlignment="center"
+                android:textColor="#EFEFEF"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/textViewdospuntos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#7A222222"
+                android:clickable="false"
+                android:duplicateParentState="false"
+                android:editable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="#EFEFEF"
+                android:textSize="36sp" />
+
+            <EditText
+                android:id="@+id/textNumTempSeg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="#7A222222"
+                android:hint="00"
+                android:inputType="number"
+                android:maxLength="2"
+                android:textAlignment="center"
+                android:textColor="#EFEFEF"
+                android:textSize="36sp" />
+
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:backgroundTint="#A8332F2F"
+                android:foreground="@android:drawable/ic_media_play"
+                android:foregroundGravity="center"
+                android:nextFocusUp="@id/textNumTempMin"
+                android:onClick="btnPlay"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAlarma"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#8B752020"
+            android:text="Detener Alarma"
+            android:textSize="48sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearHerramientas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:background="#20FFFFFF"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnHerramienta"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:background="#00FFFFFF"
+                android:foreground="@drawable/more"
+                android:foregroundGravity="center"
+                android:nextFocusUp="@id/textNumTempMin"
+                android:onClick="btnHerramientas"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/btnTempo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="#00FFFFFF"
+                android:foreground="@drawable/alarm"
+                android:foregroundGravity="center"
+                android:nextFocusUp="@id/textNumTempMin"
+                android:onClick="btnTempo"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/btnComentarios"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="#00FFFFFF"
+                android:foreground="@drawable/chat"
+                android:foregroundGravity="center"
+                android:nextFocusUp="@id/textNumTempMin"
+                android:onClick="btnComentarios"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comentarios"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
-            android:background="#7A222222"
-            android:clickable="true"
-            android:focusable="auto"
-            android:hint="00"
-            android:inputType="number"
-            android:maxLength="2"
-            android:textAlignment="center"
-            android:textColor="#EFEFEF"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toStartOf="@+id/textNumTempSeg"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="#40222222"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/layoutcomentar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3"></LinearLayout>
 
-        <EditText
-            android:id="@+id/textNumTempSeg"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/layoutcomentar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="#7A222222"
-            android:clickable="true"
-            android:focusable="auto"
-            android:hint="00"
-            android:inputType="number"
-            android:maxLength="2"
-            android:textAlignment="center"
-            android:textColor="#EFEFEF"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toStartOf="@+id/btnPlay"
-            app:layout_constraintStart_toEndOf="@+id/textNumTempMin"
-            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:background="#40222222"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/comentarios">
 
-        <TextView
-            android:id="@+id/textViewdospuntos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:clickable="false"
-            android:duplicateParentState="false"
-            android:editable="false"
-            android:focusable="false"
-            android:text=":"
-            android:textColor="#EFEFEF"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toStartOf="@+id/textNumTempSeg"
-            app:layout_constraintStart_toEndOf="@+id/textNumTempMin"
-            app:layout_constraintTop_toBottomOf="@+id/Imagen_Paso" />
+            <EditText
+                android:id="@+id/editTextComentar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Comenta aqui"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btnEnviarCom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:foreground="@android:drawable/ic_menu_send"
+                android:onClick="btnComentar" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
