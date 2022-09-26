@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
+        <activity android:name=".calculadoraResultados"></activity>
         <activity android:name=".Calculadora2" />
         <activity android:name=".Select_Ing" />
         <activity android:name=".select_ingredientes" />

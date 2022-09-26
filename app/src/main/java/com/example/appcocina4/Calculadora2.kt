@@ -1,11 +1,19 @@
 package com.example.appcocina4
 
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_calculadora.*
+import kotlinx.android.synthetic.main.activity_calculadora.autoCompleteTextView
+import kotlinx.android.synthetic.main.activity_calculadora.editTextNumber2
+import kotlinx.android.synthetic.main.activity_calculadora.editTextNumber3
+import kotlinx.android.synthetic.main.activity_calculadora2.*
+import kotlin.math.roundToInt
 
 
 class Calculadora2 : AppCompatActivity() {
@@ -18,8 +26,8 @@ class Calculadora2 : AppCompatActivity() {
     var grasas = ArrayList<String?>()
     var carbos = ArrayList<String?>()
     var listaingredientes = ArrayList<String?>()
-    var posicion = -777
-    var posicion2 = -777
+    var posicion = 0
+    var posicion2 = 0
     var nome = ArrayList<String?>()
     var calor = ArrayList<String?>()
     var protes = ArrayList<String?>()
@@ -38,6 +46,8 @@ class Calculadora2 : AppCompatActivity() {
     var protefinal = -676
     var protefinal2 = -676
     var protefinalDef = -676
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +97,6 @@ class Calculadora2 : AppCompatActivity() {
 
     }
     fun btn_suma(p0:View?){
-
         obtenering()
     }
 
@@ -125,16 +134,17 @@ fun obtenering(){
         i += 1
         j += 1
     }
-    calor.add(calo[posicion])
-    protes.add(prote[posicion])
-    grasass.add(grasas[posicion])
-    carbosh.add(carbos[posicion])
+    if (posicion != 0 ){
+        calor.add(calo[posicion])
+        protes.add(prote[posicion])
+        grasass.add(grasas[posicion])
+        carbosh.add(carbos[posicion])
 
-    //calofinal = (calor[0]?.toFloat()?.times(numbe[0]!!?.toFloat())!!)
-    //carbofinal = (carbosh[0]?.toInt()?.toFloat()?.times(numbe[0]!!?.toInt())!!)
-    grasafinal = (grasass[0]?.toInt()?.times(numbe[0]!!?.toInt())!!)
-    protefinal = (protes[0]?.toInt()?.times(numbe[0]!!?.toInt())!!)
-
+        calofinal = (calor[0]?.toFloat()!!.times(numbe[0]!!?.toInt())!!.roundToInt())
+        carbofinal = (carbosh[0]?.toFloat()!!.times(numbe[0]!!?.toInt())!!.roundToInt())
+        grasafinal = (grasass[0]?.toFloat()!!.times(numbe[0]!!?.toInt())!!.roundToInt())
+        protefinal = (protes[0]?.toFloat()!!.times(numbe[0]!!?.toInt())!!.roundToInt())
+    }
 
     var k= 0
     var l= 0
@@ -146,27 +156,40 @@ fun obtenering(){
         k += 1
         l += 1
     }
-    calor.add(calo[posicion2])
-    protes.add(prote[posicion2])
-    grasass.add(grasas[posicion2])
-    carbosh.add(carbos[posicion2])
+    if (posicion2 != 0 ){
+        calor.add(calo[posicion2])
+        protes.add(prote[posicion2])
+        grasass.add(grasas[posicion2])
+        carbosh.add(carbos[posicion2])
 
-    calofinal2 = (calor[1]?.toInt()?.times(numbe[1]!!?.toInt())!!)
-    carbofinal2 = (carbosh[1]?.toInt()?.times(numbe[1]!!?.toInt())!!)
-    grasafinal2 = (grasass[1]?.toInt()?.times(numbe[1]!!?.toInt())!!)
-    protefinal2 = (protes[1]?.toInt()?.times(numbe[1]!!?.toInt())!!)
+        calofinal2 = (calor[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        carbofinal2 = (carbosh[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        grasafinal2 = (grasass[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        protefinal2 = (protes[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+    }
 
     calofinalDef= calofinal+calofinal2
     carbofinalDef= carbofinal+carbofinal2
     grasafinalDef= grasafinal+grasafinal2
     protefinalDef= protefinal+protefinal2
 
-    println(nome)
+    if (autoCompleteTextView.text.isNullOrEmpty() || autoCompleteTextView2.text.isNullOrEmpty() || editTextNumber2.text.isNullOrEmpty() || editTextNumber3.text.isNullOrEmpty() ){
+        Toast.makeText(applicationContext,"Favor rellenar todos los campos", Toast.LENGTH_SHORT).show()
+    }else{
+        var tempresultados = Intent(this, calculadoraResultados::class.java)
+        tempresultados.putExtra("calofinalDef", calofinalDef.toString())
+        tempresultados.putExtra("carbofinalDef", carbofinalDef.toString())
+        tempresultados.putExtra("grasafinalDef", grasafinalDef.toString())
+        tempresultados.putExtra("protefinalDef", protefinalDef.toString())
+        startActivity(tempresultados)
 
-    println("calorias: " +calofinalDef.toString())
+    }
+
+
+    /*println("calorias: " +calofinalDef.toString())
     println("carbos: " +carbofinalDef.toString())
     println("grasas: " +grasafinalDef.toString())
-    println("protes: " +protefinalDef.toString())
+    println("protes: " +protefinalDef.toString())*/
 
 }
 }
