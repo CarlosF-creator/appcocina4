@@ -162,8 +162,8 @@ class Select_Ing : AppCompatActivity() {
                     println("            ")
 
                     tempArray2.clear()
-                    for (a in doc.documents){
-                        tempArray2.add(a.id)
+                    for (a in doc){
+                        tempArray2.add(a.data?.get("nombre").toString())
                     }
                     if (tempArray2.isNotEmpty()){
                         var tempResult : String? = filtro( tempnombre , tempArray , tempArray2)

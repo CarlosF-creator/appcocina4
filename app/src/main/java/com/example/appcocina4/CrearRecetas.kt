@@ -587,22 +587,33 @@ class CrearRecetas : AppCompatActivity() {
     fun SubirIngredientes(nombreR: String){
         var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearLayout_Ing)
         var completado = false
-        var i = 1
+        var i = 0
+        if (linearGrande.size != 0){
+            db.collection("recetas").document(nombreR).collection("Ingredientes").document().delete().addOnSuccessListener { doc ->
+                print("se borro a")
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error al actualizar Ingredientes, Intenta mas tarde", Toast.LENGTH_SHORT).show()
+            }
+        }
         while (i < linearGrande.size) {
             var templinear : LinearLayout = linearGrande[i] as LinearLayout
             var tempnombre : EditText = templinear[0] as EditText
             var tempdetalle : EditText = templinear[1] as EditText
+            var ttnombre= tempnombre.text
+            var ttdetalle= tempdetalle.text
+            println("i:"+i+" nombre:"+tempnombre.text+" detalle:"+tempdetalle.text)
 
-            db.collection("recetas").document(nombreR).collection("Ingredientes").document(tempnombre.text.toString().lowercase()).set(
+            db.collection("recetas").document(nombreR).collection("Ingredientes").document(i.toString()).set(
                 hashMapOf(
-                    "detalle" to tempdetalle.text.toString().lowercase()
+                    "nombre" to ttnombre.toString().lowercase(),
+                    "detalle" to ttdetalle.toString().lowercase()
                 )
             ).addOnSuccessListener {
                 completado = true
-
-            }.addOnFailureListener{
-
+            }.addOnFailureListener {
+                Toast.makeText(this,"Error Ingrediente, Intenta mas tarde", Toast.LENGTH_SHORT).show()
             }
+
             i+=1
         }
     }
@@ -622,7 +633,7 @@ class CrearRecetas : AppCompatActivity() {
                     tempnombre.id = 1!!
                     tempnombre.textSize = 20F
                     tempnombre.width = 450
-                    tempnombre.setText(doc.documents[i-1].id)
+                    tempnombre.setText(doc.documents[i-1].get("nombre").toString())
 
 
                     tempdetalle.id = 2!!
@@ -635,6 +646,7 @@ class CrearRecetas : AppCompatActivity() {
                     templinear.addView(tempnombre)
                     templinear.addView(tempdetalle)
                     linearGrande.addView(templinear)
+                    j = linearGrande.size
                     i +=1
                 }
             }.addOnFailureListener{
