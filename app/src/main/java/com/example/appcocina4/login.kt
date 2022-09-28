@@ -33,15 +33,8 @@ class login : AppCompatActivity(), View.OnClickListener {
         var usuario = findViewById<EditText>(R.id.edt_usuario)
         var pass1 = findViewById<EditText>(R.id.edt_pass1)
         var pass2 = findViewById<EditText>(R.id.edt_pass2)
-        var tempP = findViewById<Switch>(R.id.switch_principiante)
 
-        var principiante = -1
-        if (tempP.isChecked){
-            principiante = 2
-        }else {
-            principiante = 1
-        }
-
+        var principiante = 1
         btnRegister.setOnClickListener{
             var newEmail = modificarEmail(email.text.toString())
             if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
@@ -152,4 +145,11 @@ class login : AppCompatActivity(), View.OnClickListener {
         }
 
     }
+
+
+
+
+
+
+
 }

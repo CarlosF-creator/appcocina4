@@ -86,6 +86,7 @@ class Recetas2() : AppCompatActivity() , SearchView.OnQueryTextListener {
 
         txtBuscar.setOnQueryTextListener(this)
 
+
     }
 
     fun Buscador(txtBuscar : String){
@@ -283,11 +284,14 @@ class Recetas2() : AppCompatActivity() , SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         Buscador(newText.toString())
         return false
     }
+
 }
+
+

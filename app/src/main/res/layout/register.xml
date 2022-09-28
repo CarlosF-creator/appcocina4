@@ -134,14 +134,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
-            <Switch
-                android:id="@+id/switch_principiante"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Modalidad de Principiante : "
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 

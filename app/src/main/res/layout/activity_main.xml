@@ -60,6 +60,7 @@
             android:layout_marginStart="45dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="45dp"
+            android:layout_marginBottom="40dp"
             android:layout_weight="1"
             android:background="@drawable/btningredientes"
             android:fontFamily="@font/anton"
@@ -68,6 +69,7 @@
             android:textAllCaps="false"
             android:textSize="34sp"
             android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/botonNuevaReceta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonfavoritos" />
@@ -117,7 +119,6 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="40dp"
             android:layout_weight="1"
@@ -130,8 +131,7 @@
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCalculadora" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/Nombre_usuario"

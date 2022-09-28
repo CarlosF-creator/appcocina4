@@ -258,7 +258,7 @@ class pre_receta : AppCompatActivity() {
                 if (tiempo != null){
                     var txt_tiempo = findViewById<TextView>(R.id.Txt_Tpreparacion)
                     var temp = tiempo.toInt()
-                    txt_tiempo.text = "Tiempo de Preparacion: "+ temp +"min"
+                    txt_tiempo.text = "Tiempo de Preparacion: "+ temp +" min"
                 }
             }.addOnFailureListener { _ ->
                 println("error aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa en numero")
@@ -493,34 +493,35 @@ class pre_receta : AppCompatActivity() {
                 var linearGrande : LinearLayout = findViewById<LinearLayout>(R.id.linearing)
                 var j = 0
                 while (j < doc.size()){
-
-                    var tempLinearlay : LinearLayout = LinearLayout(linearlay)
-                    var tempCheck1 : CheckBox = CheckBox(Check1)
-                    var tempdetalle : TextView = TextView(TxtIng)
-
-
-                    tempCheck1.id = j
-                    tempCheck1.textSize = 22F
-                    tempCheck1.setTextColor(Color.WHITE)
-                    tempCheck1.setText(Mayusculas(doc.documents.get(j).id))
+                    if (doc.documents.get(j).get("nombre").toString() != "null" && doc.documents.get(j).get("detalle").toString() != "null"){
+                        var tempLinearlay : LinearLayout = LinearLayout(linearlay)
+                        var tempCheck1 : CheckBox = CheckBox(Check1)
+                        var tempdetalle : TextView = TextView(TxtIng)
 
 
-                    tempLinearlay.addView(tempCheck1)
-
-                    tempdetalle.id = j
-                    tempdetalle.textSize = 22.5F
-                    tempdetalle.setTextColor(Color.WHITE)
-                    tempdetalle.setText(" - "+doc.documents.get(j).get("detalle").toString())
+                        tempCheck1.id = j
+                        tempCheck1.textSize = 22F
+                        tempCheck1.setTextColor(Color.WHITE)
+                        tempCheck1.setText(Mayusculas(doc.documents.get(j).get("nombre").toString()))
 
 
+                        tempLinearlay.addView(tempCheck1)
+
+                        tempdetalle.id = j
+                        tempdetalle.textSize = 22.5F
+                        tempdetalle.setTextColor(Color.WHITE)
+                        tempdetalle.setText(" - "+doc.documents.get(j).get("detalle").toString())
 
 
-                    tempLinearlay.addView(tempdetalle)
-
-                    linearGrande.addView(tempLinearlay)
 
 
-                    println(doc.documents.get(j).id+"  "+ doc.documents.get(j).get("detalle").toString())
+                        tempLinearlay.addView(tempdetalle)
+
+                        linearGrande.addView(tempLinearlay)
+
+
+                        println(doc.documents.get(j).id+"  "+ doc.documents.get(j).get("detalle").toString())
+                    }
                     j+=1
                 }
             }.addOnFailureListener{

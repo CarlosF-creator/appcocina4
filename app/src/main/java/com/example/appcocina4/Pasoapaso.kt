@@ -348,7 +348,9 @@ import kotlin.math.round
                 }
 
             }.addOnFailureListener {
-
+                if (pr.isShowing){
+                    pr.dismiss()
+                }
                 Toast.makeText(this, "Fallo en la carga de imagenes", Toast.LENGTH_SHORT).show()
 
             }
