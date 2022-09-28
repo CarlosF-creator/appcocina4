@@ -1,25 +1,33 @@
 package com.example.appcocina4
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_login.*
 
 class login : AppCompatActivity(), View.OnClickListener {
 
     private var db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        auth = FirebaseAuth.getInstance()
     }
     private fun setup(){
         var btnRegister = findViewById<Button>(R.id.button_crearCuenta)
+        var button_olvidar = findViewById<Button>(R.id.button_olvidar)
 
         var email = findViewById<EditText>(R.id.edt_email)
         var usuario = findViewById<EditText>(R.id.edt_usuario)
@@ -33,6 +41,7 @@ class login : AppCompatActivity(), View.OnClickListener {
         }else {
             principiante = 1
         }
+
         btnRegister.setOnClickListener{
             var newEmail = modificarEmail(email.text.toString())
             if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
@@ -61,7 +70,37 @@ class login : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(applicationContext,"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
+
+    fun olvidar(p0: View?){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Olvidaste la contraseña")
+        val view = layoutInflater.inflate(R.layout.cambiarcontrasena,null)
+        val username = view.findViewById<EditText>(R.id.et_username)
+        builder.setView(view)
+        builder.setPositiveButton("Cambiar", DialogInterface.OnClickListener { _, _ ->
+            forgotPassword(username)
+        })
+        builder.setNegativeButton("Cerrar", DialogInterface.OnClickListener { _, _ ->  })
+        builder.show()
+    }
+
+    private fun forgotPassword(username : EditText){
+        if (username.text.toString().isEmpty()) {
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
+            return
+        }
+        auth.sendPasswordResetEmail(username.text.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this,"Mensaje enviado",Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
     override fun onClick(p0: View?) {
         setContentView(R.layout.register)
         setup()
@@ -91,7 +130,6 @@ class login : AppCompatActivity(), View.OnClickListener {
 
     }
 
-
     fun botonLogin(p0: View?){
         var email = findViewById<EditText>(R.id.edt_usuario_ing)
         var pass = findViewById<EditText>(R.id.edt_pass_ing)
@@ -114,11 +152,4 @@ class login : AppCompatActivity(), View.OnClickListener {
         }
 
     }
-
-
-
-
-
-
-
 }

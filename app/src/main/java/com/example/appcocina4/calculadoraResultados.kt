@@ -1,5 +1,6 @@
 package com.example.appcocina4
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -18,6 +19,7 @@ class calculadoraResultados : AppCompatActivity() {
         findViewById<TextView>(R.id.textView34).text = "Carbohidratos: " +carboh
         findViewById<TextView>(R.id.textView35).text = "Grasas: " +grasa
         findViewById<TextView>(R.id.textView36).text = "Proteinas: " +prote
+
     }
 
 

@@ -10,6 +10,7 @@ import android.widget.Switch
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_login.*
 import java.security.Principal
 
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         goTo()
+
     }
     fun goTo(){
         if (authUser.currentUser != null){
@@ -28,5 +30,6 @@ class MainActivity : AppCompatActivity()  {
             startActivity(Intent(this, login::class.java))
             finish()
         }
+
     }
 }

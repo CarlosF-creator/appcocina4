@@ -162,10 +162,10 @@ fun obtenering(){
         grasass.add(grasas[posicion2])
         carbosh.add(carbos[posicion2])
 
-        calofinal2 = (calor[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
-        carbofinal2 = (carbosh[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
-        grasafinal2 = (grasass[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
-        protefinal2 = (protes[1]?.toFloat()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        calofinal2 = (calor[1]?.toDouble()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        carbofinal2 = (carbosh[1]?.toDouble()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        grasafinal2 = (grasass[1]?.toDouble()!!.times(numbe[1]!!?.toInt())!!.roundToInt())
+        protefinal2 = (protes[1]?.toDouble()!!.times(numbe[1]!!?.toInt()).roundToInt())
     }
 
     calofinalDef= calofinal+calofinal2
@@ -184,13 +184,6 @@ fun obtenering(){
         startActivity(tempresultados)
 
     }
-
-
-    /*println("calorias: " +calofinalDef.toString())
-    println("carbos: " +carbofinalDef.toString())
-    println("grasas: " +grasafinalDef.toString())
-    println("protes: " +protefinalDef.toString())*/
-
 }
 }
 
