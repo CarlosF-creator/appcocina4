@@ -10,4 +10,6 @@
     <color name="background_paso_a_paso">#EF521F</color>
     <color name="Letras_Blancas">#E3E3E3</color>
     <color name="Letras_Negras">#222222</color>
+    <color name="tempo_noPres">#00000000</color>
+    <color name="tempo_Pres">#63090909</color>
 </resources>

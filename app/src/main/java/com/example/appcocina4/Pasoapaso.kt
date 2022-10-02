@@ -1,5 +1,6 @@
   package com.example.appcocina4
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import android.text.Layout
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
@@ -158,12 +160,14 @@ import kotlin.math.round
               estadoHer=0
           }
       }
+    @SuppressLint("ResourceAsColor")
     fun btnTempo(p0: View?){
 
 
         var text_Temp_min = findViewById<TextView>(R.id.textNumTempMin)
         var text_Temp_mseg = findViewById<TextView>(R.id.textNumTempSeg)
         var text_Temp_dospuntos = findViewById<TextView>(R.id.textViewdospuntos)
+        var btn_Tempo = findViewById<Button>(R.id.btnTempo)
         var btn_play = findViewById<Button>(R.id.btnPlay)
 
         if(estadoTempo == 0){
@@ -171,12 +175,14 @@ import kotlin.math.round
             text_Temp_mseg.isVisible = true
             text_Temp_dospuntos.isVisible = true
             btn_play.isVisible = true
+            btn_Tempo.setBackgroundColor(ContextCompat.getColor(baseContext,R.color.tempo_Pres))
             estadoTempo+=1
         }else{
             text_Temp_min.isVisible = false
             text_Temp_mseg.isVisible = false
             text_Temp_dospuntos.isVisible = false
             btn_play.isVisible = false
+            btn_Tempo.setBackgroundColor(ContextCompat.getColor(baseContext,R.color.tempo_noPres))
             estadoTempo=0
         }
     }
