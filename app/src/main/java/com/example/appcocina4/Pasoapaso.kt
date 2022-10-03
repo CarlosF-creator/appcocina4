@@ -266,6 +266,7 @@ import kotlin.math.round
           var scrollCom = findViewById<ScrollView>(R.id.scrollCom)
           if(estadoCom == 0){
               btnComentario.foreground = getResources().getDrawable(R.drawable.nochat)
+
               commentLayout?.isVisible = true
               scrollView3.isVisible = false
               layComentar.isVisible = true
@@ -276,6 +277,7 @@ import kotlin.math.round
 
           }else{
               btnComentario.foreground = getResources().getDrawable(R.drawable.chat)
+
               estadoCom=0
               commentLayout?.isVisible = false
               layComentar.isVisible = false
