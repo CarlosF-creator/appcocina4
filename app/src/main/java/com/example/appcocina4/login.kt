@@ -36,8 +36,12 @@ class login : AppCompatActivity(), View.OnClickListener {
 
         var principiante = 1
         btnRegister.setOnClickListener{
-            var newEmail = modificarEmail(email.text.toString())
-            if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
+            var newEmail = modificarEmail(email.text.toString().lowercase())
+
+            var user = usuario.text.toString()
+            newEmail = newEmail.replace(" ","")
+
+            if(email.text.isNotEmpty() && usuario.text.isNotEmpty() && usuario.text.length <= 16 && pass1.text.isNotEmpty() && pass2.text.isNotEmpty()){
                 if (pass1.text.toString() != pass2.text.toString()){
                     Toast.makeText(applicationContext,"Compruebe si su contraseña esta correcta", Toast.LENGTH_SHORT).show()
                 } else{
@@ -46,7 +50,7 @@ class login : AppCompatActivity(), View.OnClickListener {
 
                         if(it.isSuccessful){
                             db.collection("users").document(newEmail).set(
-                                hashMapOf("user" to usuario.text.toString(),
+                                hashMapOf("user" to user,
                                     "principiante" to principiante,
                                     "Uid" to FirebaseAuth.getInstance().uid)
                             )
@@ -60,7 +64,13 @@ class login : AppCompatActivity(), View.OnClickListener {
                 }
             }
             else{
-                Toast.makeText(applicationContext,"Se ha producido un Error , Por favor comprueba tus datos", Toast.LENGTH_SHORT).show()
+
+                if (usuario.text.length >= 16){
+                    Toast.makeText(applicationContext,"El nombre de usuario no puede ser mayor 16 caracteres", Toast.LENGTH_SHORT).show()
+                }
+                if (pass1.text.length >= 6)
+                    Toast.makeText(applicationContext,"La contraseña no puede ser menor de 6 caracteres", Toast.LENGTH_SHORT).show()
+
             }
         }
 
