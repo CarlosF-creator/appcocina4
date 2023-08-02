@@ -38,7 +38,24 @@ android {
         jvmTarget = '1.8'
     }
 }
-
+apply plugin: "org.sonarqube"
+sonarqube {
+    properties {
+        property "sonar.projectName", "***specify project name***"
+        property "sonar.projectKey", "***specify project name***"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.tests", ["src/test/java"]
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+        property "sonar.login", "***specify local server username***"
+        property "sonar.password", "***specify local server password***"
+        property "sonar.exclusions", '**/*Test*/**,' +
+                '*.json,' +
+                '**/*test*/**,' +
+                '**/.gradle/**,' +
+                '**/R.class'
+    }
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -69,4 +86,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-}
+}}

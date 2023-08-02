@@ -124,6 +124,7 @@ fun obtenering(){
     nome.add(autoCompleteTextView2.text.toString())
     numbe.add(editTextNumber2.text.toString())
     numbe.add(editTextNumber3.text.toString())
+
     var i= 0
     var j= 0
     for (item in nombre){
